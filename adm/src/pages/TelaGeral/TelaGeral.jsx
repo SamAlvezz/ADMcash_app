@@ -74,6 +74,7 @@ export default function TelaGeral() {
           >
             <Text style={styles.botaotext}>Gerenciar Despesas</Text>
           </TouchableOpacity>
+
           <SafeAreaView style={styles.textdinamico}>
             <Text style={styles.dinheiro}>R$ R$ 6.610,00</Text>
             <Text style={styles.porcentagem}>59%</Text>
@@ -183,6 +184,13 @@ const styles = StyleSheet.create({
     fontWeight: 700,
     fontFamyli: "Nunito",
     paddingStart: "2%",
+    shadowColor: 'black',
+    shadowOffset: { width: 0, height: 7 },
+    shadowOpacity: 0.4,
+    shadowRadius: 6,
+    borderRadius: 14,
+    paddingVertical: 7,
+    
    
   
   },

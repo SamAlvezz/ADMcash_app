@@ -81,7 +81,7 @@ function ModalDespesas({ visible, onClose, onSave }) {
             <Picker.Item label="Adicionais" value="Adicionais" />
           </Picker>
 
-          <Button title="Salvar" onPress={salvarDespesa} />
+          <Button title="Salvar" style ={style.botaosalvar}onPress={salvarDespesa} />
         </View>
         {/* Até aqui */}
 
@@ -145,6 +145,14 @@ const style = StyleSheet.create({
       opacity: 0.5,
       paddingStart: "5%",
 
+   
+    
+    },
+    botaosalvar: {
+      backgroundColor: '#3FE78C', 
+      color: 'white', 
+      padding: 10, 
+      borderRadius: 5, 
     },
   }
 })

@@ -75,6 +75,11 @@ const styles = {
         justifyContent: 'center',
         elevation: 3,
         backgroundColor: '#3FE78C',
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 5 },
+        shadowOpacity: 0.4,
+        shadowRadius: 6,
+        paddingVertical: 7,
     },
     textoCriar: {
         fontSize: 20,

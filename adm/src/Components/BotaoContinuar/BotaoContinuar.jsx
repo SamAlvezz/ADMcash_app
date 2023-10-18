@@ -26,7 +26,7 @@ import { StyleSheet, Text, TouchableOpacity,} from 'react-native'
         fontSize: 20,
         color: '#000',
         textAlign: 'center',
-        fontFamily: 'nunito',
+        
         fontSize: 16,
         fontWeight: 700,
         lineHeight: 'normal'}

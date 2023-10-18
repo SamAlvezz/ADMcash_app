@@ -25,9 +25,9 @@ export default function Metas() {
       <SafeAreaView style={styles.Servico}>
         <Text style={styles.titulo}>Progresso</Text>
 
-        <TouchableOpacity style={styles.botao}>
+        {/* <TouchableOpacity style={styles.botao}>
           <Text style={styles.botaotext}>6.300 R$</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         <SafeAreaView style={styles.textdinamico}>
           <Text style={styles.dinheiro}>Valor da meta: R$15,390 </Text>

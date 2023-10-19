@@ -90,8 +90,6 @@ export default function FazerLogin( ) {
 
         </SafeAreaView>
       
-       
-
         <View>
           <CustomButton onPress={() => navigation.navigate("Menu")} title={"Fazer Login"} />
         </View>

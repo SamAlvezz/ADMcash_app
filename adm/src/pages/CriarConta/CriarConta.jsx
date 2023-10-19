@@ -122,7 +122,7 @@ export default function CriarConta() {
           <CustomButton
             onPress={() => navigate("FazerLogin")}
             title={"Criar Conta"}
-            style={styles.botao}
+           
           />
         </View>
       </Animatable.View>

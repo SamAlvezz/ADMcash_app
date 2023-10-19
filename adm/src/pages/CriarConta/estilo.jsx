@@ -31,12 +31,6 @@ const styles = {
     borderBottomWidth: 1,
     borderColor: '#008000'
   },
-  botao: {
-    fontSize: 16,
-    fontFamily: "Roboto",
-
-
-  },
 
   containerEmail: {
     flexDirection: "row",

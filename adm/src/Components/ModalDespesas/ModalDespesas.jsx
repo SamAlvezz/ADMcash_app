@@ -1,17 +1,26 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, Button } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Button} from 'react-native';
 import { Modal } from 'react-native';
 import { Picker } from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
+import DatePicker from 'react-native-datepicker';
 
 
 function ModalDespesas({ visible, onClose, onSave }) {
+
+  
 
   const [nomeDespesa, setNomeDespesa] = useState('');
   const [valorDespesa, setValorDespesa] = useState('');
   const [observacoes, setObservacoes] = useState('');
   const [dataValidade, setDataValidade] = useState('');
   const [tipoDespesa, setTipoDespesa] = useState('Fixa');
+  const [inputValue, setInputValue] = useState('');
+  const [selectedDate, setSelectedDate] = useState('');
+
+  const handleDateChange = date => {
+    setSelectedDate(date);
+  };
 
   const salvarDespesa = () => {
 
@@ -44,7 +53,8 @@ function ModalDespesas({ visible, onClose, onSave }) {
 
   return (
 
-    <Modal visible={visible} animationType="fade">
+    <Modal visible={visible} animationType="fade"
+    >
 
       {/* Essa view é o plano de fundo do modal */}
       <View style={style.centeredView}>
@@ -66,11 +76,38 @@ function ModalDespesas({ visible, onClose, onSave }) {
             placeholder="Digite" style={style.input} placeholderTextColor="gray" />
 
           <Text style={style.preenchimentosdespesas}>Data de Validade</Text>
-
-          {/* Adicione aqui um componente de seleção de data */}
-
-          <Text style={style.preenchimentosdespesas}>Tipo de Despesa</Text>
-
+          <TextInput
+        style={style.input}
+        value={inputValue}
+        onChangeText={setInputValue}
+        placeholder="Digite algo..."
+      />
+      <DatePicker
+        style={style.datePicker}
+        date={selectedDate}
+        mode="date"
+        placeholder="Selecione a data"
+        format="DD-MM-YYYY"
+        minDate="01-01-2000"
+        maxDate="31-12-2030"
+        confirmBtnText="Confirmar"
+        cancelBtnText="Cancelar"
+        customStyles={{
+          dateInput: {
+            borderWidth: 0,
+          },
+          dateText: {
+            fontSize: 18,
+          },
+          placeholderText: {
+            fontSize: 18,
+          },
+          
+        }}
+        onDateChange={handleDateChange}
+      />
+       <Button title="Salvar" onPress={() => console.log('Data de Vencimento:', selectedDate)} />
+       <Text style={style.preenchimentosdespesas}>Tipo de Despesa</Text>
           <Picker style={style.Picker}
             selectedValue={tipoDespesa}
             onValueChange={(itemValue) => setTipoDespesa(itemValue)}>
@@ -81,7 +118,12 @@ function ModalDespesas({ visible, onClose, onSave }) {
             <Picker.Item label="Adicionais" value="Adicionais" />
           </Picker>
 
-          <Button title="Salvar" style ={style.botaosalvar}onPress={salvarDespesa} />
+          {/* Adicione aqui um componente de seleção de data */}
+
+          
+          <TouchableOpacity title="Salvar" style ={style.botaosalvar}onPress={salvarDespesa} >
+          <Text style={style.txt}>Salvar</Text>
+          </TouchableOpacity>
         </View>
         {/* Até aqui */}
 
@@ -94,66 +136,60 @@ function ModalDespesas({ visible, onClose, onSave }) {
 
 export default ModalDespesas;
 const style = StyleSheet.create({
-
-  preenchimentosdespesas: {
-    color: "#949494",
-    fontSize: 15,
-    fontWeight: 600,
-    fontFamyli: "Nunito",
-    flexDirection: "row",
-    paddingStart: "2%",
-    flexDirection: "row",
-    paddingStart: "7%",
-    alignItems: "center",
-    margin: "5%",
-  },
   centeredView: {
-    flex: 1,
-    justifyContent: 'center',
+    backgroundColor: "rgba(24, 24, 24, 0.6)",
+    height: 800,
+    width: 360,
     alignItems: 'center',
-    backgroundColor: 'rgba(24, 24, 24, 0.6)',
   },
   modalView: {
-    margin: 20,
-    backgroundColor: 'white',
+    marginTop: '25%',
+    width: 332,
+    height: 600,
     borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-    width: '95%',
-
+    backgroundColor: 'white',
+    padding: 20, // Adicione padding para dar espaço aos elementos dentro do modal
+  },
+  preenchimentosdespesas: {
+    fontSize: 20
   },
   input: {
-    opacity: 0.5,
-    borderBottomWidth: 1,
-    borderColor: '#9effb8',
+    marginBottom: 20, 
+    height: 100,
+    width: 300, // Defina a largura desejada, se necessário
+    borderWidth: 1,
+    borderColor: '#3FE78C',
+    paddingLeft: 10,
+    paddingRight: 10,
+    fontSize: 18,},
+  Picker: {
+    marginBottom: 20, 
+    height: 100,
+    width: 300, // Defina a largura desejada, se necessário
+    borderWidth: 1,
+    borderColor: '#3FE78C',
+    paddingLeft: 10,
+    paddingRight: 10,
     fontSize: 18,
-    color: 'black',
-
-    Picker: {
-      margin: "20px 0",
-
-    },
-    x2: {
-      opacity: 0.5,
-      paddingStart: "5%",
-
-   
     
-    },
-    botaosalvar: {
-      backgroundColor: '#3FE78C', 
-      color: 'white', 
-      padding: 10, 
-      borderRadius: 5, 
-    },
-  }
-})
+  },
+  botaosalvar: {
+    width: 160,
+        height: 45,
+        backgroundColor: '#3FE78C',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 14
+  },
+  txt: {
+    fontSize: 15,
+    textAlign: 'center',
+    fontSize: 16,
+    lineHeight: 'normal'
+  },
+  datePicker: {
+    width: 300,
+    marginBottom: 20,
+  },
+});
 

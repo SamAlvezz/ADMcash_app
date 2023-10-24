@@ -53,7 +53,7 @@ function ModalDespesas({ visible, onClose, onSave }) {
 
   return (
 
-    <Modal visible={visible} animationType="fade"
+    <Modal visible={visible} animationType="slide"
     >
 
       {/* Essa view é o plano de fundo do modal */}

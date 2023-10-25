@@ -46,19 +46,31 @@ export default function Despesas() {
         onSave={adicionarDespesa}
       />
 
-      <FlatList
-        data={despesas}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => (
-          <View>
-            <Text>Nome: {item.nome}</Text>
-            <Text>Valor: {item.valor}</Text>
-            <Text>Observações: {item.observacoes}</Text>
-            <Text>Data de Validade: {item.dataValidade}</Text>
-            <Text>Tipo: {item.tipo}</Text>
-          </View>
-        )}
-      />
+<FlatList
+  data={despesas}
+  keyExtractor={(item, index) => index.toString()}
+  renderItem={({ item }) => (
+    <View style={styles.itemContainer}>
+      <Text style={styles.itemLabel}>Nome:</Text>
+      <Text style={styles.itemText}>{item.nome}</Text>
+
+      <Text style={styles.itemLabel}>Valor:</Text>
+      <Text style={styles.itemText}>R${item.valor}</Text>
+
+      <Text style={styles.itemLabel}>Observações:</Text>
+      <Text style={styles.itemText}>{item.observacoes}</Text>
+
+      <Text style={styles.itemLabel}>Data de Validade:</Text>
+      <Text style={styles.itemText}>
+        {new Date(item.dataValidade).toLocaleDateString('pt-BR')}
+      </Text>
+
+      <Text style={styles.itemLabel}>Tipo:</Text>
+      <Text style={styles.itemText}>{item.tipo}</Text>
+    </View>
+  )}
+  style={styles.flatlist}
+/>
     </View>
 
   )
@@ -126,5 +138,29 @@ const styles = StyleSheet.create({
   },
   text2: {
     paddingLeft: "15%",
-  }
+  },
+  flatlist: {
+    flex: 1,
+    width: '100%',
+    paddingHorizontal: 16,
+    marginTop: 16,
+  },
+  itemContainer: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 8,
+    elevation: 4,
+    marginVertical: 8,
+    padding: 16,
+  },
+  itemLabel: {
+    fontSize: 14,
+    color: '#555555',
+    fontFamily: 'Nunito-Bold',
+  },
+  itemText: {
+    fontSize: 16,
+    color: '#333333',
+    fontFamily: 'Nunito-Regular',
+    marginBottom: 12,
+  },
 })

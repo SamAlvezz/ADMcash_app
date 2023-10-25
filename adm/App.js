@@ -6,9 +6,9 @@ import FazerLogin from "./src/pages/FazerLogin/FazerLogin";
 import BotaoContinuar from "./src/Components/BotaoContinuar/BotaoContinuar";
 import Menu from "./src/pages/Navigator/TabNavigator";
 import Despesas from "./src/pages/Despesas/Despesas";
-import Investimentos from "./src/pages/Investimentos/investimentos";
 import Receitas from "./src/pages/Receitas/Receita"
 import ModalDespesas from "./src/Components/ModalDespesas/ModalDespesas";
+import ModalInvestimentos from "./src/Components/ModalInvestimentos/ModalInvestimentos";
 
 import { StyleSheet, Text, View } from "react-native";
 
@@ -25,9 +25,9 @@ function App() {
       <Stack.Screen name="BotaoContinuar"component={BotaoContinuar} ></Stack.Screen>
       <Stack.Screen name="Menu"component={Menu} ></Stack.Screen>
       <Stack.Screen name="Receitas" component={Receitas}></Stack.Screen>
-      <Stack.Screen name="Investimentos"component={Investimentos} ></Stack.Screen>
       <Stack.Screen name="Despesas"component={Despesas}></Stack.Screen>
       <Stack.Screen name="ModalDespesas" component={ModalDespesas}></Stack.Screen>
+      <Stack.Screen name="ModalInvestimentos" component={ModalInvestimentos}></Stack.Screen>
     </Stack.Navigator>
     </NavigationContainer>
   );

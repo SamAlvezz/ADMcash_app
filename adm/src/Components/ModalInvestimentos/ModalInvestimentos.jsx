@@ -15,32 +15,28 @@ import ptBR from 'date-fns/locale/pt-BR';
 // Registre o locale pt-BR para o DatePicker
 registerLocale('pt-BR', ptBR);
 
-function ModalDespesas({ visible, onClose, onSave }) {
-  const [nomeDespesa, setNomeDespesa] = useState('');
-  const [valorDespesa, setValorDespesa] = useState('');
+function ModalInvestimentos({ visible, onClose, onSave }) {
+  const [nomeInvestimento, setNomeInvestimento] = useState('');
+  const [valorInvestimento, setValorInvestimento] = useState('');
   const [observacoes, setObservacoes] = useState('');
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [tipoDespesa, setTipoDespesa] = useState('Fixa');
+  const [tipoInvestimento, setTipoInvestimento] = useState('Fixa');
 
-  const dataFormatada = selectedDate.toLocaleDateString('pt-BR');
-
-  const salvarDespesa = () => {
+  const salvarInvestimento = () => {
     const novaDespesa = {
-      nome: nomeDespesa,
-      valor: valorDespesa,
+      nome: nomeInvestimento,
+      valor: valorInvestimento,
       observacoes: observacoes,
-      dataValidade: dataFormatada,
-      tipo: tipoDespesa,
+      dataValidade: selectedDate,
+      tipo: tipoInvestimento,
     };
 
-    
-
     onSave(novaDespesa);
-    setNomeDespesa('');
-    setValorDespesa('');
+    setNomeInvestimento('');
+    setValorInvestimento('');
     setObservacoes('');
     setSelectedDate(new Date());
-    setTipoDespesa('Fixa');
+    setTipoInvestimento('Fixa');
     onClose();
   };
 
@@ -48,25 +44,25 @@ function ModalDespesas({ visible, onClose, onSave }) {
     <Modal visible={visible} animationType="slide">
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          <Text style={styles.preenchimentosdespesas}>Nome da Despesa</Text>
+          <Text style={styles.preenchimentosinvestimento}>Nome do Investimento</Text>
           <TextInput
-            value={nomeDespesa}
-            onChangeText={setNomeDespesa}
+            value={nomeInvestimento}
+            onChangeText={setNomeInvestimento}
             placeholder="Digite"
             style={styles.input}
             placeholderTextColor="gray"
           />
 
-          <Text style={styles.preenchimentosdespesas}>Valor da Despesa</Text>
+          <Text style={styles.preenchimentosinvestimento}>Valor do Investimento</Text>
           <TextInput
-            value={valorDespesa}
-            onChangeText={setValorDespesa}
+            value={valorInvestimento}
+            onChangeText={setValorInvestimento}
             placeholder="R$00,00"
             style={styles.input}
             placeholderTextColor="gray"
           />
 
-          <Text style={styles.preenchimentosdespesas}>Observações</Text>
+          <Text style={styles.preenchimentosinvestimento}>Observações</Text>
           <TextInput
             value={observacoes}
             onChangeText={setObservacoes}
@@ -75,7 +71,7 @@ function ModalDespesas({ visible, onClose, onSave }) {
             placeholderTextColor="gray"
           />
 
-          <Text style={styles.preenchimentosdespesas}>Data de Validade</Text>
+          <Text style={styles.preenchimentosinvestimento}>Data de Validade</Text>
           <DatePicker
             selected={selectedDate}
             onChange={(date) => setSelectedDate(date)}
@@ -87,16 +83,16 @@ function ModalDespesas({ visible, onClose, onSave }) {
             customInput={<TextInput style={styles.input} />}
           />
 
-          <Text style={styles.preenchimentosdespesas}>Tipo de Despesa</Text>
+          <Text style={styles.preenchimentosdespesas}>Tipo de Investimento</Text>
           <TextInput
-            value={tipoDespesa}
-            onChangeText={setTipoDespesa}
+            value={tipoInvestimento}
+            onChangeText={setTipoInvestimento}
             placeholder="Digite"
             style={styles.input}
             placeholderTextColor="gray"
           />
 
-          <TouchableOpacity style={styles.botaosalvar} onPress={salvarDespesa}>
+          <TouchableOpacity style={styles.botaosalvar} onPress={salvarInvestimento}>
             <Text style={styles.txt}>Salvar</Text>
           </TouchableOpacity>
         </View>
@@ -115,13 +111,16 @@ const styles = StyleSheet.create({
   modalView: {
     marginTop: '10%',
     width: 332,
-    height: 600,
+    height: 800,
     borderRadius: 20,
     backgroundColor: 'white',
     padding: 20,
   },
-  preenchimentosdespesas: {
+  preenchimentosinvestimento: {
     fontSize: 20,
+   
+  
+
   },
   input: {
     marginBottom: 20,
@@ -150,5 +149,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ModalDespesas;
-
+export default ModalInvestimentos;

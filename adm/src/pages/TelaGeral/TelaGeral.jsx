@@ -52,21 +52,6 @@ export default function TelaGeral() {
           </SafeAreaView>
         </SafeAreaView>
         <SafeAreaView style={styles.Servico}>
-          <Text style={styles.titulo}>Investimentos</Text>
-          <TouchableOpacity style={styles.botao}>
-            <Text
-              style={styles.botaotext}
-              onPress={() => navigate("Investimentos")}
-            >
-              Gerenciar investimentos
-            </Text>
-          </TouchableOpacity>
-          <SafeAreaView style={styles.textdinamico}>
-            <Text style={styles.dinheiro}>R$ R$ 1.000,00</Text>
-            <Text style={styles.porcentagem}>9%</Text>
-          </SafeAreaView>
-        </SafeAreaView>
-        <SafeAreaView style={styles.Servico}>
           <Text style={styles.titulo}>Despesas</Text>
           <TouchableOpacity
             style={styles.botao}

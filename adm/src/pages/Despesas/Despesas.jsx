@@ -66,13 +66,15 @@ export default function Despesas() {
           <TouchableOpacity onPress={toggleFiltros}>
             <AntDesign name="filter" size={20} color="black" />
           </TouchableOpacity>
-        </View>
+        </View> 
 
         <Text style={styles.text1}>Adicionar</Text>
         <TouchableOpacity style={styles.text2} onPress={() => setModalVisible(true)}>
           <AntDesign name="pluscircle" size={20} color={"#3F96E7"} />
         </TouchableOpacity>
-        {filtroVisivel && (
+       
+      </SafeAreaView>
+      {filtroVisivel && (
         <View style={styles.filtrosContainer}>
           <CheckBox
             title="Todos"
@@ -102,7 +104,6 @@ export default function Despesas() {
           
         </View>
       )}
-      </SafeAreaView>
 
       <ModalDespesas
         visible={modalVisible}
@@ -115,22 +116,19 @@ export default function Despesas() {
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
           <View style={styles.itemContainer}>
-            <Text style={styles.itemLabel}>Nome:</Text>
-            <Text style={styles.itemText}>{item.nome}</Text>
-
-            <Text style={styles.itemLabel}>Valor:</Text>
-            <Text style={styles.itemText}>R${item.valor}</Text>
-
-            <Text style={styles.itemLabel}>Observações:</Text>
-            <Text style={styles.itemText}>{item.observacoes}</Text>
-
-            <Text style={styles.itemLabel}>Data de Validade:</Text>
+          <SafeAreaView style={styles.alinhalist}>
+            <Text style={styles.itemText2}>{item.nome} </Text>
+            <Text style={styles.itemText}> - {item.tipo} - </Text>
             <Text style={styles.itemText}>
               {new Date(item.dataValidade).toLocaleDateString('pt-BR')}
             </Text>
+           
+            <Text style={styles.itemText1}>R${item.valor}</Text>
 
-            <Text style={styles.itemLabel}>Tipo:</Text>
-            <Text style={styles.itemText}>{item.tipo}</Text>
+            </SafeAreaView>
+           
+            
+            <Text style={styles.itemText}>{item.observacoes}</Text>
           </View>
         )}
         style={styles.flatlist}
@@ -148,7 +146,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFF",
   },
   containerHeader: {
-    backgroundColor: "#3FE78C",
+    backgroundColor: "#E73F3F",
     width: 360,
     height: 167,
     paddingStart: "10%",
@@ -209,7 +207,7 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   filtroButtonText: {
-    color: '#3F96E7',
+    color: "#FC6B6B"
   },
   filterText: {
     color: "#00000080",
@@ -224,11 +222,21 @@ const styles = StyleSheet.create({
   },
   itemLabel: {
     fontSize: 14,
-    color: "#555555",
+    
+  },
+  itemText1: {
+    fontSize: 16,
+    color: "#FC6B6B",
+    marginBottom: 12,
+  },
+  itemText2: {
+    fontSize: 16,
+    color: "#00000080",
+    marginBottom: 12,
   },
   itemText: {
     fontSize: 16,
-    color: "#333333",
+    color: "#00000080",
     marginBottom: 12,
   },
   filtrosContainer: {
@@ -242,4 +250,7 @@ const styles = StyleSheet.create({
   filterIcon: {
     paddingStart:'8%', // Ajuste a margem esquerda aqui para posicionar o ícone do filtro
   },
+  alinhalist: {
+    flexDirection: 'row',
+  }
 });

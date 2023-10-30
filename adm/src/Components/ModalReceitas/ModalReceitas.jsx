@@ -15,7 +15,7 @@ import ptBR from 'date-fns/locale/pt-BR';
 // Registre o locale pt-BR para o DatePicker
 registerLocale('pt-BR', ptBR);
 
-function ModalInvestimentos({ visible, onClose, onSave }) {
+function ModalReceitas({ visible, onClose, onSave }) {
   const [nomeInvestimento, setNomeInvestimento] = useState('');
   const [valorInvestimento, setValorInvestimento] = useState('');
   const [observacoes, setObservacoes] = useState('');
@@ -149,4 +149,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ModalInvestimentos;
+export default ModalReceitas;

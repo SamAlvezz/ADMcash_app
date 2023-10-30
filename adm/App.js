@@ -8,7 +8,7 @@ import Menu from "./src/pages/Navigator/TabNavigator";
 import Despesas from "./src/pages/Despesas/Despesas";
 import Receitas from "./src/pages/Receitas/Receita"
 import ModalDespesas from "./src/Components/ModalDespesas/ModalDespesas";
-import ModalInvestimentos from "./src/Components/ModalInvestimentos/ModalInvestimentos";
+import ModalReceitas from "./src/Components/ModalReceitas/ModalReceitas";
 
 import { StyleSheet, Text, View } from "react-native";
 
@@ -27,7 +27,7 @@ function App() {
       <Stack.Screen name="Receitas" component={Receitas}></Stack.Screen>
       <Stack.Screen name="Despesas"component={Despesas}></Stack.Screen>
       <Stack.Screen name="ModalDespesas" component={ModalDespesas}></Stack.Screen>
-      <Stack.Screen name="ModalInvestimentos" component={ModalInvestimentos}></Stack.Screen>
+      <Stack.Screen name="ModalReceitas" component={ModalReceitas}></Stack.Screen>
     </Stack.Navigator>
     </NavigationContainer>
   );

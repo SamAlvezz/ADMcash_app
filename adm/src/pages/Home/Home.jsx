@@ -5,6 +5,7 @@ import { Image } from 'react-native';
 import styles from './estilo';
 import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 function Home({ home }) {
 
@@ -15,6 +16,9 @@ function Home({ home }) {
     }
 
     return (
+        <ScrollView
+      pagingEnabled={true}
+      showsVerticalScrollIndicator={false}>
         <View style={styles.containerInicio}>
             <Image style={styles.imagem} source={{ uri: "https://thumbs.dreamstime.com/b/design-can-be-used-as-logo-icon-complement-to-money-house-126215433.jpg" }} />
 
@@ -29,7 +33,7 @@ function Home({ home }) {
                 <Text style={styles.textoLogin}>Fazer Login</Text>
             </Pressable>
         </View>
-
+        </ScrollView>
     );
 }
 

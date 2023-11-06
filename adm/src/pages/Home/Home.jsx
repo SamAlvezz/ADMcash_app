@@ -16,9 +16,7 @@ function Home({ home }) {
     }
 
     return (
-        <ScrollView
-      pagingEnabled={true}
-      showsVerticalScrollIndicator={false}>
+
         <View style={styles.containerInicio}>
             <Image style={styles.imagem} source={{ uri: "https://thumbs.dreamstime.com/b/design-can-be-used-as-logo-icon-complement-to-money-house-126215433.jpg" }} />
 
@@ -29,14 +27,13 @@ function Home({ home }) {
             <Pressable style={styles.botaoCriar} onPress={() => navigate("CriarConta")}>
                 <Text style={styles.textoCriar}>Criar uma Conta</Text>
             </Pressable>
-            <Pressable style={styles.botaoLogin}  onPress={() => navigate("FazerLogin")}>
+            <Pressable style={styles.botaoLogin} onPress={() => navigate("FazerLogin")}>
                 <Text style={styles.textoLogin}>Fazer Login</Text>
             </Pressable>
         </View>
-        </ScrollView>
+
     );
 }
-
 ;
 
 export default Home;

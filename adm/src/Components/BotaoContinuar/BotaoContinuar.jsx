@@ -5,28 +5,33 @@ import { StyleSheet, Text, TouchableOpacity,} from 'react-native'
     return(
         <TouchableOpacity  
         onPress={onPress}
-         style={styles.container}>
+         style={styles.botaocriarContaLogin}>
         <Text style={styles.txt}>{title}</Text>
         </TouchableOpacity>
     );
  }; 
 
  const styles = StyleSheet.create({
-    container:{ 
-        width: 360,
-        height: 64,
-        backgroundColor: '#3FE78C',
+    botaocriarContaLogin:{ 
+        height: 48,
+        width: 233,
+        borderRadius: 4,
+        color: '#3FE78C',
         justifyContent: 'center',
         alignItems: 'center',
-      
-        
-        
+        elevation: 3,
+        marginBottom: 10,
+        backgroundColor: '#3FE78C',
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 5 },
+        shadowOpacity: 0.4,
+        shadowRadius: 6,
+        paddingVertical: 7,
+        alignSelf: 'center',
+        marginBottom: 120
+
     },
     txt:{
         fontSize: 20,
-        color: '#000',
-        textAlign: 'center',
-        fontSize: 16,
-        fontWeight: 700,
-        lineHeight: 'normal'}
- })
+        color: 'white',
+ }})

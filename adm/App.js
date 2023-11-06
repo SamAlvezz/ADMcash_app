@@ -18,17 +18,26 @@ const Stack = createStackNavigator();
 function App() {
   return (
     <NavigationContainer>
-        <Stack.Navigator initialRouteName="First">
-      <Stack.Screen name="Home" component={Home}></Stack.Screen>
-      <Stack.Screen name="CriarConta" component={CriarConta}></Stack.Screen>
-      <Stack.Screen name="FazerLogin" component={FazerLogin}></Stack.Screen>
-      <Stack.Screen name="BotaoContinuar"component={BotaoContinuar} ></Stack.Screen>
-      <Stack.Screen name="Menu"component={Menu} ></Stack.Screen>
-      <Stack.Screen name="Receitas" component={Receitas}></Stack.Screen>
-      <Stack.Screen name="Despesas"component={Despesas}></Stack.Screen>
-      <Stack.Screen name="ModalDespesas" component={ModalDespesas}></Stack.Screen>
-      <Stack.Screen name="ModalReceitas" component={ModalReceitas}></Stack.Screen>
-    </Stack.Navigator>
+      <Stack.Navigator initialRouteName="First">
+        <Stack.Screen name="Home" component={Home}options={{
+          title: "",
+          headerTransparent: true,
+          headerShown: false
+        }}
+        ></Stack.Screen>
+        <Stack.Screen name="CriarConta" component={CriarConta} options={{
+          title: "",
+          headerTransparent: true,
+          headerShown: false
+        }}></Stack.Screen>
+        <Stack.Screen name="FazerLogin" component={FazerLogin}></Stack.Screen>
+        <Stack.Screen name="BotaoContinuar" component={BotaoContinuar} ></Stack.Screen>
+        <Stack.Screen name="Menu" component={Menu} ></Stack.Screen>
+        <Stack.Screen name="Receitas" component={Receitas}></Stack.Screen>
+        <Stack.Screen name="Despesas" component={Despesas}></Stack.Screen>
+        <Stack.Screen name="ModalDespesas" component={ModalDespesas}></Stack.Screen>
+        <Stack.Screen name="ModalReceitas" component={ModalReceitas}></Stack.Screen>
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }

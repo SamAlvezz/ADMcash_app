@@ -4,12 +4,11 @@ const styles = {
         flex:1,
         backgroundColor: '#ffff',
         alignItems: 'center',
-        overflow: 'hidden'
-
+        overflow: 'hidden',
             
     },
     imagem: {
-        height: 300,
+        height: 290,
         width: 295,
         resizeMode:"contain",
     },
@@ -18,7 +17,8 @@ const styles = {
         fontWeight: 'bold',
         fontSize: 40,
         color: '#09301B',
-        marginVertical: 20,
+        marginBottom: 30,
+        
     },
     subtitulo: {
         marginBottom: 10,     
@@ -28,11 +28,12 @@ const styles = {
         color: '#09301B',
     },
     textocash: {
-        marginBottom: 30,
+        marginBottom: 35,
         fontSize: 16,
         lineHeight: 22,
         textAlign: 'center',
-        color: '#262323'
+        color: '#262323',
+        maxWidth: 300
     },
     botaoCriar: {
         
@@ -65,10 +66,12 @@ const styles = {
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#FFFFFF',
+        marginBottom: 20
     },
     textoLogin: {
         fontSize: 20,
         color: 'black',
+        
         
     }
 

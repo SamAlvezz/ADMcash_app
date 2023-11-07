@@ -1,35 +1,33 @@
 const styles = {
   container: {
-    position: "relative",
-    width: 360,
-    height: 550,
+    flex: 1,
     backgroundColor: "#ffff",
+    justifyContent: 'center',
+    flexDirection: 'row',
   },
   containerHeader: {
     marginTop: "13%",
     marginBottom: "3%",
-    paddingStart: "7%",
+
   },
   messagem: {
     fontSize: 24,
     color: "#09301B",
-    fontFamily: "",
     fontWeight: 800,
-  },
-  containerForm: {
-    paddingStart: "7%",
-    paddingEnd: "5%",
+
   },
   titulo: {
     color: "#09301B",
-    fontSize: 20,
-    marginTop: 28,
-    fontFamily: "",
+    fontSize: 24,
+    marginTop: 30,
+
   },
   input: {
+    width: '100%',
     opacity: 0.5,
     borderBottomWidth: 1,
-    borderColor: '#008000'
+    borderColor: '#008000',
+    fontSize: 17,
   },
   botao: {
     borderRadius: 4,
@@ -41,18 +39,16 @@ const styles = {
     color: "#00000080",
     fontSize: 16,
     fontWeight: "bold",
+    marginTop: 15,
+    marginBottom: 100
   },
 
   containerEmail: {
     flexDirection: "row",
-    paddingStart: "7%",
-    alignItems: "center",
     marginBottom: "3%",
   },
   containerSenha: {
     flexDirection: "row",
-    paddingStart: "7%",
-    alignItems: "center",
     marginBottom: "3%",
   },
   mostrar: {
@@ -62,7 +58,6 @@ const styles = {
     opacity: 0.5,
   },
   containerForm1: {
-    paddingStart: "7%",
     paddingEnd: "5%",
     marginTop: "25%",
   },
@@ -70,13 +65,7 @@ const styles = {
     opacity: 0.5,
     paddingStart: "5%",
   },
-  botao1: {
-    marginBottom: "48%",
-    borderRadius: 4,
-    paddingVertical: 8,
-    justifyContent: "",
-    alignItems: "left",
-  }
+  
 };
 
 export default styles;

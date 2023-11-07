@@ -21,14 +21,15 @@ const styles = {
         
     },
     subtitulo: {
-        marginBottom: 10,     
+         
         fontstyle: 'normal',
         fontweight: 'bold',
         fontSize: 24,
         color: '#09301B',
     },
     textocash: {
-        marginBottom: 35,
+        marginBottom: 50,
+        marginTop: 15,
         fontSize: 16,
         lineHeight: 22,
         textAlign: 'center',

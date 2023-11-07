@@ -20,7 +20,6 @@ import { StyleSheet, Text, TouchableOpacity,} from 'react-native'
         justifyContent: 'center',
         alignItems: 'center',
         elevation: 3,
-        marginBottom: 10,
         backgroundColor: '#3FE78C',
         shadowColor: 'black',
         shadowOffset: { width: 0, height: 5 },
@@ -28,7 +27,8 @@ import { StyleSheet, Text, TouchableOpacity,} from 'react-native'
         shadowRadius: 6,
         paddingVertical: 7,
         alignSelf: 'center',
-        marginBottom: 120
+        marginBottom: 100,
+        
 
     },
     txt:{

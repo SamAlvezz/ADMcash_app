@@ -84,10 +84,6 @@ export default function FazerLogin( ) {
             <Text style={styles.botaotexto}>Recuperar senha</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.botao1}>
-            <Text style={styles.botaotexto}>Tutorial</Text>
-          </TouchableOpacity>
-
         </SafeAreaView>
       
         <View>

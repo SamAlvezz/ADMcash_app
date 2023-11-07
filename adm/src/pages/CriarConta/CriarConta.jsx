@@ -40,7 +40,7 @@ export default function CriarConta() {
     <View style={styles.container}>
       <Animatable.View animation="fadeInLeft" delay={500}>
         <SafeAreaView style={styles.containerHeader}>
-          <Text style={styles.messagem}>Crie sua Conta!</Text>
+          <Text style={styles.messagem}>  Crie sua Conta!   </Text>
         </SafeAreaView>
         <SafeAreaView style={styles.containerForm}>
           <Text style={styles.titulo}>Qual o seu Nome?</Text>
@@ -108,11 +108,22 @@ export default function CriarConta() {
 
         <SafeAreaView style={styles.containerConfirmar}>
           <TextInput
-            placeholder="Digite sua senha novamente"
+            placeholder="Digite novamente"
             style={styles.input}
             value={input3}
             onChangeText={(texto) => setInput3(texto)}
           />
+          <TouchableOpacity
+            style={styles.mostrar}
+            onPress={() => setHidepass(!hidePass)}
+          >
+            {hidePass ? (
+              <Ionicons name="eye" color="" size={16}></Ionicons>
+            ) : (
+              <Ionicons name="eye" color="" size={16}></Ionicons>
+            )}
+          </TouchableOpacity>
+          
           <TouchableOpacity style={styles.x2} onPress={clearInput3}>
             <Ionicons name="close" color="" size={16}></Ionicons>
           </TouchableOpacity>

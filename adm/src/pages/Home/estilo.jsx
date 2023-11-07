@@ -1,6 +1,6 @@
 const styles = {
     containerInicio: {
-        position: 'relative',
+        
         flex:1,
         backgroundColor: '#ffff',
         alignItems: 'center',

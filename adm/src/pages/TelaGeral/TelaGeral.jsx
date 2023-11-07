@@ -30,16 +30,14 @@ export default function TelaGeral() {
             <Text style={styles.mensagem}>Bem vindo ao Home</Text>
           </View>
         </SafeAreaView>
-        <SafeAreaView style={styles.area1}>
+        <SafeAreaView style={styles.textview}>
           <Text style={styles.text}>
-            Registre e organize suas receitas, Investimentos e despesas da casa.
+            Registre e acompanhe suas receitas e despesas.
           </Text>
-          <TouchableOpacity style={styles.ajuda}>
-            <Ionicons name="ios-help-circle-outline" size={20} color="black" />
-          </TouchableOpacity>
+          {/*por aqui */}
         </SafeAreaView>
-        <SafeAreaView style={styles.Servico}>
-          <Text style={styles.titulo}>Receitas</Text>
+        <SafeAreaView style={styles.ServicoView}>
+          <Text style={styles.Servicotitulo}>Receitas</Text>
           <TouchableOpacity
             style={styles.botao}
             onPress={() => navigate("Receitas")}
@@ -47,12 +45,12 @@ export default function TelaGeral() {
             <Text style={styles.botaotext}>Gerenciar Receitas</Text>
           </TouchableOpacity>
           <SafeAreaView style={styles.textdinamico}>
-            <Text style={styles.dinheiro}>R$ 11.200,00</Text>
-            <Text style={styles.porcentagem}>100%</Text>
+            <Text style={styles.dinheiroRec}>R$11.400,00</Text>
+            <Text style={styles.porcentagemRec}>100%</Text>
           </SafeAreaView>
         </SafeAreaView>
-        <SafeAreaView style={styles.Servico}>
-          <Text style={styles.titulo}>Despesas</Text>
+        <SafeAreaView style={styles.ServicoView}>
+          <Text style={styles.Servicotitulo}>Despesas</Text>
           <TouchableOpacity
             style={styles.botao}
             onPress={() => navigate("Despesas")}
@@ -61,18 +59,17 @@ export default function TelaGeral() {
           </TouchableOpacity>
 
           <SafeAreaView style={styles.textdinamico}>
-            <Text style={styles.dinheiro}>R$ R$ 6.610,00</Text>
-            <Text style={styles.porcentagem}>59%</Text>
+            <Text style={styles.dinheiroDes}>R$-6.6000000000000000000000000000000000000000000000000000000000000000teste,00</Text>
+            <Text style={styles.porcentagemDes}>59%</Text>
           </SafeAreaView>
         </SafeAreaView>
-        <SafeAreaView style={styles.final}>
-          <SafeAreaView style={styles.alinha1}>
-            <Text style={styles.titulo1}>Resultado</Text>
-            <Text style={styles.titulo2}>32% de sua </Text>
+        <SafeAreaView style={styles.ResultadoView}>
+          <SafeAreaView >
+            <Text style={styles.Resultadotext}>Resultado</Text>
+            <Text style={styles.DinheiroRes}>R$3.590,00</Text>
           </SafeAreaView>
-          <SafeAreaView style={styles.alinha}>
-            <Text style={styles.titulo1}>R$ 3.590,00</Text>
-            <Text style={styles.titulo3}> renda total</Text>
+          <SafeAreaView >
+            <Text style={styles.Rendatotaltext}>62% de sua renda total</Text>
           </SafeAreaView>
         </SafeAreaView>
         <SafeAreaView style={styles.containerdata}>
@@ -82,151 +79,144 @@ export default function TelaGeral() {
     </ScrollView>
   );
 }
+{/*a fazer: ajeitar menu de baixo e estilizar resultado*/}
 
 const styles = StyleSheet.create({
   container: {
-    position: "relative",
-    height: 800,
-    width: 360,
+    flex: 1,
     alignItems: "center",
+    justifyContent: 'center',
     backgroundColor: "#FFF",
   },
-  text: {
-    textAlign: "center",
-    color: "#00000080",
-  },
   containerHeader: {
-    fontSize: 13,
-    flexDirection: "row",
     backgroundColor: "#3FE78C",
-    width: 360,
-    height: 80,
+    width: '100%',
+    height: 100,
     alignItems: "center",
-    paddingStart: "20%",
+    justifyContent: 'center'
   },
   mensagem: {
-    width: 188,
-    height: 27,
-    flexShrink: 0,
-    fontSize: 20,
+    fontSize: 26,
     color: "#fff",
-    textAlign: "center",
+    fontWeight: 600
   },
-  area1: {
-    width: 277,
-    height: 37,
+  textview: {
+    width: '100%',
     flexDirection: "row",
-    paddingStart: "7%",
     alignItems: "center",
-    marginBottom: "6%",
-    marginTop: "6%",
+    justifyContent: 'center',
+    marginBottom: "12%",
+    marginTop: "10%",
   },
-  ajuda: {
-    width: 15,
-    height: 15,
-    marginTop: "6%",
-    paddingStart: "10%",
+  text: {
+    color: "#00000080",
   },
-  Servico: {
-    width: 334,
-    height: 126,
+  ServicoView: {
     backgroundColor: "#f0fff0",
-    paddingStart: "4%",
     marginBottom: "5%",
+    width: '95%',
+    height: 126,
+    borderRadius: 10
   },
-  titulo: {
-    color: "#3F96E7",
-    fontSize: 15,
-    fontWeight: 700,
-    fontFamyli: "Nunito",
-    marginBottom: "4%",
-    marginTop: "3%",
-  },
-  dinheiro: {
-    color: "#3F96E7",
-    fontSize: 15,
-    fontWeight: 700,
-    fontFamyli: "Nunito",
-  },
-  porcentagem: {
-    color: "#3FE746F5",
-    fontSize: 15,
-    fontWeight: 700,
-    fontFamyli: "Nunito",
-    paddingStart: "33%",
-  },
+
   botao: {
-    width: 206,
-    height: 31,
     borderRadius: 14,
     backgroundColor: "#3FE78C",
     justifyContent: "center",
     marginBottom: "5%",
+    marginHorizontal: 10
   },
   botaotext: {
     color: "#fff",
     fontSize: 13,
     fontWeight: 700,
-    fontFamyli: "Nunito",
     paddingStart: "2%",
     shadowColor: 'black',
-    shadowOffset: { width: 0, height: 7 },
+    shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 6,
     borderRadius: 14,
     paddingVertical: 7,
-    
-   
-  
+
+  },
+  Servicotitulo: {
+    color: "#3F96E7",
+    fontSize: 15,
+    fontWeight: 700,
+    marginBottom: "4%",
+    marginTop: "3%",
+    marginHorizontal: 11
+  },
+  dinheiroRec: {
+    color: "#3FE746F5",
+    fontSize: 15,
+    fontWeight: 700,
+    marginHorizontal: 11,
+    overflow: "hidden",
+    maxWidth: 150,
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
+  },
+  dinheiroDes: {
+    color: "#FD5252",
+    fontSize: 15,
+    fontWeight: 700,
+    marginHorizontal: 11,
+    overflow: "hidden",
+    maxWidth: 150,
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap"
+
+  },
+  porcentagemRec: {
+    color: "#3FE746F5",
+    fontSize: 15,
+    fontWeight: 700,
+  },
+  porcentagemDes: {
+    color: "#FD5252",
+    fontSize: 15,
+    fontWeight: 700,
   },
   textdinamico: {
     flexDirection: "row",
+    justifyContent: "space-between",
+    marginEnd: 10
   },
-  alinha1: {
-    flexDirection: "row",
-    paddingStart: "7%",
-    marginBottom: "3%",
-  },
-  alinha: {
-    flexDirection: "row",
-    paddingStart: "7%",
-  },
-  final: {
-    width: 360,
-    height: 96,
-    backgroundColor: "#E2FFEE",
+
+  ResultadoView: {
     justifyContent: "center",
+    backgroundColor: "#f0fff0",
+    marginBottom: "5%",
+    width: '95%',
+    height: 100,
+    borderRadius: 10
   },
-  titulo1: {
+  Resultadotext: {
     fontSize: 15,
     fontWeight: 700,
-    fontFamyli: "Nunito",
+    marginStart: 10
   },
-  titulo2: {
-    paddingStart: "37%",
+  DinheiroRes: {
     color: "#000",
     fontSize: 15,
     fontWeight: 700,
-    fontFamyli: "Nunito",
+    marginStart: 10
   },
-  titulo3: {
-    paddingStart: "33%",
+  Rendatotaltext: {
     color: "#000",
     fontSize: 15,
     fontWeight: 700,
-    fontFamyli: "Nunito",
+    marginStart: 10
   },
   Data: {
     color: "#3F96E7",
     fontSize: 20,
     fontWeight: 700,
-    fontFamyli: "Nunito",
     marginTop: "3%",
   },
   containerdata: {
-    paddingStart: "4%",
     marginTop: "4%",
-    width: 334,
-    height: 100,
+    marginBottom: 100
   },
 });

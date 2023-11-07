@@ -35,8 +35,12 @@ function App() {
           headerTransparent: true,
           headerShown: false
         }}></Stack.Screen>
-        <Stack.Screen name="BotaoContinuar" component={BotaoContinuar} ></Stack.Screen>
-        <Stack.Screen name="Menu" component={Menu} ></Stack.Screen>
+        <Stack.Screen name="BotaoContinuar" component={BotaoContinuar}  ></Stack.Screen>
+        <Stack.Screen name="Menu" component={Menu} options={{
+          title: "",
+          headerTransparent: true,
+          headerShown: false
+        }}></Stack.Screen>
         <Stack.Screen name="Receitas" component={Receitas}></Stack.Screen>
         <Stack.Screen name="Despesas" component={Despesas}></Stack.Screen>
         <Stack.Screen name="ModalDespesas" component={ModalDespesas}></Stack.Screen>

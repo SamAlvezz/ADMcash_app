@@ -14,6 +14,8 @@ const styles = {
     fontSize: 24,
     color: "#09301B",
     fontWeight: 800,
+    marginBottom: 30,
+    marginTop: 10
 
   },
   titulo: {

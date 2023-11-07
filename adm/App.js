@@ -30,7 +30,11 @@ function App() {
           headerTransparent: true,
           headerShown: false
         }}></Stack.Screen>
-        <Stack.Screen name="FazerLogin" component={FazerLogin}></Stack.Screen>
+        <Stack.Screen name="FazerLogin" component={FazerLogin} options={{
+          title: "",
+          headerTransparent: true,
+          headerShown: false
+        }}></Stack.Screen>
         <Stack.Screen name="BotaoContinuar" component={BotaoContinuar} ></Stack.Screen>
         <Stack.Screen name="Menu" component={Menu} ></Stack.Screen>
         <Stack.Screen name="Receitas" component={Receitas}></Stack.Screen>

@@ -13,6 +13,8 @@ const styles = {
     fontSize: 30,
     color: "#09301B",
     fontWeight: 800,
+    marginTop: 10,
+    marginBottom: 30
   },
   titulo: {
     color: "#09301B",

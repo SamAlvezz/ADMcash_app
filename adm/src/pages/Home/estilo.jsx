@@ -11,6 +11,7 @@ const styles = {
         height: 290,
         width: 295,
         resizeMode:"contain",
+        marginTop: 28
     },
    
     titulo: {
@@ -67,7 +68,7 @@ const styles = {
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#FFFFFF',
-        marginBottom: 20
+        marginBottom: 40
     },
     textoLogin: {
         fontSize: 20,

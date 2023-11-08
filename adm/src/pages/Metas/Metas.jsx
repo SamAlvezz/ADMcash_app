@@ -22,7 +22,7 @@ export default function Metas() {
 
       <Text style={styles.text}></Text>
 
-      <SafeAreaView style={styles.Servico}>
+      <SafeAreaView style={styles.MetasView}>
         <Text style={styles.titulo}>Progresso</Text>
 
         {/* <TouchableOpacity style={styles.botao}>
@@ -47,29 +47,21 @@ export default function Metas() {
 
 const styles = StyleSheet.create({
   container: {
-    position: "relative",
-
-    height: 2000,
-
-    width: 360,
-
+    flex: 1,
     alignItems: "center",
-
     backgroundColor: "#FFF",
   },
 
-  text: {},
-
+  text: {
+    fontSize: 26,
+    color: "#fff",
+    fontWeight: 600
+  },
   botaotext: {
     color: "#fff",
-
     fontSize: 13,
-
     fontWeight: 700,
-
     fontFamyli: "Nunito",
-
-    paddingStart: "2%",
   },
 
   textdinamico: {
@@ -78,106 +70,66 @@ const styles = StyleSheet.create({
 
   dinheiro: {
     color: "#000",
-
     fontSize: 15,
-
     fontWeight: 700,
-
-    fontFamyli: "Nunito",
-  },
+      },
 
   porcentagem: {
     color: "#3FE746F5",
-
     fontSize: 15,
-
     fontWeight: 700,
-
-    fontFamyli: "Nunito",
-
-    paddingStart: "33%",
+    
   },
 
   containerHeader: {
+    width: '100%',
     flexDirection: "row",
-
     backgroundColor: "#3FE78C",
-
-    width: 360,
-
     height: 80,
-
     alignItems: "center",
-
-    paddingStart: "20%",
+    justifyContent: 'center'
   },
 
-  Servico: {
-    width: 334,
-
+  MetasView: {
+    width: '95%',
     height: 126,
-
     backgroundColor: "#97BEA9",
-
-    paddingStart: "4%",
-
     marginBottom: "5%",
-
     borderRadius: 14,
-
     marginTop: '10%'
   },
 
-  botao: {
-    width: 206,
-
+  botao: {   
     height: 31,
-
     borderRadius: 14,
-
     backgroundColor: "#3FE78C",
-
     justifyContent: "center",
-
     marginBottom: "5%",
   },
 
   titulo: {
     color: "#000",
-
     fontSize: 15,
-
-    fontWeight: 700,
-
-    fontFamyli: "Nunito",
-
+    fontWeight: 700, 
     marginBottom: "4%",
-
     marginTop: "3%",
   },
 
   mensagem: {
-    width: 188,
-
+    fontWeight: 600,
     height: 27,
-
-    flexShrink: 0,
-
-    fontSize: 20,
-
+    fontSize: 26,
     color: "#fff",
-
     textAlign: "center",
   },
   area2: {
     marginTop: '10%',
     flexDirection: "row",
-    paddingStart: "60%",
+
   },
   text1: {
     opacity: 0.5,
     fontSize: 18,
-    fontFamyli: "Nunito",
     flexDirection: "row",
     paddingLeft: "10%",
   },

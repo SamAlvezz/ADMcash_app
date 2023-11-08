@@ -1,4 +1,4 @@
-import react from "react";
+import React from "react";
 import {
   View,
   Text,
@@ -8,7 +8,6 @@ import {
   ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { Ionicons } from "@expo/vector-icons";
 
 export default function TelaGeral() {
   const navigation = useNavigation();
@@ -18,10 +17,12 @@ export default function TelaGeral() {
     month: "long",
     day: "numeric",
   });
+
   function navigate(page) {
     navigation.navigate(page);
     navigation.navigate(page);
   }
+
   return (
     <ScrollView>
       <SafeAreaView style={styles.container}>
@@ -30,12 +31,14 @@ export default function TelaGeral() {
             <Text style={styles.mensagem}>Bem vindo ao Home</Text>
           </View>
         </SafeAreaView>
-        <SafeAreaView style={styles.textview}>
+
+        <View style={styles.textview}>
           <Text style={styles.text}>
             Registre e acompanhe suas receitas e despesas.
           </Text>
-          {/*por aqui */}
-        </SafeAreaView>
+          {/*por aqui button ajuda*/}
+        </View>
+
         <SafeAreaView style={styles.ServicoView}>
           <Text style={styles.Servicotitulo}>Receitas</Text>
           <TouchableOpacity
@@ -44,11 +47,12 @@ export default function TelaGeral() {
           >
             <Text style={styles.botaotext}>Gerenciar Receitas</Text>
           </TouchableOpacity>
-          <SafeAreaView style={styles.textdinamico}>
+          <View style={styles.textdinamico}>
             <Text style={styles.dinheiroRec}>R$11.400,00</Text>
             <Text style={styles.porcentagemRec}>100%</Text>
-          </SafeAreaView>
+          </View>
         </SafeAreaView>
+
         <SafeAreaView style={styles.ServicoView}>
           <Text style={styles.Servicotitulo}>Despesas</Text>
           <TouchableOpacity
@@ -58,28 +62,29 @@ export default function TelaGeral() {
             <Text style={styles.botaotext}>Gerenciar Despesas</Text>
           </TouchableOpacity>
 
-          <SafeAreaView style={styles.textdinamico}>
-            <Text style={styles.dinheiroDes}>R$-6.6000000000000000000000000000000000000000000000000000000000000000teste,00</Text>
+          <View style={styles.textdinamico}>
+            <Text style={styles.dinheiroDes}>
+              R$-6.6000000000000000000000000000000000000000000000000000000000000000teste,00
+            </Text>
             <Text style={styles.porcentagemDes}>59%</Text>
-          </SafeAreaView>
+          </View>
         </SafeAreaView>
-        <SafeAreaView style={styles.ResultadoView}>
-          <SafeAreaView >
-            <Text style={styles.Resultadotext}>Resultado</Text>
+
+        <View style={styles.ResultadoView}>
+          <Text style={styles.Resultadotext}>Resultado:</Text>
+          <View style={styles.textdinamico}>
             <Text style={styles.DinheiroRes}>R$3.590,00</Text>
-          </SafeAreaView>
-          <SafeAreaView >
             <Text style={styles.Rendatotaltext}>62% de sua renda total</Text>
-          </SafeAreaView>
-        </SafeAreaView>
-        <SafeAreaView style={styles.containerdata}>
+          </View>
+        </View>
+
+        <View style={styles.containerdata}>
           <Text style={styles.Data}>{formattedDate}</Text>
-        </SafeAreaView>
+        </View>
       </SafeAreaView>
     </ScrollView>
   );
 }
-{/*a fazer: ajeitar menu de baixo e estilizar resultado*/}
 
 const styles = StyleSheet.create({
   container: {
@@ -118,13 +123,22 @@ const styles = StyleSheet.create({
     height: 126,
     borderRadius: 10
   },
+  Servicotitulo: {
+    color: "#3F96E7",
+    fontSize: 15,
+    fontWeight: 700,
+    marginBottom: "4%",
+    marginTop: "3%",
+    marginHorizontal: 11
+  },
 
   botao: {
     borderRadius: 14,
     backgroundColor: "#3FE78C",
     justifyContent: "center",
     marginBottom: "5%",
-    marginHorizontal: 10
+    marginHorizontal: 10,
+    width: '65%'
   },
   botaotext: {
     color: "#fff",
@@ -139,21 +153,14 @@ const styles = StyleSheet.create({
     paddingVertical: 7,
 
   },
-  Servicotitulo: {
-    color: "#3F96E7",
-    fontSize: 15,
-    fontWeight: 700,
-    marginBottom: "4%",
-    marginTop: "3%",
-    marginHorizontal: 11
-  },
+
   dinheiroRec: {
     color: "#3FE746F5",
     fontSize: 15,
     fontWeight: 700,
     marginHorizontal: 11,
     overflow: "hidden",
-    maxWidth: 150,
+    maxWidth: 250,
     textOverflow: "ellipsis",
     whiteSpace: "nowrap",
   },
@@ -163,7 +170,7 @@ const styles = StyleSheet.create({
     fontWeight: 700,
     marginHorizontal: 11,
     overflow: "hidden",
-    maxWidth: 150,
+    maxWidth: 250,
     textOverflow: "ellipsis",
     whiteSpace: "nowrap"
 
@@ -181,33 +188,42 @@ const styles = StyleSheet.create({
   textdinamico: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginEnd: 10
+    marginEnd: 5
   },
 
   ResultadoView: {
-    justifyContent: "center",
     backgroundColor: "#f0fff0",
     marginBottom: "5%",
     width: '95%',
     height: 100,
-    borderRadius: 10
+    borderRadius: 10,
+   
   },
+
   Resultadotext: {
     fontSize: 15,
     fontWeight: 700,
-    marginStart: 10
+    marginHorizontal: 11,
+    marginBottom: "4%",
+    marginTop: "5%",
+    color: "#3F96E7"
+
   },
   DinheiroRes: {
-    color: "#000",
+    color: "#3FE746F5",
     fontSize: 15,
     fontWeight: 700,
-    marginStart: 10
+    marginStart: 10,
+    marginTop: 5
   },
   Rendatotaltext: {
-    color: "#000",
+    color: "#3F96E7",
     fontSize: 15,
     fontWeight: 700,
-    marginStart: 10
+    maxWidth: 90,
+    marginTop: -15,
+  
+    
   },
   Data: {
     color: "#3F96E7",

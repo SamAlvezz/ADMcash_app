@@ -15,11 +15,9 @@ function Menu() {
         tabBarShowLabel: false,
         tabBarStyle: {
           position: "absolute",
-          backgroundColor: "#3FE78C",
-          borderTopWidth: 0,       
-          elevation: 0,
+          backgroundColor: "#3FE78C",       
           height: 60,
-          width: 360,
+          width: '100%',
           
         },
       }}

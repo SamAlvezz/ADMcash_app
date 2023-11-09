@@ -28,7 +28,7 @@ export default function TelaGeral() {
       <SafeAreaView style={styles.container}>
         <SafeAreaView style={styles.containerHeader}>
           <View>
-            <Text style={styles.mensagem}>Bem vindo ao Home</Text>
+            <Text style={styles.mensagem}>Bem vindo(a) ao Home</Text>
           </View>
         </SafeAreaView>
 
@@ -221,9 +221,8 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: 700,
     maxWidth: 90,
-    marginTop: -15,
+    marginTop: -20,
   
-    
   },
   Data: {
     color: "#3F96E7",

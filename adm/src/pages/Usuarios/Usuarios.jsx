@@ -1,48 +1,59 @@
-import react from "react";
+import React from "react";
 import { View, Text, StyleSheet, SafeAreaView } from "react-native";
 
 
 export default function Usuarios() {
-  return(
-    <View style={styles.container}  >
-<SafeAreaView  style={styles.containerHeader}>
-        <View>
-           <Text style={styles.mensagem}>Usuarios</Text>
-        </View>,
-        </SafeAreaView>
-      <Text style={styles.text} >Pagina Usuarios</Text>
-    </View>
+  return (
+
+    <SafeAreaView style={styles.container}  >
+      <SafeAreaView style={styles.containerHeader}>
+        <image style={styles.imagem} source={{
+          uri: ""
+        }} />
+        <View style={styles.ViewUser}>
+          <Text style={styles.User}>Usuário tal</Text>
+          <Text style={styles.email}>usuario@gmail.com</Text>
+        </View>
+        {/* caso for listar todos os usuarios cadastrados no celular em um tela(nao é prioridade)
+      <View style={styles.usuarioscontainer}>
+      </View>*/}
+      </SafeAreaView >
+    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    position: "relative",
-    height: 2000,
-    width: 360,
+    flex: 1,
     alignItems: "center",
     backgroundColor: "#FFF",
+  },
+  containerHeader: {
+    backgroundColor: "#3FE78C",
+    width: '100%',
+    height: 100,
+    alignItems: "center",
+    justifyContent: 'center'
+  },
+  ViewUser: {
+    marginLeft: 30
+
 
   },
-  text: {
-  
+  User: {
+    fontSize: 24,
+    color: "#fff",
+    fontWeight: 600,
+
   },
-  containerHeader:{ 
-    flexDirection: 'row',
-    backgroundColor: '#3FE78C',
-    width: 360,
-    height: 80,
-    alignItems:'center',
-    paddingStart: '20%'
-    
-},
-mensagem: {
-  width: 188,
-  height: 27,
-  flexShrink: 0,
-  fontSize: 20,
-  color: '#fff',
-  textAlign:'center',
-  
-},
+  email: {
+    fontSize: 17,
+    color: "#fff",
+    fontWeight: 400,
+  },
+
+  /*usuarioscontainer: {
+  display: flex*/
+
+
 })

@@ -7,7 +7,7 @@ import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
 
-function Home({ home }) {
+function TelaInicial({ telainicial }) {
 
     const navigation = useNavigation();
 
@@ -36,4 +36,4 @@ function Home({ home }) {
 }
 ;
 
-export default Home;
+export default TelaInicial;

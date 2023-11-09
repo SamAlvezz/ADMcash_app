@@ -139,52 +139,40 @@ export default function Despesas() {
 
 const styles = StyleSheet.create({
   container: {
-    position: "relative",
-    height: 800,
-    width: 360,
-    
+    flex:1,
     backgroundColor: "#FFF",
   },
   containerHeader: {
     backgroundColor: "#E73F3F",
-    width: 360,
-    height: 167,
-    paddingStart: "10%",
-   
+   width: '100%'
   },
   area1: {
-    width: 277,
-    height: 20,
+   
     flexDirection: "row",
-  paddingStart: '10%',
-    alignItems: "center",
     marginBottom: "6%",
    marginTop:"3%",
   },
   text: {
-    textAlign: "center",
-    color: "#00000080",
+ color: "#00000080",
     fontSize: 16,
-    paddingStart: '30%'
   },
   mensagem: {
     fontSize: 24,
     color: "#fff",
     marginTop: '7%',
     marginBottom: '7%',
-    fontFamily: "Nunito",
+    
     paddingStart: '5%',
   },
   Valor: {
     fontSize: 15,
     color: "#fff",
-    fontFamily: "Nunito",
+    
     paddingStart: '5%',
   },
   Total: {
     fontSize: 32,
     color: "#fff",
-    fontFamily: "Nunito",
     paddingStart: '5%',
   },
   area2: {

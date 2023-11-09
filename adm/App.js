@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import Home from "./src/pages/Home/Home";
+import TelaInicial from "./src/pages/TelaInicial/TelaInicial";
 import CriarConta from "./src/pages/CriarConta/CriarConta";
 import FazerLogin from "./src/pages/FazerLogin/FazerLogin";
 import BotaoContinuar from "./src/Components/BotaoContinuar/BotaoContinuar";
@@ -19,7 +19,7 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="First">
-        <Stack.Screen name="Home" component={Home}options={{
+        <Stack.Screen name="TelaInicial" component={TelaInicial}options={{
           title: "",
           headerTransparent: true,
           headerShown: false

@@ -5,19 +5,24 @@ import { View, Text, StyleSheet, SafeAreaView } from "react-native";
 export default function Usuarios() {
   return (
 
-    <SafeAreaView style={styles.container}  >
-      <SafeAreaView style={styles.containerHeader}>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.ViewIMGname}>
         <image style={styles.imagem} source={{
           uri: ""
         }} />
-        <View style={styles.ViewUser}>
-          <Text style={styles.User}>Usuário tal</Text>
-          <Text style={styles.email}>usuario@gmail.com</Text>
-        </View>
-        {/* caso for listar todos os usuarios cadastrados no celular em um tela(nao é prioridade)
+        <Text style={styles.User}>Usuário tal</Text>
+      </View >
+
+      <View style={styles.ViewConta}>
+        <Text style={styles.Conta}>Conta</Text>
+        <Text style={styles.Nome}>Samuel</Text>
+        <Text style={styles.Subsnome}>Nome de usuario</Text>
+        <Text style={styles.Email}>samuelalvesdiasdasilvasadds@gmail.com</Text>
+        <Text style={styles.Subsemail}>Email de usuario</Text>
+      </View>
+      {/* caso for listar todos os usuarios cadastrados no celular em um tela(nao é prioridade)
       <View style={styles.usuarioscontainer}>
       </View>*/}
-      </SafeAreaView >
     </SafeAreaView>
   )
 }
@@ -28,29 +33,50 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#FFF",
   },
-  containerHeader: {
-    backgroundColor: "#3FE78C",
+  ViewIMGname: {
     width: '100%',
-    height: 100,
     alignItems: "center",
     justifyContent: 'center'
   },
-  ViewUser: {
-    marginLeft: 30
+
+  imagem: {
 
 
   },
   User: {
     fontSize: 24,
-    color: "#fff",
+    color: "black",
     fontWeight: 600,
 
   },
-  email: {
-    fontSize: 17,
-    color: "#fff",
-    fontWeight: 400,
+  ViewConta: {
+    backgroundColor: '#F8FBFF',
+    borderRadius: 14,
+    width: '95%',
+    height: 700,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
+    elevation: 2,
+
   },
+  Conta: {
+    color: '#3F96E7',
+    fontSize: 18,
+    fontWeight: 700
+  },
+  Nome: {
+    fontSize: 18,
+    fontWeight: 700
+  },
+  Subsnome: {},
+
+  Email: {
+    fontSize: 15,
+    fontWeight: 700,
+  },
+  Subsemail: {},
 
   /*usuarioscontainer: {
   display: flex*/

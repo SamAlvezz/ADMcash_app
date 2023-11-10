@@ -19,10 +19,10 @@ export default function Receitas() {
       <Text style={styles.text1}>
         Registre as receitas e categorize.
       </Text>
+      <SafeAreaView style={styles.area2}>
 
-      <SafeAreaView style={styles.AdcView} >
-        <Text style={styles.textAdc}>Adicionar</Text>
-        <TouchableOpacity >
+        <Text style={styles.AdcText}>Adicionar  </Text>
+        <TouchableOpacity style={styles.AdcIcone} onPress={() => setModalVisible(true)}>
           <AntDesign name="pluscircle" size={20} color={"#3F96E7"} />
         </TouchableOpacity>
 
@@ -48,29 +48,41 @@ const styles = StyleSheet.create({
     color: "#fff",
     marginTop: '7%',
     marginBottom: '7%',
+    paddingStart: '5%',
   },
   Valor: {
     fontSize: 15,
     color: "#fff",
+    paddingStart: '5%',
   },
 
   Total: {
     fontSize: 32,
     color: "#fff",
+    paddingStart: '5%',
   },
 
   text1: {
-    fontSize: 13,
+  marginTop: 8,
     flexDirection: 'row',
+    color: "#00000080",
+    fontSize: 16,
+    marginStart: 10
   },
   AdcView: {
     flexDirection: 'row',
 
   },
+  area2: {
+    flexDirection:'row',
+    justifyContent:'flex-end',
+    marginEnd: 50
+  },
 
-  textAdc: {
-    color: "#00000080",
-    fontSize: 16
+  AdcText: {
+    paddingLeft: 40,
+    fontSize: 18,
+    opacity: 0.5,
   },
 
 })

@@ -8,7 +8,7 @@ import { CheckBox } from 'react-native-elements';
 export default function Despesas() {
   const [modalVisible, setModalVisible] = useState(false);
   const [despesas, setDespesas] = useState([]);
-  const [selectedFilter, setSelectedFilter] = useState("Todos"); 
+  const [selectedFilter, setSelectedFilter] = useState("Todos");
   const [filtroVisivel, setFiltroVisivel] = useState(false);
 
   const adicionarDespesa = async (novaDespesa) => {
@@ -55,24 +55,24 @@ export default function Despesas() {
         </View>
       </SafeAreaView>
 
-    
+
       <SafeAreaView style={styles.area1}>
-          <Text style={styles.text}>
+        <Text style={styles.text}>
           Registre as despesas e categorize.
-          </Text>
-        </SafeAreaView>
+        </Text>
+      </SafeAreaView>
       <SafeAreaView style={styles.area2}>
-      <View style={styles.filterIcon}>
+        <View style={styles.filterIcon}>
           <TouchableOpacity onPress={toggleFiltros}>
             <AntDesign name="filter" size={20} color="black" />
           </TouchableOpacity>
-        </View> 
+        </View>
 
-        <Text style={styles.text1}>Adicionar</Text>
-        <TouchableOpacity style={styles.text2} onPress={() => setModalVisible(true)}>
+        <Text style={styles.AdcText}>Adicionar</Text>
+        <TouchableOpacity style={styles.AdcIcone} onPress={() => setModalVisible(true)}>
           <AntDesign name="pluscircle" size={20} color={"#3F96E7"} />
         </TouchableOpacity>
-       
+
       </SafeAreaView>
       {filtroVisivel && (
         <View style={styles.filtrosContainer}>
@@ -101,7 +101,7 @@ export default function Despesas() {
             checked={selectedFilter === "Extra"}
             onPress={() => setSelectedFilter("Extra")}
           />
-          
+
         </View>
       )}
 
@@ -116,18 +116,18 @@ export default function Despesas() {
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
           <View style={styles.itemContainer}>
-          <SafeAreaView style={styles.alinhalist}>
-            <Text style={styles.itemText2}>{item.nome} </Text>
-            <Text style={styles.itemText}> - {item.tipo} - </Text>
-            <Text style={styles.itemText}>
-              {new Date(item.dataValidade).toLocaleDateString('pt-BR')}
-            </Text>
-           
-            <Text style={styles.itemText1}>R${item.valor}</Text>
+            <SafeAreaView style={styles.alinhalist}>
+              <Text style={styles.itemText2}>{item.nome} </Text>
+              <Text style={styles.itemText}> - {item.tipo} - </Text>
+              <Text style={styles.itemText}>
+                {new Date(item.dataValidade).toLocaleDateString('pt-BR')}
+              </Text>
+
+              <Text style={styles.itemText1}>R${item.valor}</Text>
 
             </SafeAreaView>
-           
-            
+
+
             <Text style={styles.itemText}>{item.observacoes}</Text>
           </View>
         )}
@@ -139,35 +139,34 @@ export default function Despesas() {
 
 const styles = StyleSheet.create({
   container: {
-    flex:1,
+    flex: 1,
     backgroundColor: "#FFF",
   },
   containerHeader: {
     backgroundColor: "#E73F3F",
-   width: '100%'
+    width: '100%'
   },
   area1: {
-   
+
     flexDirection: "row",
     marginBottom: "6%",
-   marginTop:"3%",
+    marginTop: "3%",
   },
   text: {
- color: "#00000080",
+    color: "#00000080",
     fontSize: 16,
+    marginStart: 10
   },
   mensagem: {
     fontSize: 24,
     color: "#fff",
     marginTop: '7%',
     marginBottom: '7%',
-    
     paddingStart: '5%',
   },
   Valor: {
     fontSize: 15,
     color: "#fff",
-    
     paddingStart: '5%',
   },
   Total: {
@@ -179,18 +178,17 @@ const styles = StyleSheet.create({
     flexDirection: "row",
 
   },
-  text1: {
+  AdcText: {
     fontSize: 18,
     opacity: 0.5,
     paddingStart: '40%'
   },
-  text2: {
-  paddingStart: 5
+  AdcIcone: {
+    paddingStart: 5
   },
   filtroButton: {
     flexDirection: 'row',
     justifyContent: 'center',
-  
     backgroundColor: '#EDEDED',
     padding: 8,
   },
@@ -210,7 +208,7 @@ const styles = StyleSheet.create({
   },
   itemLabel: {
     fontSize: 14,
-    
+
   },
   itemText1: {
     fontSize: 16,
@@ -236,7 +234,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   filterIcon: {
-    paddingStart:'8%', // Ajuste a margem esquerda aqui para posicionar o ícone do filtro
+    paddingStart: '8%', // Ajuste a margem esquerda aqui para posicionar o ícone do filtro
   },
   alinhalist: {
     flexDirection: 'row',

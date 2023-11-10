@@ -1,5 +1,13 @@
 import React from "react";
-import { View, Text, StyleSheet, SafeAreaView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity
+} from "react-native";
+ import { Image } from "react-native";
 
 
 export default function Usuarios() {
@@ -7,18 +15,18 @@ export default function Usuarios() {
 
     <SafeAreaView style={styles.container}>
       <View style={styles.ViewIMGname}>
-        <image style={styles.imagem} source={{
-          uri: ""
+        <Image style={styles.imagem} source={{
+          uri: "https://cdn-icons-png.flaticon.com/512/3177/3177440.png"
         }} />
-        <Text style={styles.User}>Usuário tal</Text>
+        <Text style={styles.User}>Samuel</Text>
       </View >
 
       <View style={styles.ViewConta}>
         <Text style={styles.Conta}>Conta</Text>
         <Text style={styles.Nome}>Samuel</Text>
-        <Text style={styles.Subsnome}>Nome de usuario</Text>
+        <Text style={styles.Subsnome}>Nome de usuário</Text>
         <Text style={styles.Email}>samuelalvesdiasdasilvasadds@gmail.com</Text>
-        <Text style={styles.Subsemail}>Email de usuario</Text>
+        <Text style={styles.Subsemail}>Email de usuário</Text>
       </View>
       {/* caso for listar todos os usuarios cadastrados no celular em um tela(nao é prioridade)
       <View style={styles.usuarioscontainer}>
@@ -40,7 +48,8 @@ const styles = StyleSheet.create({
   },
 
   imagem: {
-
+    height: 100,
+    width: 100
 
   },
   User: {
@@ -70,13 +79,19 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 700
   },
-  Subsnome: {},
+  Subsnome: {
+    color: '#949494',
+    fontWeight: 600
+  },
 
   Email: {
     fontSize: 15,
     fontWeight: 700,
   },
-  Subsemail: {},
+  Subsemail: {
+    color: '#949494',
+    fontWeight: 600
+  },
 
   /*usuarioscontainer: {
   display: flex*/

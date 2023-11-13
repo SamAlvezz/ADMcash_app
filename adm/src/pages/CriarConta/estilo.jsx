@@ -48,7 +48,6 @@ const styles = {
     opacity: 0.5,
   },
   containerForm1: {
-    
     paddingEnd: "5%",
     marginTop: "25%",
   },
@@ -61,8 +60,7 @@ const styles = {
     marginBottom: "3%",
 
   },
-  containerConfirmar: {
-    
+  containerConfirmar: {   
     flexDirection: "row",
     marginBottom: "42%",
 

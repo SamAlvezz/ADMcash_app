@@ -110,6 +110,7 @@ function ModalDespesas({ visible, onClose, onSave }) {
 const styles = StyleSheet.create({
   centeredView: {
     backgroundColor: "rgba(24, 24, 24, 0.6)",
+    flex: 1,
 
   },
   modalView: {
@@ -117,7 +118,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     borderRadius: 20,
     backgroundColor: "white",
-    padding: 20,
+    padding: 30,
   },
   preenchimentosdespesas: {
     fontSize: 20,

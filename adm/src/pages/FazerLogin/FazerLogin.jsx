@@ -36,7 +36,7 @@ export default function FazerLogin( ) {
           <Text style={styles.messagem}>Bem vindo novamente!</Text>
         </SafeAreaView>
 
-        <SafeAreaView style={styles.containerForm}>
+        <SafeAreaView>
           <Text style={styles.titulo}>Qual o seu Email?</Text>
         </SafeAreaView>
 
@@ -52,7 +52,7 @@ export default function FazerLogin( ) {
           </TouchableOpacity>
         </SafeAreaView>
 
-        <SafeAreaView style={styles.containerForm}>
+        <SafeAreaView>
           <Text style={styles.titulo}>Senha</Text>
         </SafeAreaView>
         <SafeAreaView style={styles.containerSenha}>
@@ -79,7 +79,7 @@ export default function FazerLogin( ) {
           </TouchableOpacity>
         </SafeAreaView>
 
-        <SafeAreaView style={styles.containerForm}>
+        <SafeAreaView>
           <TouchableOpacity style={styles.botao}>
             <Text style={styles.botaotexto}>Recuperar senha</Text>
           </TouchableOpacity>
@@ -87,7 +87,8 @@ export default function FazerLogin( ) {
         </SafeAreaView>
       
         <View>
-          <CustomButton onPress={() => navigation.navigate("Menu")} title={"Fazer Login"} />
+          <CustomButton onPress={() => 
+            navigation.navigate("Menu")} title={"Fazer Login"} />
         </View>
       </Animatable.View>
     </View>

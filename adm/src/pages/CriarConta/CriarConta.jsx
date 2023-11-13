@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -8,47 +9,65 @@ import {
 import CustomButton from "../../Components/BotaoContinuar/BotaoContinuar";
 import { useNavigation } from "@react-navigation/native";
 import styles from "./estilo";
-import React, { useState } from "react";
 import * as Animatable from "react-native-animatable";
 import { Ionicons } from "@expo/vector-icons";
+import axios from 'axios';
 
-export default function CriarConta() {
+const CriarConta = () => {
   const [input, setInput] = useState("");
   const [input1, setInput1] = useState("");
   const [input2, setInput2] = useState("");
   const [input3, setInput3] = useState("");
-  const [hidePass, setHidepass] = useState(true);
+  const [hidePass, setHidePass] = useState(true);
+  const [hidePassConfirm, setHidePassConfirm] = useState(true);
   const navigation = useNavigation();
 
-  const clearInput = () => {
-    setInput("");
-  };
-  const clearInput1 = () => {
-    setInput1("");
-  };
-  const clearInput2 = () => {
-    setInput2("");
-  };
-  const clearInput3 = () => {
-    setInput3("");
+  const clearInput = () => setInput("");
+  const clearInput1 = () => setInput1("");
+  const clearInput2 = () => setInput2("");
+  const clearInput3 = () => setInput3("");
+
+  const navigate = (page) => {
+    navigation.navigate(page);
   };
 
-  function navigate(page) {
-    navigation.navigate(page);
-  }
+  const CadastrarConta = async () => {
+    try {
+      const response = await axios.post('URLdaAPI', {
+        nome: input,
+        email: input1,
+        senha: input3,
+       
+      });
+
+      if (response.status === 200) {
+        navigate("TelaGeral");
+      } else
+      {
+        console.error('Erro na API:', response.data);
+        alert('Erro no cadastro. Verifique suas informações e tente novamente.');
+      }
+    } 
+    catch (error) {
+      console.error('Erro na requisição:', error);
+      
+      alert('Erro na requisição. Tente novamente mais tarde.');
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Animatable.View animation="fadeInLeft" delay={500}>
         <SafeAreaView style={styles.containerHeader}>
           <Text style={styles.messagem}>  Crie sua Conta!   </Text>
         </SafeAreaView>
-        <SafeAreaView style={styles.containerForm}>
+        <SafeAreaView>
           <Text style={styles.titulo}>Qual o seu Nome?</Text>
         </SafeAreaView>
 
         <SafeAreaView style={styles.containerNome}>
           <TextInput
-            placeholder="Digite  seu Nome"
+            placeholder="Digite seu Nome"
             style={styles.input}
             value={input}
             onChangeText={(texto) => setInput(texto)}
@@ -58,13 +77,13 @@ export default function CriarConta() {
           </TouchableOpacity>
         </SafeAreaView>
 
-        <SafeAreaView style={styles.containerForm}>
+        <SafeAreaView>
           <Text style={styles.titulo}>Qual o seu Email?</Text>
         </SafeAreaView>
 
         <SafeAreaView style={styles.containerEmail}>
           <TextInput
-            placeholder="Digite  seu email"
+            placeholder="Digite seu email"
             style={styles.input}
             value={input1}
             onChangeText={(texto) => setInput1(texto)}
@@ -74,7 +93,7 @@ export default function CriarConta() {
           </TouchableOpacity>
         </SafeAreaView>
 
-        <SafeAreaView style={styles.containerForm}>
+        <SafeAreaView>
           <Text style={styles.titulo}>Senha</Text>
         </SafeAreaView>
         <SafeAreaView style={styles.containerSenha}>
@@ -88,7 +107,7 @@ export default function CriarConta() {
 
           <TouchableOpacity
             style={styles.mostrar}
-            onPress={() => setHidepass(!hidePass)}
+            onPress={() => setHidePass(!hidePass)}
           >
             {hidePass ? (
               <Ionicons name="eye" color="" size={16}></Ionicons>
@@ -102,7 +121,7 @@ export default function CriarConta() {
           </TouchableOpacity>
         </SafeAreaView>
 
-        <SafeAreaView style={styles.containerForm}>
+        <SafeAreaView>
           <Text style={styles.titulo}>Confirme sua senha</Text>
         </SafeAreaView>
 
@@ -112,12 +131,13 @@ export default function CriarConta() {
             style={styles.input}
             value={input3}
             onChangeText={(texto) => setInput3(texto)}
+            secureTextEntry={hidePassConfirm}
           />
           <TouchableOpacity
             style={styles.mostrar}
-            onPress={() => setHidepass(!hidePass)}
+            onPress={() => setHidePassConfirm(!hidePassConfirm)}
           >
-            {hidePass ? (
+            {hidePassConfirm ? (
               <Ionicons name="eye" color="" size={16}></Ionicons>
             ) : (
               <Ionicons name="eye" color="" size={16}></Ionicons>
@@ -130,14 +150,11 @@ export default function CriarConta() {
         </SafeAreaView>
 
         <View>
-          <CustomButton
-            onPress={() => navigate("FazerLogin")}
-            title={"Criar Conta"}
-           
-          />
+        <CustomButton onPress={CadastrarConta} title={"Criar Conta"} />
         </View>
       </Animatable.View>
     </View>
   );
-}
+};
 
+export default CriarConta;

@@ -138,19 +138,20 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: "5%",
     marginHorizontal: 10,
-    width: '65%'
+    width: '54%'
   },
   botaotext: {
     color: "#fff",
     fontSize: 13,
     fontWeight: 700,
-    paddingStart: "2%",
+    paddingStart: "8%",
     shadowColor: 'black',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 6,
     borderRadius: 14,
     paddingVertical: 7,
+   
 
   },
 

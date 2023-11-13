@@ -3,14 +3,17 @@ import { createStackNavigator } from "@react-navigation/stack";
 import TelaInicial from "./src/pages/TelaInicial/TelaInicial";
 import CriarConta from "./src/pages/CriarConta/CriarConta";
 import FazerLogin from "./src/pages/FazerLogin/FazerLogin";
+import TelaGeral from "./src/pages/TelaGeral/TelaGeral";
 import BotaoContinuar from "./src/Components/BotaoContinuar/BotaoContinuar";
 import Menu from "./src/pages/Navigator/TabNavigator";
 import Despesas from "./src/pages/Despesas/Despesas";
 import Receitas from "./src/pages/Receitas/Receita"
 import ModalDespesas from "./src/Components/ModalDespesas/ModalDespesas";
 import ModalReceitas from "./src/Components/ModalReceitas/ModalReceitas";
+import Usuarios from "./src/pages/Usuarios/Usuarios";
 
-import { StyleSheet, Text, View } from "react-native";
+
+
 
 const Stack = createStackNavigator();
 
@@ -45,6 +48,8 @@ function App() {
         <Stack.Screen name="Despesas" component={Despesas}></Stack.Screen>
         <Stack.Screen name="ModalDespesas" component={ModalDespesas}></Stack.Screen>
         <Stack.Screen name="ModalReceitas" component={ModalReceitas}></Stack.Screen>
+        <Stack.Screen name="TelaGeral" component={TelaGeral}></Stack.Screen>
+        <Stack.Screen name="Usuarios" component={Usuarios}></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );

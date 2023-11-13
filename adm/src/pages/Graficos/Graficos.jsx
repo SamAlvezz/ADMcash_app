@@ -60,7 +60,7 @@ export default function Graficos() {
       <SafeAreaView style={styles.containerHeader}>
         <Text style={styles.textHeader}>Gráficos</Text>
       </SafeAreaView>
-      <Text style={styles.text}>Outubro 2023</Text>
+      <Text style={styles.textdataatual}>Outubro de 2023</Text>
       <PieChart style={{ marginTop: 50, height: 150 }} data={pieData}>
         <Label />
       </PieChart>
@@ -83,39 +83,29 @@ export default function Graficos() {
  
 const styles = StyleSheet.create({
   container: {
-    position: "relative",
-    height: 2000,
-    width: 360,
+    flex:1,
     alignItems: "center",
     backgroundColor: "#FFF",
  
   },
-  text: {
-    width: 100,
-    height: 27,
-    fontSize: 17,
-    color: '#3F96E7',
-    textAlign: 'center',
-    marginTop: 5,
-    marginRight: 25,
-    fontWeight: 600,
+  textdataatual: {
+    color: "#3F96E7",
+    fontSize: 20,
+    fontWeight: 700,
+    marginTop: "3%",
+    alignSelf:'center'
   },
   textHeader: {
-    width: 188,
-    height: 27,
-    flexShrink: 0,
-    fontSize: 20,
-    color: '#fff',
-    textAlign: 'center',
-    fontWeight: 750,
+    fontSize: 26,
+    color: "#fff",
+    fontWeight: 600
   },
   containerHeader: {
-    flexDirection: 'row',
     backgroundColor: '#3FE78C',
-    width: 360,
+    width: '100%',
     height: 80,
+    justifyContent:'center',
     alignItems: 'center',
-    paddingLeft: '20%',
   },
 
     DatatextContainer: {

@@ -23,23 +23,22 @@ export default function Metas() {
       <Text style={styles.text}></Text>
 
       <SafeAreaView style={styles.MetasView}>
-        <Text style={styles.titulo}>Progresso</Text>
+        <View style={styles.textdinamico}>
+          <Text style={styles.titulo}>POP 100</Text>
+          <Text style={styles.dataBaterMeta}>15/11/24</Text>
+        </View>
 
-        {/* <TouchableOpacity style={styles.botao}>
-          <Text style={styles.botaotext}>6.300 R$</Text>
-        </TouchableOpacity> */}
+        <View style={styles.textdinamico}>
+          <Text style={styles.ValordaMeta}>Valor da meta:</Text>
+          <Text style={styles.DinheirodaMeta}>R$15.390,00</Text>
+        </View>
 
-        <SafeAreaView style={styles.textdinamico}>
-          <Text style={styles.dinheiro}>Valor da meta: R$15,390 </Text>
-
-          <Text style={styles.porcentagem}></Text>
-        </SafeAreaView>
-        <SafeAreaView style={styles.area2}>
-          <Text style={styles.text1}>Adicionar</Text>
-          <TouchableOpacity style={styles.text2}>
-            <AntDesign name="pluscircle" size={20} color={"#3F96E7"} />
-          </TouchableOpacity>
-        </SafeAreaView>
+      </SafeAreaView>
+      <SafeAreaView style={styles.area2}>
+        <Text style={styles.text1}>Adicionar</Text>
+        <TouchableOpacity style={styles.text2}>
+          <AntDesign name="pluscircle" size={20} color={"#3F96E7"} />
+        </TouchableOpacity>
       </SafeAreaView>
     </View>
   );
@@ -66,19 +65,7 @@ const styles = StyleSheet.create({
 
   textdinamico: {
     flexDirection: "row",
-  },
-
-  dinheiro: {
-    color: "#000",
-    fontSize: 15,
-    fontWeight: 700,
-      },
-
-  porcentagem: {
-    color: "#3FE746F5",
-    fontSize: 15,
-    fontWeight: 700,
-    
+    justifyContent: 'space-between'
   },
 
   containerHeader: {
@@ -93,13 +80,19 @@ const styles = StyleSheet.create({
   MetasView: {
     width: '95%',
     height: 126,
-    backgroundColor: "#97BEA9",
+    backgroundColor: "#F6FBFF",
     marginBottom: "5%",
     borderRadius: 14,
-    marginTop: '10%'
+    marginTop: '10%',
+    shadowColor: 'black',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    padding: 1
+
   },
 
-  botao: {   
+  botao: {
     height: 31,
     borderRadius: 14,
     backgroundColor: "#3FE78C",
@@ -110,17 +103,41 @@ const styles = StyleSheet.create({
   titulo: {
     color: "#000",
     fontSize: 15,
-    fontWeight: 700, 
+    fontWeight: 700,
     marginBottom: "4%",
     marginTop: "3%",
+    marginHorizontal: 7
   },
 
+  dataBaterMeta: {
+    color: '#F82B2B',
+    fontSize: 15,
+    fontWeight: 600,
+    marginTop: 8,
+    marginEnd: 5
+  },
+
+  ValordaMeta: {
+    color: "#000",
+    fontSize: 15,
+    fontWeight: 700,
+    marginHorizontal: 7
+  },
+  DinheirodaMeta: {
+    marginEnd: 5,
+    overflow: "hidden",
+    maxWidth: 250,
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
+    fontWeight: 700
+  },
   mensagem: {
     fontWeight: 600,
     height: 27,
     fontSize: 26,
     color: "#fff",
     textAlign: "center",
+
   },
   area2: {
     marginTop: '10%',
@@ -131,9 +148,11 @@ const styles = StyleSheet.create({
     opacity: 0.5,
     fontSize: 18,
     flexDirection: "row",
-    paddingLeft: "10%",
+    paddingStart: '55%',
+    margin
   },
   text2: {
     paddingLeft: "4%",
   },
+
 });

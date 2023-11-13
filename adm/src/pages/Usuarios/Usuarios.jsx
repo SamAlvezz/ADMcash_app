@@ -7,7 +7,7 @@ import {
   ScrollView,
   TouchableOpacity
 } from "react-native";
- import { Image } from "react-native";
+import { Image } from "react-native";
 
 
 export default function Usuarios() {
@@ -21,13 +21,17 @@ export default function Usuarios() {
         <Text style={styles.User}>Samuel</Text>
       </View >
 
-      <View style={styles.ViewConta}>
-        <Text style={styles.Conta}>Conta</Text>
-        <Text style={styles.Nome}>Samuel</Text>
-        <Text style={styles.Subsnome}>Nome de usuário</Text>
-        <Text style={styles.Email}>samuelalvesdiasdasilvasadds@gmail.com</Text>
-        <Text style={styles.Subsemail}>Email de usuário</Text>
-      </View>
+      <SafeAreaView style={styles.ViewConta}>
+        <View style={styles.Infos}>
+          <Text style={styles.Conta}>Conta</Text>
+          <Text style={styles.Nome}>Samuel</Text>
+          <Text style={styles.Subsnome}>Nome de usuário</Text>
+          <View style={styles.ViewSeparadora}></View>
+          <Text style={styles.Email}>samuelalvesdiasdasilvasadds@gmail.com</Text>
+          <Text style={styles.Subsemail}>Email de usuário</Text>
+          <View style={styles.ViewSeparadora}></View>
+        </View>
+      </SafeAreaView>
       {/* caso for listar todos os usuarios cadastrados no celular em um tela(nao é prioridade)
       <View style={styles.usuarioscontainer}>
       </View>*/}
@@ -44,13 +48,13 @@ const styles = StyleSheet.create({
   ViewIMGname: {
     width: '100%',
     alignItems: "center",
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginTop: 40
   },
 
   imagem: {
     height: 100,
-    width: 100
-
+    width: 100,
   },
   User: {
     fontSize: 24,
@@ -70,10 +74,16 @@ const styles = StyleSheet.create({
     elevation: 2,
 
   },
+  Infos:{
+    marginHorizontal: 6,
+  },
   Conta: {
     color: '#3F96E7',
-    fontSize: 18,
-    fontWeight: 700
+    fontSize: 20,
+    fontWeight: 700,
+    marginTop:20,
+    marginBottom: 20
+
   },
   Nome: {
     fontSize: 18,
@@ -92,6 +102,13 @@ const styles = StyleSheet.create({
     color: '#949494',
     fontWeight: 600
   },
+  ViewSeparadora:{
+    height: 1,
+    backgroundColor: '#D9D9D9',
+    marginBottom: 8,
+    width:'100%',
+    paddingStart:5
+  }
 
   /*usuarioscontainer: {
   display: flex*/

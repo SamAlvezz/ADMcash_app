@@ -149,7 +149,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     flexDirection: "row",
     paddingStart: '55%',
-    margin
   },
   text2: {
     paddingLeft: "4%",

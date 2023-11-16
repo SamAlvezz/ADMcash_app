@@ -56,10 +56,10 @@ export default function Graficos() {
  
   return (
     <ScrollView>
-    <SafeAreaView>
-      <SafeAreaView style={styles.containerHeader}>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.containerHeader}>
         <Text style={styles.textHeader}>Gráficos</Text>
-      </SafeAreaView>
+      </View>
       <Text style={styles.textdataatual}>Outubro de 2023</Text>
       <PieChart style={{ marginTop: 50, height: 150 }} data={pieData}>
         <Label />
@@ -84,7 +84,6 @@ export default function Graficos() {
 const styles = StyleSheet.create({
   container: {
     flex:1,
-    alignItems: "center",
     backgroundColor: "#FFF",
  
   },

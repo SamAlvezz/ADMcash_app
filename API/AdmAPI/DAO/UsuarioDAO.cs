@@ -65,7 +65,7 @@ namespace AdmAPI.DAO
             var conexao = ConnectionFactory.Build();
             conexao.Open();
 
-            var query = @"INSERT INTO DESPESAS (NOME, EMAIL, SENHA) VALUES
+            var query = @"INSERT INTO USUARIO (NOME, EMAIL, SENHA) VALUES
             (@NOME, @EMAIL, @SENHA);";
 
             var comando = new MySqlCommand(query, conexao);

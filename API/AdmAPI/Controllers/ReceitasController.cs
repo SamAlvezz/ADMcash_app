@@ -48,7 +48,7 @@ namespace AdmAPI.Controllers
         public IActionResult AlterarReceita([FromBody] ReceitasDTO receita)
         {
             var dao = new ReceitasDAO();
-            dao.AlterarDespesa(receita);
+            dao.AlterarReceita(receita);
             return Ok();
         }
     }

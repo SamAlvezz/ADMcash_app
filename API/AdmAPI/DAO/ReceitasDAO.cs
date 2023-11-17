@@ -1,4 +1,5 @@
 ﻿using AdmAPI.DTO;
+using MySql.Data.MySqlClient;
 
 namespace AdmAPI.DAO
 {
@@ -90,14 +91,14 @@ namespace AdmAPI.DAO
             conexao.Open();
 
             var query = @"UPDATE RECEITAS SET NOME_RCT = @NOME_RCT, VALOR_RCT = @VALOR_RCT, DESCRICAO = @DESCRICAO, DATA_RECEBIMENTO = @DATA_RECEBIMENTO
-            where COD_RCT = @COD_RCT";
+                where COD_RCT = @COD_RCT";
 
             var comando = new MySqlCommand(query, conexao);
-            comando.Parameters.AddWithValue("@COD_RCT", despesa.COD_RCT);
-            comando.Parameters.AddWithValue("@NOME_RCT", despesa.NOME_RCT);
-            comando.Parameters.AddWithValue("@VALOR_RCT", despesa.VALOR_RCT);
-            comando.Parameters.AddWithValue("@DESCRICAO", despesa.DESCRICAO);
-            comando.Parameters.AddWithValue("@DATA_RECEBIMENTO", despesa.DATA_RECEBIMENTO);
+            comando.Parameters.AddWithValue("@COD_RCT", receita.COD_RCT);
+            comando.Parameters.AddWithValue("@NOME_RCT", receita.NOME_RCT);
+            comando.Parameters.AddWithValue("@VALOR_RCT", receita.VALOR_RCT);
+            comando.Parameters.AddWithValue("@DESCRICAO", receita.DESCRICAO);
+            comando.Parameters.AddWithValue("@DATA_RECEBIMENTO", receita.DATA_RECEBIMENTO);
 
             comando.ExecuteNonQuery();
             conexao.Close();

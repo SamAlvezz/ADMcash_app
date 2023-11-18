@@ -9,8 +9,9 @@ namespace AdmAPI.DAO
         public List<ReceitasDTO> ListarReceitas()
         {
 
-            string hoje = DateTime.Now.ToString("d");
-            string format = "d";
+            string dateString = "18/11/2023";
+            string format = "dd/MM/yyyy";
+            CultureInfo provider = CultureInfo.InvariantCulture;
 
             var conexao = ConnectionFactory.Build();
             conexao.Open();
@@ -29,7 +30,7 @@ namespace AdmAPI.DAO
                 receita.NOME_RCT = dataReader["NOME_RCT"].ToString();
                 receita.VALOR_RCT = float.Parse(dataReader["VALOR_RCT"].ToString());
                 receita.DESCRICAO = dataReader["DESCRICAO"].ToString();
-                receita.DATA_RECEBIMENTO = DateTime.ParseExact(hoje, format, CultureInfo.InvariantCulture);
+                receita.DATA_RECEBIMENTO = DateTime.ParseExact(dateString, format, provider);
 
 
                 receitas.Add(receita);

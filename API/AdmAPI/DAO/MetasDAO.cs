@@ -78,7 +78,7 @@ namespace AdmAPI.DAO
             var conexao = ConnectionFactory.Build();
             conexao.Open();
 
-            var query = @"UPDATE METAS SET NOME_DESP = @NOME_MT, VALOR_MT = @VALOR_MT
+            var query = @"UPDATE METAS SET NOME_MT = @NOME_MT, VALOR_MT = @VALOR_MT
             where COD_MT = @COD_MT";
 
             var comando = new MySqlCommand(query, conexao);
@@ -97,7 +97,7 @@ namespace AdmAPI.DAO
             var query = @"DELETE FROM METAS WHERE COD_MT = @COD_MT;";
 
             var comando = new MySqlCommand(query, conexao);
-            comando.Parameters.AddWithValue("@COD_DESP", COD_MT);
+            comando.Parameters.AddWithValue("@COD_MT", COD_MT);
 
             comando.ExecuteNonQuery();
             conexao.Close();

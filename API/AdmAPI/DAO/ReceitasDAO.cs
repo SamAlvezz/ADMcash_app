@@ -1,5 +1,6 @@
 ﻿using AdmAPI.DTO;
 using MySql.Data.MySqlClient;
+using System.Globalization;
 
 namespace AdmAPI.DAO
 {
@@ -14,7 +15,7 @@ namespace AdmAPI.DAO
             var conexao = ConnectionFactory.Build();
             conexao.Open();
 
-            var query = "SELECT*FROM RECEITAS";
+            var query = "SELECT*FROM RECEITA";
 
             var comando = new MySqlCommand(query, conexao);
             var dataReader = comando.ExecuteReader();
@@ -28,7 +29,8 @@ namespace AdmAPI.DAO
                 receita.NOME_RCT = dataReader["NOME_RCT"].ToString();
                 receita.VALOR_RCT = float.Parse(dataReader["VALOR_RCT"].ToString());
                 receita.DESCRICAO = dataReader["DESCRICAO"].ToString();
-                receita.DATA_RECEBIMENTO = DateOnly.ParseExact(hoje, format);
+                receita.DATA_RECEBIMENTO = DateTime.ParseExact(hoje, format, CultureInfo.InvariantCulture);
+
 
                 receitas.Add(receita);
             }
@@ -45,7 +47,7 @@ namespace AdmAPI.DAO
             var conexao = ConnectionFactory.Build();
             conexao.Open();
 
-            var query = "SELECT*FROM RECEITAS Where Nome Like '%" + filtro + "%'";
+            var query = "SELECT*FROM RECEITA Where Nome Like '%" + filtro + "%'";
 
             var comando = new MySqlCommand(query, conexao);
             var dataReader = comando.ExecuteReader();
@@ -59,7 +61,8 @@ namespace AdmAPI.DAO
                 receita.NOME_RCT = dataReader["NOME_RCT"].ToString();
                 receita.VALOR_RCT = float.Parse(dataReader["VALOR_RCT"].ToString());
                 receita.DESCRICAO = dataReader["DESCRICAO"].ToString();
-                receita.DATA_RECEBIMENTO = DateOnly.ParseExact(hoje, format);
+                receita.DATA_RECEBIMENTO = DateTime.ParseExact(hoje, format, CultureInfo.InvariantCulture);
+
 
                 receitas.Add(receita);
             }
@@ -73,7 +76,7 @@ namespace AdmAPI.DAO
             var conexao = ConnectionFactory.Build();
             conexao.Open();
 
-            var query = @"INSERT INTO RECEITAS (NOME_RCT, VALOR_RCT, DESCRICAO, DATA_RECEBIMENTO) VALUES
+            var query = @"INSERT INTO RECEITA (NOME_RCT, VALOR_RCT, DESCRICAO, DATA_RECEBIMENTO) VALUES
             (@NOME_RCT, @VALOR_RCT, @DESCRICAO, @DATA_RECEBIMENTO);";
 
             var comando = new MySqlCommand(query, conexao);
@@ -90,7 +93,7 @@ namespace AdmAPI.DAO
             var conexao = ConnectionFactory.Build();
             conexao.Open();
 
-            var query = @"UPDATE RECEITAS SET NOME_RCT = @NOME_RCT, VALOR_RCT = @VALOR_RCT, DESCRICAO = @DESCRICAO, DATA_RECEBIMENTO = @DATA_RECEBIMENTO
+            var query = @"UPDATE RECEITA SET NOME_RCT = @NOME_RCT, VALOR_RCT = @VALOR_RCT, DESCRICAO = @DESCRICAO, DATA_RECEBIMENTO = @DATA_RECEBIMENTO
                 where COD_RCT = @COD_RCT";
 
             var comando = new MySqlCommand(query, conexao);

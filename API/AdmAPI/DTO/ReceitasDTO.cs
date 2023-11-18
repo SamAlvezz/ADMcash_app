@@ -6,7 +6,7 @@
         public string NOME_RCT { get; set; }
         public double VALOR_RCT { get; set; }
         public string DESCRICAO { get; set; }
-        public DateOnly DATA_RECEBIMENTO { get; set; }
+        public DateTime DATA_RECEBIMENTO { get; set; }
 
     }
 }

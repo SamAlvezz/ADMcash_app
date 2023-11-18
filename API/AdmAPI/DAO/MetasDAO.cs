@@ -68,7 +68,7 @@ namespace AdmAPI.DAO
 
             var comando = new MySqlCommand(query, conexao);
             comando.Parameters.AddWithValue("@NOME_MT", meta.NOME_MT);
-            comando.Parameters.AddWithValue("@VALOR_DESP", meta.VALOR_MT);
+            comando.Parameters.AddWithValue("@VALOR_MT", meta.VALOR_MT);
 
             comando.ExecuteNonQuery();
             conexao.Close();

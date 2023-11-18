@@ -48,7 +48,7 @@ namespace AdmAPI.DAO
             var conexao = ConnectionFactory.Build();
             conexao.Open();
 
-            var query = "SELECT*FROM RECEITA Where Nome Like '%" + filtro + "%'";
+            var query = "SELECT*FROM RECEITA Where NOME_RCT Like '%" + filtro + "%'";
 
             var comando = new MySqlCommand(query, conexao);
             var dataReader = comando.ExecuteReader();

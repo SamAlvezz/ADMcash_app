@@ -37,7 +37,7 @@ namespace AdmAPI.DAO
             var conexao = ConnectionFactory.Build();
             conexao.Open();
 
-            var query = "SELECT*FROM METAS Where Nome Like '%" + filtro + "%'";
+            var query = "SELECT*FROM METAS Where NOME_MT Like '%" + filtro + "%'";
 
             var comando = new MySqlCommand(query, conexao);
             var dataReader = comando.ExecuteReader();

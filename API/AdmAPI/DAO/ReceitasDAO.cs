@@ -9,7 +9,7 @@ namespace AdmAPI.DAO
         public List<ReceitasDTO> ListarReceitas()
         {
 
-            
+            string dateString = "18/11/2023";
             string format = "dd/MM/yyyy";
             CultureInfo provider = CultureInfo.InvariantCulture;
 
@@ -30,7 +30,7 @@ namespace AdmAPI.DAO
                 receita.NOME_RCT = dataReader["NOME_RCT"].ToString();
                 receita.VALOR_RCT = float.Parse(dataReader["VALOR_RCT"].ToString());
                 receita.DESCRICAO = dataReader["DESCRICAO"].ToString();
-                receita.DATA_RECEBIMENTO = DateTime.ParseExact(format, provider);
+                receita.DATA_RECEBIMENTO = DateTime.ParseExact(dateString, format, provider);
 
 
                 receitas.Add(receita);

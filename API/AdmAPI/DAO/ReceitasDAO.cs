@@ -112,7 +112,7 @@ namespace AdmAPI.DAO
             var conexao = ConnectionFactory.Build();
             conexao.Open();
 
-            var query = @"DELETE FROM RECEITAS WHERE COD_RCT = @COD_RCT;";
+            var query = @"DELETE FROM RECEITA WHERE COD_RCT = @COD_RCT;";
 
             var comando = new MySqlCommand(query, conexao);
             comando.Parameters.AddWithValue("@COD_RCT", COD_RCT);

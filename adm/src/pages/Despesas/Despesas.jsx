@@ -123,7 +123,7 @@ export default function Despesas() {
                 {new Date(item.dataValidade).toLocaleDateString('pt-BR')}
               </Text>
 
-              <Text style={styles.itemText1}>R${item.valor}</Text>
+              <Text style={styles.itemText1}>{item.valor}</Text>
 
             </SafeAreaView>
 

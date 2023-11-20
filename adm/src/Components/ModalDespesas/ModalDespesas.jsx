@@ -12,7 +12,6 @@ import {
 } from "react-native";
 import { registerLocale, setDefaultLocale } from "react-datepicker";
 import ptBR from "date-fns/locale/pt-BR";
-
 // Registre o locale pt-BR para o DatePicker
 registerLocale("pt-BR", ptBR);
 
@@ -43,8 +42,28 @@ function ModalDespesas({ visible, onClose, onSave }) {
     onClose();
   };
 
+  const handleValorChange = (text) => {
+    // Remova todos os caracteres não numéricos
+    const numericValue = text.replace(/[^0-9]/g, '');
+  
+    // Adicione um sinal de menos no início, se ainda não estiver presente
+    const formattedValue = numericValue
+      ? `R$ -${Number(numericValue / 100).toLocaleString('pt-BR', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })}`
+      : '';
+  
+    setValorDespesa(formattedValue);
+  };
+  
+  
+
+
   return (
-    <Modal visible={visible} animationType="slide">
+    <Modal
+    transparent={true} 
+    visible={visible} animationType="fade">
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           <Text style={styles.preenchimentosdespesas}>Nome da Despesa</Text>
@@ -58,9 +77,10 @@ function ModalDespesas({ visible, onClose, onSave }) {
 
           <Text style={styles.preenchimentosdespesas}>Valor da Despesa</Text>
           <TextInput
-            value={valorDespesa}
-            onChangeText={setValorDespesa}
+            value={(valorDespesa)}
+            onChangeText={(text) => handleValorChange(text)}
             placeholder="R$00,00"
+            keyboardType="numeric"
             style={styles.input}
             placeholderTextColor="gray"
           />

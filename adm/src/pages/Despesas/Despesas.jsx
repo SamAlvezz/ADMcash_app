@@ -12,14 +12,25 @@ export default function Despesas() {
   const [filtroVisivel, setFiltroVisivel] = useState(false);
 
   const adicionarDespesa = async (novaDespesa) => {
-    const updatedDespesas = [...despesas, novaDespesa];
-    setDespesas(updatedDespesas);
-
+    if (editingIndex !== null) {
+      // Editar despesa existente
+      const updatedDespesas = [...despesas];
+      updatedDespesas[editingIndex] = novaDespesa;
+      setDespesas(updatedDespesas);
+      setEditingIndex(null);
+    } else {
+      // Adicionar nova despesa
+      const updatedDespesas = [...despesas, novaDespesa];
+      setDespesas(updatedDespesas);
+    }
+  
     try {
-      await AsyncStorage.setItem("despesas", JSON.stringify(updatedDespesas));
+      await AsyncStorage.setItem("despesas", JSON.stringify(despesas));
     } catch (error) {
       console.error("Erro ao salvar despesas no AsyncStorage: ", error);
     }
+  
+    setModalVisible(false);
   };
 
   useEffect(() => {
@@ -40,6 +51,7 @@ export default function Despesas() {
   const toggleFiltros = () => {
     setFiltroVisivel(!filtroVisivel);
   };
+  const [editingIndex, setEditingIndex] = useState(null);
 
   return (
     <View style={styles.container}>
@@ -111,10 +123,16 @@ export default function Despesas() {
         onSave={adicionarDespesa}
       />
 
-      <FlatList
-        data={despesas.filter(item => selectedFilter === "Todos" || item.tipo === selectedFilter)}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => (
+<FlatList
+  data={despesas.filter(item => selectedFilter === "Todos" || item.tipo === selectedFilter)}
+  keyExtractor={(item, index) => index.toString()}
+  renderItem={({ item, index }) => (
+    <TouchableOpacity
+      onPress={() => {
+        setEditingIndex(index);
+        setModalVisible(true);
+      }}
+    >
           <View style={styles.itemContainer}>
             <View style={styles.alinhalist}>
               <Text style={styles.ItemTitulo}>{item.nome}</Text>
@@ -128,6 +146,7 @@ export default function Despesas() {
 
             <Text style={styles.itemObs}>obs: {item.observacoes}</Text>
           </View>
+          </TouchableOpacity>
         )}
         style={styles.flatlist}
       />

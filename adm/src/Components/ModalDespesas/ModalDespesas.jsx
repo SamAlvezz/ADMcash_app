@@ -8,6 +8,7 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
+  ScrollView,
   Picker
 } from "react-native";
 import { registerLocale, setDefaultLocale } from "react-datepicker";
@@ -15,7 +16,7 @@ import ptBR from "date-fns/locale/pt-BR";
 // Registre o locale pt-BR para o DatePicker
 registerLocale("pt-BR", ptBR);
 
-function ModalDespesas({ visible, onClose, onSave }) {
+function ModalDespesas({ visible, onClose, onSave, onExcluir }) {
   const [nomeDespesa, setNomeDespesa] = useState("");
   const [valorDespesa, setValorDespesa] = useState("");
   const [observacoes, setObservacoes] = useState("");
@@ -42,132 +43,169 @@ function ModalDespesas({ visible, onClose, onSave }) {
     onClose();
   };
 
-  const handleValorChange = (text) => {
-    // Remova todos os caracteres não numéricos
-    const numericValue = text.replace(/[^0-9]/g, '');
-  
-    // Adicione um sinal de menos no início, se ainda não estiver presente
-    const formattedValue = numericValue
-      ? `R$ -${Number(numericValue / 100).toLocaleString('pt-BR', {
+  const excluirDespesa = () => {
+    onExcluir({
+      nome: nomeDespesa,
+      dataValidade: dataFormatada
+    });
+    setNomeDespesa("");
+    setValorDespesa("");
+    setObservacoes("");
+    setSelectedDate(new Date());
+    setTipoDespesa("Fixa");
+    onClose();
+  }
+    
+    const handleValorChange = (text) => {
+      // Remova todos os caracteres não numéricos
+      const numericValue = text.replace(/[^0-9]/g, '');
+
+      // Adicione um sinal de menos no início, se ainda não estiver presente
+      const formattedValue = numericValue
+        ? `R$ -${Number(numericValue / 100).toLocaleString('pt-BR', {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         })}`
-      : '';
-  
-    setValorDespesa(formattedValue);
-  };
-  
-  
+        : '';
+
+      setValorDespesa(formattedValue);
+    };
 
 
-  return (
-    <Modal
-    transparent={true} 
-    visible={visible} animationType="fade">
-      <View style={styles.centeredView}>
-        <View style={styles.modalView}>
-          <Text style={styles.preenchimentosdespesas}>Nome da Despesa</Text>
-          <TextInput
-            value={nomeDespesa}
-            onChangeText={setNomeDespesa}
-            placeholder="Digite"
-            style={styles.input}
-            placeholderTextColor="gray"
-          />
 
-          <Text style={styles.preenchimentosdespesas}>Valor da Despesa</Text>
-          <TextInput
-            value={(valorDespesa)}
-            onChangeText={(text) => handleValorChange(text)}
-            placeholder="R$00,00"
-            keyboardType="numeric"
-            style={styles.input}
-            placeholderTextColor="gray"
-          />
 
-          <Text style={styles.preenchimentosdespesas}>Observações</Text>
-          <TextInput
-            value={observacoes}
-            onChangeText={setObservacoes}
-            placeholder="Digite"
-            style={styles.input}
-            placeholderTextColor="gray"
-          />
+    return (
+      <Modal
+        transparent={true}
+        visible={visible} animationType="fade">
+        <View style={styles.centeredView}>
+          <ScrollView contentContainerStyle={styles.modalScrollView}>
+            <View style={styles.modalView}>
+              <Text style={styles.preenchimentosdespesas}>Nome da Despesa</Text>
+              <TextInput
+                value={nomeDespesa}
+                onChangeText={setNomeDespesa}
+                placeholder="Digite"
+                style={styles.input}
+                placeholderTextColor="gray"
+              />
 
-          <Text style={styles.preenchimentosdespesas}>Data de Validade</Text>
-          <DatePicker
-            selected={selectedDate}
-            onChange={(date) => setSelectedDate(date)}
-            dateFormat="dd/MM/yyyy"
-            showMonthDropdown
-            showYearDropdown
-            dropdownMode="select"
-            locale="pt-BR" // Defina o locale para 'pt-BR'
-            customInput={<TextInput style={styles.input} />}
-          />
+              <Text style={styles.preenchimentosdespesas}>Valor da Despesa</Text>
+              <TextInput
+                value={(valorDespesa)}
+                onChangeText={(text) => handleValorChange(text)}
+                placeholder="R$00,00"
+                keyboardType="numeric"
+                style={styles.input}
+                placeholderTextColor="gray"
+              />
 
-          <Text style={styles.preenchimentosdespesas}>Tipo de Despesa</Text>
-          <Picker
-            selectedValue={tipoDespesa}
-            onValueChange={(itemValue) => setTipoDespesa(itemValue)
-            }
-            style={styles.input}
-          >
-            <Picker.Item label="Fixa" value="Fixa" />
-            <Picker.Item label="Adicional" value="Fixa" />
-            <Picker.Item label="Variável" value="Variável" />
-            <Picker.Item label="Extra" value="Variável" />
-          </Picker>
-          <TouchableOpacity style={styles.botaosalvar} onPress={salvarDespesa}>
-            <Text style={styles.txt}>Salvar</Text>
-          </TouchableOpacity>
+              <Text style={styles.preenchimentosdespesas}>Observações</Text>
+              <TextInput
+                value={observacoes}
+                onChangeText={setObservacoes}
+                placeholder="Digite"
+                style={styles.input}
+                placeholderTextColor="gray"
+              />
+
+              <Text style={styles.preenchimentosdespesas}>Data de Validade</Text>
+              <DatePicker
+                selected={selectedDate}
+                onChange={(date) => setSelectedDate(date)}
+                dateFormat="dd/MM/yyyy"
+                showMonthDropdown
+                showYearDropdown
+                dropdownMode="select"
+                locale="pt-BR" // Defina o locale para 'pt-BR'
+                customInput={<TextInput style={styles.input} />}
+              />
+
+              <Text style={styles.preenchimentosdespesas}>Tipo de Despesa</Text>
+              <Picker
+                selectedValue={tipoDespesa}
+                onValueChange={(itemValue) => setTipoDespesa(itemValue)
+                }
+                style={styles.input}
+              >
+                <Picker.Item label="Fixa" value="Fixa" />
+                <Picker.Item label="Adicional" value="Fixa" />
+                <Picker.Item label="Variável" value="Variável" />
+                <Picker.Item label="Extra" value="Variável" />
+              </Picker>
+              <View style={styles.ViewBotoes}>
+                <TouchableOpacity style={styles.botaoexcluir} onPress={excluirDespesa}>
+                  <Text style={styles.txt}>Excluir</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.botaosalvar} onPress={salvarDespesa}>
+                  <Text style={styles.txt}>Salvar</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </ScrollView>
         </View>
-      </View>
-    </Modal>
-  );
-}
+      </Modal>
+    );
+  }
 
-const styles = StyleSheet.create({
-  centeredView: {
-    backgroundColor: "rgba(24, 24, 24, 0.6)",
-    flex: 1,
+  const styles = StyleSheet.create({
+    centeredView: {
+      backgroundColor: "rgba(24, 24, 24, 0.6)",
+      flex: 1,
 
-  },
-  modalView: {
-    marginTop: "10%",
-    marginHorizontal: 10,
-    borderRadius: 20,
-    backgroundColor: "white",
-    padding: 30,
-  },
-  preenchimentosdespesas: {
-    fontSize: 20,
-  },
-  input: {
-    marginBottom: 20,
-    height: 40,
-    width: "100%",
-    borderWidth: 1,
-    borderColor: "#3FE78C",
-    paddingLeft: 10,
-    paddingRight: 10,
-    fontSize: 18,
-    borderRadius: 14,
-  },
-  botaosalvar: {
-    width: 160,
-    height: 45,
-    backgroundColor: "#3FE78C",
-    alignItems: "center",
-    borderRadius: 14,
-    justifyContent: "center",
-    alignSelf: "center",
-    marginTop: "5%",
-  },
-  txt: {
-    fontSize: 16,
-    textAlign: "center",
-  },
-});
+    },
+    modalView: {
+      marginTop: "10%",
+      marginBottom: '10%',
+      marginHorizontal: 10,
+      borderRadius: 20,
+      backgroundColor: "white",
+      padding: 30,
+    },
+    preenchimentosdespesas: {
+      fontSize: 20,
+    },
+    input: {
+      marginBottom: 20,
+      height: 40,
+      width: "100%",
+      borderWidth: 1,
+      borderColor: "#3FE78C",
+      paddingLeft: 10,
+      paddingRight: 10,
+      fontSize: 18,
+      borderRadius: 14,
+    },
 
-export default ModalDespesas;
+    ViewBotoes: {
+      flexDirection: "row",
+      justifyContent: 'space-between'
+    },
+    botaosalvar: {
+      width: 90,
+      height: 45,
+      backgroundColor: "#3FE78C",
+      alignItems: "center",
+      borderRadius: 14,
+      justifyContent: "center",
+      alignSelf: "center",
+      marginTop: "5%",
+    },
+    botaoexcluir: {
+      width: 90,
+      height: 45,
+      backgroundColor: "#E73F3F",
+      alignItems: "center",
+      borderRadius: 14,
+      justifyContent: "center",
+      alignSelf: "center",
+      marginTop: "5%",
+    },
+    txt: {
+      fontSize: 16,
+      textAlign: "center",
+      fontWeight: 500
+    },
+  });
+
+  export default ModalDespesas;

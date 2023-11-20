@@ -116,19 +116,17 @@ export default function Despesas() {
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
           <View style={styles.itemContainer}>
-            <SafeAreaView style={styles.alinhalist}>
-              <Text style={styles.itemText2}>{item.nome} </Text>
+            <View style={styles.alinhalist}>
+              <Text style={styles.ItemTitulo}>{item.nome}</Text>
               <Text style={styles.itemText}> - {item.tipo} - </Text>
-              <Text style={styles.itemText}>
+              <Text style={[styles.itemText, styles.dataText]}>
                 {new Date(item.dataValidade).toLocaleDateString('pt-BR')}
               </Text>
+            </View>
 
-              <Text style={styles.itemText1}>{item.valor}</Text>
+            <Text style={styles.itemValor}>{item.valor}</Text>
 
-            </SafeAreaView>
-
-
-            <Text style={styles.itemText}>{item.observacoes}</Text>
+            <Text style={styles.itemObs}>obs: {item.observacoes}</Text>
           </View>
         )}
         style={styles.flatlist}
@@ -204,29 +202,42 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     elevation: 4,
     marginVertical: 8,
-    padding: 16
+    padding: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: "#E0E0E0",
   },
   itemLabel: {
     fontSize: 14,
 
   },
-  itemText1: {
+  itemValor: {
     fontSize: 16,
     color: "#FC6B6B",
-    marginBottom: 12,
+
+    fontWeight: 500
   },
-  itemText2: {
-    fontSize: 16,
-    color: "#00000080",
-    marginBottom: 12,
+  ItemTitulo: {
+    fontSize: 18,
+    color: "black",
+    fontWeight: 600,
+
   },
   itemText: {
     fontSize: 16,
     color: "#00000080",
-    marginBottom: 12,
+
+    fontWeight: 500,
+  },
+  itemObs: {
+    fontSize: 14,
+    color: "#00000080",
+    fontWeight: 500,
+    paddingLeft: 5,
+    marginTop: 5
   },
   filtrosContainer: {
-    // Estilos para o contêiner de filtros quando estiver visível
+    maxWidth: '50%',
+    marginLeft: 30,
   },
   flatlist: {
     flex: 1,
@@ -234,9 +245,12 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   filterIcon: {
-    paddingStart: '8%', // Ajuste a margem esquerda aqui para posicionar o ícone do filtro
+    paddingStart: '8%',
   },
   alinhalist: {
     flexDirection: 'row',
+  },
+  dataText: {
+    marginLeft: 'auto',
   }
 });

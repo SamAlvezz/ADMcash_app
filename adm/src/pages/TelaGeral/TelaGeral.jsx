@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: 'center',
     backgroundColor: "#FFF",
+    backgroundColor: '#F9FFFC'
   },
   containerHeader: {
     backgroundColor: "#3FE78C",
@@ -117,11 +118,14 @@ const styles = StyleSheet.create({
     color: "#00000080",
   },
   ServicoView: {
-    backgroundColor: "#f0fff0",
     marginBottom: "5%",
     width: '95%',
     height: 126,
-    borderRadius: 10
+    borderRadius: 10,
+    backgroundColor: "#FFF",
+    padding: 16,
+    borderBottomWidth: 2,
+    borderBottomColor: "#E0E0E0",
   },
   Servicotitulo: {
     color: "#3F96E7",
@@ -193,11 +197,15 @@ const styles = StyleSheet.create({
   },
 
   ResultadoView: {
-    backgroundColor: "#f0fff0",
+    backgroundColor: "#fff",
     marginBottom: "5%",
     width: '95%',
     height: 100,
     borderRadius: 10,
+    padding: 16,
+    borderBottomWidth: 2,
+    borderBottomColor: "#E0E0E0",
+    
    
   },
 

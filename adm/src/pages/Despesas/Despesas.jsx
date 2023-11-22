@@ -34,7 +34,11 @@ export default function Despesas() {
     setModalVisible(false);
     calcularTotalDespesas();
   };
-
+   
+  const excluirDespesa = (index) => {
+    const updatedDespesas = [...despesas];
+    updatedDespesas.splice(index, 1);
+    setDespesas(updatedDespesas)};
 
   const calcularTotalDespesas = () => {
     const total = despesas.reduce((acc, despesa) => acc + parseFloat(despesa.valor), 0);

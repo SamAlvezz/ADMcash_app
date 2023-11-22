@@ -16,7 +16,7 @@ import ptBR from "date-fns/locale/pt-BR";
 // Registre o locale pt-BR para o DatePicker
 registerLocale("pt-BR", ptBR);
 
-function ModalDespesas({ visible, onClose, onSave, onExcluir }) {
+function ModalDespesas({ visible, onClose, onSave, onExcluir,  editingIndex }) {
   const [nomeDespesa, setNomeDespesa] = useState("");
   const [valorDespesa, setValorDespesa] = useState("");
   const [observacoes, setObservacoes] = useState("");
@@ -48,13 +48,15 @@ function ModalDespesas({ visible, onClose, onSave, onExcluir }) {
       nome: nomeDespesa,
       dataValidade: dataFormatada
     });
+    onExcluir(editingIndex);
     setNomeDespesa("");
     setValorDespesa("");
     setObservacoes("");
     setSelectedDate(new Date());
     setTipoDespesa("Fixa");
     onClose();
-  }
+  };
+  
 
   const handleValorChange = (text) => {
     // Remova todos os caracteres não numéricos
@@ -70,9 +72,6 @@ function ModalDespesas({ visible, onClose, onSave, onExcluir }) {
 
     setValorDespesa(formattedValue);
   };
-
-
-
 
   return (
     <Modal

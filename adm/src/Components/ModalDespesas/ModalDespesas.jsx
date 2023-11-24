@@ -9,28 +9,27 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-  Picker
+  Picker,
 } from "react-native";
 import { registerLocale, setDefaultLocale } from "react-datepicker";
 import ptBR from "date-fns/locale/pt-BR";
 // Registre o locale pt-BR para o DatePicker
 registerLocale("pt-BR", ptBR);
 
-function ModalDespesas({ visible, onClose, onSave, onExcluir,  editingIndex }) {
+function ModalDespesas({ visible, onClose, onSave, onExcluir, editingIndex }) {
   const [nomeDespesa, setNomeDespesa] = useState("");
   const [valorDespesa, setValorDespesa] = useState("");
   const [observacoes, setObservacoes] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [tipoDespesa, setTipoDespesa] = useState("Fixa");
 
-  const dataFormatada = selectedDate.toLocaleDateString("pt-BR");
 
   const salvarDespesa = () => {
     const novaDespesa = {
       nome: nomeDespesa,
       valor: valorDespesa,
       observacoes: observacoes,
-      dataValidade: dataFormatada,
+      dataValidade: selectedDate,
       tipo: tipoDespesa,
     };
 
@@ -46,7 +45,7 @@ function ModalDespesas({ visible, onClose, onSave, onExcluir,  editingIndex }) {
   const excluirDespesa = () => {
     onExcluir({
       nome: nomeDespesa,
-      dataValidade: dataFormatada
+      dataValidade: selectedDate,
     });
     onExcluir(editingIndex);
     setNomeDespesa("");
@@ -56,30 +55,27 @@ function ModalDespesas({ visible, onClose, onSave, onExcluir,  editingIndex }) {
     setTipoDespesa("Fixa");
     onClose();
   };
-  
+
 
   const handleValorChange = (text) => {
+    if(text == "") return;
     // Remova todos os caracteres não numéricos
-    const numericValue = text.replace(/[^0-9]/g, '');
-
+    const numericValue = text.replace(/[^0-9]/g, "");
     // Adicione um sinal de menos no início, se ainda não estiver presente
     const formattedValue = numericValue
-      ? `R$ -${Number(numericValue / 100).toLocaleString('pt-BR', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      })}`
-      : '';
+      ? `R$ -${Number(numericValue / 100).toLocaleString("pt-BR", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })}`
+      : "";
 
     setValorDespesa(formattedValue);
   };
 
   return (
-    <Modal
-      transparent={true}
-      visible={visible} animationType="fade">
+    <Modal transparent={true} visible={visible} animationType="fade">
       <View style={styles.centeredView}>
-        <ScrollView pagingEnabled={true}
-          showsVerticalScrollIndicator={false}>
+        <ScrollView pagingEnabled={true} showsVerticalScrollIndicator={false}>
           <View style={styles.modalView}>
             <Text style={styles.preenchimentosdespesas}>Nome da Despesa</Text>
             <TextInput
@@ -92,7 +88,7 @@ function ModalDespesas({ visible, onClose, onSave, onExcluir,  editingIndex }) {
 
             <Text style={styles.preenchimentosdespesas}>Valor da Despesa</Text>
             <TextInput
-              value={(valorDespesa)}
+              value={valorDespesa}
               onChangeText={(text) => handleValorChange(text)}
               placeholder="R$00,00"
               keyboardType="numeric"
@@ -124,8 +120,7 @@ function ModalDespesas({ visible, onClose, onSave, onExcluir,  editingIndex }) {
             <Text style={styles.preenchimentosdespesas}>Tipo de Despesa</Text>
             <Picker
               selectedValue={tipoDespesa}
-              onValueChange={(itemValue) => setTipoDespesa(itemValue)
-              }
+              onValueChange={(itemValue) => setTipoDespesa(itemValue)}
               style={styles.input}
             >
               <Picker.Item label="Fixa" value="Fixa" />
@@ -134,10 +129,16 @@ function ModalDespesas({ visible, onClose, onSave, onExcluir,  editingIndex }) {
               <Picker.Item label="Extra" value="Variável" />
             </Picker>
             <View style={styles.ViewBotoes}>
-              <TouchableOpacity style={styles.botaoexcluir} onPress={excluirDespesa}>
+              <TouchableOpacity
+                style={styles.botaoexcluir}
+                onPress={excluirDespesa}
+              >
                 <Text style={styles.txtexcluir}>Excluir</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.botaosalvar} onPress={salvarDespesa}>
+              <TouchableOpacity
+                style={styles.botaosalvar}
+                onPress={salvarDespesa}
+              >
                 <Text style={styles.txtsalvar}>Salvar</Text>
               </TouchableOpacity>
             </View>
@@ -152,11 +153,10 @@ const styles = StyleSheet.create({
   centeredView: {
     backgroundColor: "rgba(24, 24, 24, 0.6)",
     flex: 1,
-
   },
   modalView: {
     marginTop: "10%",
-    marginBottom: '10%',
+    marginBottom: "10%",
     marginHorizontal: 10,
     borderRadius: 20,
     backgroundColor: "white",
@@ -179,9 +179,8 @@ const styles = StyleSheet.create({
 
   ViewBotoes: {
     flexDirection: "row",
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
     paddingHorizontal: 25,
-
   },
   botaosalvar: {
     width: 90,
@@ -194,7 +193,7 @@ const styles = StyleSheet.create({
     marginTop: "5%",
     padding: 12,
     borderBottomWidth: 2,
-    borderBottomColor: "#E0E0E0"
+    borderBottomColor: "#E0E0E0",
   },
   botaoexcluir: {
     width: 90,
@@ -207,23 +206,20 @@ const styles = StyleSheet.create({
     marginTop: "5%",
     padding: 12,
     borderBottomWidth: 2,
-    borderBottomColor: "#E0E0E0"
+    borderBottomColor: "#E0E0E0",
   },
   txtexcluir: {
     fontSize: 16,
     textAlign: "center",
     fontWeight: 600,
     color: "#E73F3F",
-    
   },
   txtsalvar: {
     color: "#3FE78C",
     fontSize: 16,
     textAlign: "center",
     fontWeight: 600,
-    
   },
-
 });
 
 export default ModalDespesas;

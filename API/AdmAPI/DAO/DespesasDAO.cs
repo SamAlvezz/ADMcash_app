@@ -35,7 +35,7 @@ namespace AdmAPI.DAO
                 despesa.NOME_DESP = dataReader["NOME_DESP"].ToString();
                 despesa.VALOR_DESP = float.Parse(dataReader["VALOR_DESP"].ToString());
                 despesa.DESCRICAO = dataReader["DESCRICAO"].ToString();
-                //despesa.DATA_VENCIMENTO = DateTime.ParseExact(hoje, format); AAAAAAAAAAAAAAAAAAAAA
+                despesa.DATA_VENCIMENTO = DateTime.Parse(dataReader["DATA_VENCIMENTO"].ToString());
 
                 despesas.Add(despesa);
             }
@@ -66,7 +66,7 @@ namespace AdmAPI.DAO
                 despesa.NOME_DESP = dataReader["NOME_DESP"].ToString();
                 despesa.VALOR_DESP = float.Parse(dataReader["VALOR_DESP"].ToString());
                 despesa.DESCRICAO = dataReader["DESCRICAO"].ToString();
-                //despesa.DATA_VENCIMENTO = DateOnly.ParseExact(hoje, format); AAAAAAAAAAAAAAAA
+                despesa.DATA_VENCIMENTO = DateTime.Parse(dataReader["DATA_VENCIMENTO"].ToString());
 
                 despesas.Add(despesa);
             }
@@ -77,6 +77,8 @@ namespace AdmAPI.DAO
 
         public void CriarDespesa(DespesaDTO despesa)
         {
+            var dateOnly = despesa.DATA_VENCIMENTO.Date;
+
             var conexao = ConnectionFactory.Build();
             conexao.Open();
 
@@ -87,13 +89,14 @@ namespace AdmAPI.DAO
             comando.Parameters.AddWithValue("@NOME_DESP", despesa.NOME_DESP);
             comando.Parameters.AddWithValue("@VALOR_DESP", despesa.VALOR_DESP);
             comando.Parameters.AddWithValue("@DESCRICAO", despesa.DESCRICAO);
-            comando.Parameters.AddWithValue("@DATA_VENCIMENTO", despesa.DATA_VENCIMENTO);
+            comando.Parameters.AddWithValue("@DATA_VENCIMENTO", dateOnly);
 
             comando.ExecuteNonQuery();
             conexao.Close();
         }
         public void AlterarDespesa(DespesaDTO despesa)
         {
+            var dateOnly = despesa.DATA_VENCIMENTO.Date;
             var conexao = ConnectionFactory.Build();
             conexao.Open();
 
@@ -105,7 +108,7 @@ namespace AdmAPI.DAO
             comando.Parameters.AddWithValue("@NOME_DESP", despesa.NOME_DESP);
             comando.Parameters.AddWithValue("@VALOR_DESP", despesa.VALOR_DESP);
             comando.Parameters.AddWithValue("@DESCRICAO", despesa.DESCRICAO);
-            comando.Parameters.AddWithValue("@DATA_VENCIMENTO", despesa.DATA_VENCIMENTO);
+            comando.Parameters.AddWithValue("@DATA_VENCIMENTO", dateOnly);
 
             comando.ExecuteNonQuery();
             conexao.Close();

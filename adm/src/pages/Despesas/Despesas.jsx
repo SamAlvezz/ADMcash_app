@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, FlatList } from "react-native";
-import { AntDesign } from '@expo/vector-icons';
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  TouchableOpacity,
+  FlatList,
+} from "react-native";
+import { AntDesign } from "@expo/vector-icons";
 import ModalDespesas from "../../Components/ModalDespesas/ModalDespesas";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { CheckBox } from 'react-native-elements';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { CheckBox } from "react-native-elements";
+import axios from "axios";
 
 export default function Despesas() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -19,41 +27,84 @@ export default function Despesas() {
       const updatedDespesas = [...despesas];
       updatedDespesas[editingIndex] = novaDespesa;
       setDespesas(updatedDespesas);
+
+      const body = {
+        NOME_DESP: novaDespesa.nome,
+        VALOR_DESP: novaDespesa.valor,
+        DESCRICAO: novaDespesa.observacoes,
+        DATA_VENCIMENTO: novaDespesa.dataValidade,
+      };
+
+      // await axios.post();
     } else {
       // Adicionar nova despesa
-      const updatedDespesas = [...despesas, novaDespesa];
-      setDespesas(updatedDespesas);
     }
+    novaDespesa.dataValidade.setUTCHours(
+      novaDespesa.dataValidade.getUTCHours() - 3
+    );
+
+    // Format the date as an ISO string
+    const formattedDate = novaDespesa.dataValidade.toISOString();
+
+    const currencyString = novaDespesa.valor;
+
+    // Remove non-numeric characters and replace comma with dot
+    const numericString = currencyString
+      .replace(/[^\d.,]/g, "")
+      .replace(",", ".");
+
+    // Parse the string as a float
+    const numericValue = parseFloat(numericString);
+
+    const body = {
+      NOME_DESP: novaDespesa.nome,
+      VALOR_DESP: numericValue,
+      DESCRICAO: novaDespesa.observacoes,
+      DATA_VENCIMENTO: formattedDate,
+    };
 
     try {
-      await AsyncStorage.setItem("despesas", JSON.stringify(despesas));
+      const response = await axios.post(
+        "https://localhost:44318/api/despesas/criardespesa",
+        body
+      );
     } catch (error) {
-      console.error("Erro ao salvar despesas no AsyncStorage: ", error);
+      console.log(error);
     }
 
     setModalVisible(false);
     calcularTotalDespesas();
   };
-   
+
   const excluirDespesa = (index) => {
     const updatedDespesas = [...despesas];
     updatedDespesas.splice(index, 1);
-    setDespesas(updatedDespesas)};
+    setDespesas(updatedDespesas);
+  };
 
   const calcularTotalDespesas = () => {
-    const total = despesas.reduce((acc, despesa) => acc + parseFloat(despesa.valor), 0);
+    const total = despesas.reduce(
+      (acc, despesa) => acc + parseFloat(despesa.valor),
+      0
+    );
     setTotalDespesas(total);
   };
 
   useEffect(() => {
     const loadDespesas = async () => {
       try {
-        const savedDespesas = await AsyncStorage.getItem("despesas");
-        if (savedDespesas !== null) {
-          setDespesas(JSON.parse(savedDespesas));
+        //pegar do back
+
+        const response = await axios.get(
+          "https://localhost:44318/api/Despesas/listardespesa"
+        );
+        if (response.status === 200) {
+          setDespesas(response.data);
+          return;
         }
+        console.error("Erro ao carregar despesas", response);
       } catch (error) {
-        console.error("Erro ao carregar despesas do AsyncStorage: ", error);
+        console.error("Erro ao carregar despesas", error);
       }
       calcularTotalDespesas();
     };
@@ -79,11 +130,8 @@ export default function Despesas() {
         </View>
       </SafeAreaView>
 
-
       <SafeAreaView style={styles.area1}>
-        <Text style={styles.text}>
-          Registre as despesas e categorize.
-        </Text>
+        <Text style={styles.text}>Registre as despesas e categorize.</Text>
       </SafeAreaView>
       <SafeAreaView style={styles.area2}>
         <View style={styles.filterIcon}>
@@ -93,10 +141,12 @@ export default function Despesas() {
         </View>
 
         <Text style={styles.AdcText}>Adicionar</Text>
-        <TouchableOpacity style={styles.AdcIcone} onPress={() => setModalVisible(true)}>
+        <TouchableOpacity
+          style={styles.AdcIcone}
+          onPress={() => setModalVisible(true)}
+        >
           <AntDesign name="pluscircle" size={20} color={"#3F96E7"} />
         </TouchableOpacity>
-
       </SafeAreaView>
       {filtroVisivel && (
         <View style={styles.filtrosContainer}>
@@ -125,7 +175,6 @@ export default function Despesas() {
             checked={selectedFilter === "Extra"}
             onPress={() => setSelectedFilter("Extra")}
           />
-
         </View>
       )}
 
@@ -138,19 +187,23 @@ export default function Despesas() {
       />
 
       <FlatList
-        data={despesas.filter(item => selectedFilter === "Todos" || item.tipo === selectedFilter)}
+        data={despesas.filter(
+          (item) => selectedFilter === "Todos" || item.tipo === selectedFilter
+        )}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item, index }) => (
-          <TouchableOpacity onPress={() => {
-            setEditingIndex(index);
-            setModalVisible(true);
-          }}>
+          <TouchableOpacity
+            onPress={() => {
+              setEditingIndex(index);
+              setModalVisible(true);
+            }}
+          >
             <View style={styles.itemContainer}>
               <View style={styles.alinhalist}>
-                <Text style={styles.ItemTitulo}>{item.nome}</Text>
+                <Text style={styles.ItemTitulo}>{item.nomE_DESP}</Text>
                 <Text style={styles.itemText}> - {item.tipo} - </Text>
                 <Text style={[styles.itemText, styles.dataText]}>
-                  {new Date(item.dataValidade).toLocaleDateString('pt-BR')}
+                  {new Date(item.datA_VENCIMENTO).toLocaleDateString("pt-BR")}
                 </Text>
               </View>
 
@@ -173,10 +226,9 @@ const styles = StyleSheet.create({
   },
   containerHeader: {
     backgroundColor: "#E73F3F",
-    width: '100%'
+    width: "100%",
   },
   area1: {
-
     flexDirection: "row",
     marginBottom: "6%",
     marginTop: "3%",
@@ -184,45 +236,44 @@ const styles = StyleSheet.create({
   text: {
     color: "#00000080",
     fontSize: 16,
-    marginStart: 10
+    marginStart: 10,
   },
   mensagem: {
     fontSize: 24,
     color: "#fff",
-    marginTop: '7%',
-    marginBottom: '7%',
-    paddingStart: '5%',
+    marginTop: "7%",
+    marginBottom: "7%",
+    paddingStart: "5%",
   },
   Valor: {
     fontSize: 15,
     color: "#fff",
-    paddingStart: '5%',
+    paddingStart: "5%",
   },
   Total: {
     fontSize: 32,
     color: "#fff",
-    paddingStart: '5%',
+    paddingStart: "5%",
   },
   area2: {
     flexDirection: "row",
-
   },
   AdcText: {
     fontSize: 18,
     opacity: 0.5,
-    paddingStart: '40%'
+    paddingStart: "40%",
   },
   AdcIcone: {
-    paddingStart: 5
+    paddingStart: 5,
   },
   filtroButton: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    backgroundColor: '#EDEDED',
+    flexDirection: "row",
+    justifyContent: "center",
+    backgroundColor: "#EDEDED",
     padding: 8,
   },
   filtroButtonText: {
-    color: "#FC6B6B"
+    color: "#FC6B6B",
   },
   filterText: {
     color: "#00000080",
@@ -239,19 +290,17 @@ const styles = StyleSheet.create({
   },
   itemLabel: {
     fontSize: 14,
-
   },
   itemValor: {
     fontSize: 16,
     color: "#FC6B6B",
 
-    fontWeight: 500
+    fontWeight: 500,
   },
   ItemTitulo: {
     fontSize: 18,
     color: "black",
     fontWeight: 600,
-
   },
   itemText: {
     fontSize: 16,
@@ -264,10 +313,10 @@ const styles = StyleSheet.create({
     color: "#00000080",
     fontWeight: 500,
     paddingLeft: 5,
-    marginTop: 5
+    marginTop: 5,
   },
   filtrosContainer: {
-    maxWidth: '50%',
+    maxWidth: "50%",
     marginLeft: 30,
   },
   flatlist: {
@@ -276,12 +325,12 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   filterIcon: {
-    paddingStart: '8%',
+    paddingStart: "8%",
   },
   alinhalist: {
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   dataText: {
-    marginLeft: 'auto',
-  }
+    marginLeft: "auto",
+  },
 });

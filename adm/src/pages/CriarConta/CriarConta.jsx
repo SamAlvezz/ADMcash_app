@@ -34,7 +34,7 @@ const CriarConta = () => {
   const CadastrarConta = async () => {
     try {
       const response = await axios.post('URLdaAPI', {
-        nome: input,
+       nome: input,
         email: input1,
         senha: input3,
        

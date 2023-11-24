@@ -30,21 +30,23 @@ const CriarConta = () => {
   const navigate = (page) => {
     navigation.navigate(page);
   };
+/*Aqui esta tentando criar a conta ao apertar botao CriarConta la embaixo,
+ com informações do usuario postas nos inputs*/
 
   const CadastrarConta = async () => {
     try {
-      const response = await axios.post('URLdaAPI', {
-       nome: input,
-        email: input1,
-        senha: input3,
+      const response = await axios.post('URLdaAPI', { /* colocar URLdaAPI */
+       nome: input, 
+        email: input1,       /* ajustar conforme banco de dados */
+        senha: input3, 
        
       });
 
-      if (response.status === 200) {
+      if (response.status === 200) { /* resposta positiva, navegar pra tela geral */
         navigate("TelaGeral");
       } else
       {
-        console.error('Erro na API:', response.data);
+        console.error('Erro na API:', response.data); /* erros */
         alert('Erro no cadastro. Verifique suas informações e tente novamente.');
       }
     } 
@@ -150,7 +152,7 @@ const CriarConta = () => {
         </SafeAreaView>
 
         <View>
-        <CustomButton onPress={CadastrarConta} title={"Criar Conta"} />
+        <CustomButton onPress={CadastrarConta} title={"Criar Conta"} /> /*botao */
         </View>
       </Animatable.View>
     </View>

@@ -23,7 +23,7 @@ function ModalDespesas({ visible, onClose, onSave, onExcluir, editingIndex }) {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [tipoDespesa, setTipoDespesa] = useState("Fixa");
 
-
+/* salvando despesa */
   const salvarDespesa = () => {
     const novaDespesa = {
       nome: nomeDespesa,
@@ -41,7 +41,7 @@ function ModalDespesas({ visible, onClose, onSave, onExcluir, editingIndex }) {
     setTipoDespesa("Fixa");
     onClose();
   };
-
+/* excluindo */
   const excluirDespesa = () => {
     onExcluir({
       nome: nomeDespesa,

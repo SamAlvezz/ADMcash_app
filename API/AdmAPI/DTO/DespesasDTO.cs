@@ -1,4 +1,6 @@
-﻿namespace AdmAPI.DTO
+﻿using System;
+
+namespace AdmAPI.DTO
 {
     public class DespesaDTO
     {
@@ -6,7 +8,7 @@
         public string NOME_DESP { get; set; }
         public double VALOR_DESP { get; set; }
         public string DESCRICAO { get; set; }
-        public DateOnly DATA_VENCIMENTO { get; set; }
+        public DateTime DATA_VENCIMENTO { get; set; }
 
     }
 }

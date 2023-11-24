@@ -3,6 +3,8 @@
 
 using AdmAPI.DTO;
 using MySql.Data.MySqlClient;
+using System;
+using System.Collections.Generic;
 using static Org.BouncyCastle.Bcpg.Attr.ImageAttrib;
 
 namespace AdmAPI.DAO
@@ -33,7 +35,7 @@ namespace AdmAPI.DAO
                 despesa.NOME_DESP = dataReader["NOME_DESP"].ToString();
                 despesa.VALOR_DESP = float.Parse(dataReader["VALOR_DESP"].ToString());
                 despesa.DESCRICAO = dataReader["DESCRICAO"].ToString();
-                despesa.DATA_VENCIMENTO = DateOnly.ParseExact(hoje, format);
+                //despesa.DATA_VENCIMENTO = DateTime.ParseExact(hoje, format); AAAAAAAAAAAAAAAAAAAAA
 
                 despesas.Add(despesa);
             }
@@ -64,7 +66,7 @@ namespace AdmAPI.DAO
                 despesa.NOME_DESP = dataReader["NOME_DESP"].ToString();
                 despesa.VALOR_DESP = float.Parse(dataReader["VALOR_DESP"].ToString());
                 despesa.DESCRICAO = dataReader["DESCRICAO"].ToString();
-                despesa.DATA_VENCIMENTO = DateOnly.ParseExact(hoje, format);
+                //despesa.DATA_VENCIMENTO = DateOnly.ParseExact(hoje, format); AAAAAAAAAAAAAAAA
 
                 despesas.Add(despesa);
             }

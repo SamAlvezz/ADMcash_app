@@ -1,5 +1,6 @@
 ﻿using AdmAPI.DTO;
 using MySql.Data.MySqlClient;
+using System.Collections.Generic;
 
 namespace AdmAPI.DAO
 {

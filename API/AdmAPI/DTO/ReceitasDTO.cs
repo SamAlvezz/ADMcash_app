@@ -1,4 +1,6 @@
-﻿namespace AdmAPI.DTO
+﻿using System;
+
+namespace AdmAPI.DTO
 {
     public class ReceitasDTO
     {

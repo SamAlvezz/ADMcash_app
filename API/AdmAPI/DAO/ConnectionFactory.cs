@@ -6,7 +6,7 @@ namespace AdmAPI.DAO
     {
      public static MySqlConnection Build()
         {
-            return new MySqlConnection("Server=localhost;Database=Bcadm_login;Uid=root;Pwd=root;");
+            return new MySqlConnection("Server=admcash.mysql.database.azure.com;Database=Bcadm_login;Uid=Tiago_Chaves;Pwd=Laurindo1;");
         }
     }
 }

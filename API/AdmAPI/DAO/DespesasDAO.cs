@@ -16,8 +16,7 @@ namespace AdmAPI.DAO
         {
             
             string hoje = DateTime.Now.ToString("d");
-            string format = "d";
-
+            
             var conexao = ConnectionFactory.Build();
             conexao.Open();
 
@@ -47,7 +46,7 @@ namespace AdmAPI.DAO
         public List<DespesaDTO> BuscarDespesas(string filtro)
         {
             string hoje = DateTime.Now.ToString("d");
-            string format = "d";
+           
 
             var conexao = ConnectionFactory.Build();
             conexao.Open();

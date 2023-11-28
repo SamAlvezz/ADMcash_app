@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontSize: 26,
+    fontSize: 30,
     color: "#fff",
     fontWeight: 600
   },
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: "row",
     backgroundColor: "#3FE78C",
-    height: 80,
+    height: 100,
     alignItems: "center",
     justifyContent: 'center'
   },

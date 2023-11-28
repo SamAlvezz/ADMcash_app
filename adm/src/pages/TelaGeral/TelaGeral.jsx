@@ -144,11 +144,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: "5%",
     marginHorizontal: 10,
-    width: '54%'
+    width: '60%'
   },
   botaotext: {
     color: "#fff",
-    fontSize: 13,
+    fontSize: 16,
     fontWeight: 700,
     paddingStart: "8%",
     shadowColor: 'black',

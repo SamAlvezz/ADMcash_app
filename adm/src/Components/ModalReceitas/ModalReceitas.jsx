@@ -27,7 +27,7 @@ function ModalReceitas({ visible, onClose, onSave }) {
       nome: nomeReceita,
       valor: valorReceita,
       observacoes: observacoes,
-      dataValidade: selectedDate,
+      dataRecebimento: selectedDate,
       tipo: tipoReceita,
     };
 

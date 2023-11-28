@@ -39,8 +39,8 @@ export default function Receita() {
     } else {
       // Adicionar nova despesa
     }
-    novaReceita.dataValidade.setUTCHours(
-      novaReceita.dataValidade.getUTCHours() - 3
+    novaReceita.dataRecebimento.setUTCHours(
+      novaReceita.dataRecebimento.getUTCHours() - 3
     );
 
     // Format the date as an ISO string

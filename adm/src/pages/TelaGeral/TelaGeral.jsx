@@ -28,7 +28,7 @@ export default function TelaGeral() {
       <SafeAreaView style={styles.container}>
         <SafeAreaView style={styles.containerHeader}>
           <View>
-            <Text style={styles.mensagem}>Bem vindo(a) ao Home</Text>
+            <Text style={styles.mensagem}>Bem vindo(a)!</Text>
           </View>
         </SafeAreaView>
 
@@ -48,7 +48,7 @@ export default function TelaGeral() {
             <Text style={styles.botaotext}>Gerenciar Receitas</Text>
           </TouchableOpacity>
           <View style={styles.textdinamico}>
-            <Text style={styles.dinheiroRec}>R$11.400,00</Text>
+            <Text style={styles.dinheiroRec}>R$5.600,00</Text>
             <Text style={styles.porcentagemRec}>100%</Text>
           </View>
         </SafeAreaView>
@@ -64,9 +64,9 @@ export default function TelaGeral() {
 
           <View style={styles.textdinamico}>
             <Text style={styles.dinheiroDes}>
-              R$-6.6000000000000000000000000000000000000000000000000000000000000000teste,00
+              R$-2.437,00
             </Text>
-            <Text style={styles.porcentagemDes}>59%</Text>
+            <Text style={styles.porcentagemDes}>43%</Text>
           </View>
         </SafeAreaView>
 
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   mensagem: {
-    fontSize: 26,
+    fontSize: 30,
     color: "#fff",
     fontWeight: 600
   },
@@ -116,11 +116,13 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#00000080",
+    fontSize: 16,
+    marginHorizontal: 3
   },
   ServicoView: {
     marginBottom: "5%",
     width: '95%',
-    height: 126,
+    height: 140,
     borderRadius: 10,
     backgroundColor: "#FFF",
     padding: 16,
@@ -129,7 +131,7 @@ const styles = StyleSheet.create({
   },
   Servicotitulo: {
     color: "#3F96E7",
-    fontSize: 15,
+    fontSize: 18,
     fontWeight: 700,
     marginBottom: "4%",
     marginTop: "3%",
@@ -155,13 +157,12 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     borderRadius: 14,
     paddingVertical: 7,
-   
 
   },
 
   dinheiroRec: {
     color: "#3FE746F5",
-    fontSize: 15,
+    fontSize: 17,
     fontWeight: 700,
     marginHorizontal: 11,
     overflow: "hidden",
@@ -171,7 +172,7 @@ const styles = StyleSheet.create({
   },
   dinheiroDes: {
     color: "#FD5252",
-    fontSize: 15,
+    fontSize: 17,
     fontWeight: 700,
     marginHorizontal: 11,
     overflow: "hidden",
@@ -182,13 +183,15 @@ const styles = StyleSheet.create({
   },
   porcentagemRec: {
     color: "#3FE746F5",
-    fontSize: 15,
+    fontSize: 17,
     fontWeight: 700,
+    marginEnd: 6
   },
   porcentagemDes: {
     color: "#FD5252",
-    fontSize: 15,
+    fontSize: 17,
     fontWeight: 700,
+    marginEnd: 6
   },
   textdinamico: {
     flexDirection: "row",
@@ -200,7 +203,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     marginBottom: "5%",
     width: '95%',
-    height: 100,
+    height: 130,
     borderRadius: 10,
     padding: 16,
     borderBottomWidth: 2,
@@ -210,20 +213,20 @@ const styles = StyleSheet.create({
   },
 
   Resultadotext: {
-    fontSize: 15,
+    fontSize: 20,
     fontWeight: 700,
     marginHorizontal: 11,
-    marginBottom: "4%",
+    marginBottom: "3%",
     marginTop: "5%",
     color: "#3F96E7"
 
   },
   DinheiroRes: {
     color: "#3FE746F5",
-    fontSize: 15,
+    fontSize: 19,
     fontWeight: 700,
     marginStart: 10,
-    marginTop: 5
+    marginTop: 3
   },
   Rendatotaltext: {
     color: "#3F96E7",

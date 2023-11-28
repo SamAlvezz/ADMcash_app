@@ -22,18 +22,18 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="First">
-        <Stack.Screen name="TelaInicial" component={Receitas}options={{
+        <Stack.Screen name="TelaInicial" component={TelaInicial}options={{
           title: "",
           headerTransparent: true,
           headerShown: false
         }}
         ></Stack.Screen>
-        <Stack.Screen name="CriarConta" component={Receitas} options={{
+        <Stack.Screen name="CriarConta" component={CriarConta} options={{
           title: "",
           headerTransparent: true,
           headerShown: false
         }}></Stack.Screen>
-        <Stack.Screen name="FazerLogin" component={Receitas} options={{
+        <Stack.Screen name="FazerLogin" component={FazerLogin} options={{
           title: "",
           headerTransparent: true,
           headerShown: false

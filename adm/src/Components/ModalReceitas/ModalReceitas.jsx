@@ -23,7 +23,7 @@ function ModalReceitas({ visible, onClose, onSave }) {
   const [tipoInvestimento, setTipoInvestimento] = useState('Fixa');
 
   const salvarInvestimento = () => {
-    const novaDespesa = {
+    const novaReceita = {
       nome: nomeInvestimento,
       valor: valorInvestimento,
       observacoes: observacoes,
@@ -31,7 +31,7 @@ function ModalReceitas({ visible, onClose, onSave }) {
       tipo: tipoInvestimento,
     };
 
-    onSave(novaDespesa);
+    onSave(novaReceita);
     setNomeInvestimento('');
     setValorInvestimento('');
     setObservacoes('');

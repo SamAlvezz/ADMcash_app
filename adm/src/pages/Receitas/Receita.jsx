@@ -57,8 +57,8 @@ export default function Receita() {
     const numericValue = parseFloat(numericString);
 
     const body = {
-      NOME_DESP: novaReceita.nome,
-      VALOR_DESP: numericValue,
+      NOME_RCT: novaReceita.nome,
+      VALOR_RCT: numericValue,
       DESCRICAO: novaReceita.observacoes,
       DATA_RECEBIMENTO: formattedDate,
     };
@@ -79,7 +79,7 @@ export default function Receita() {
   const excluirReceita = (index) => {
     const updatedReceitas = [...receitas];
     updatedReceitas.splice(index, 1);
-    setDespesas(updatedReceitas);
+    setReceitas(updatedReceitas);
   };
 
   const calcularTotalReceita = () => {

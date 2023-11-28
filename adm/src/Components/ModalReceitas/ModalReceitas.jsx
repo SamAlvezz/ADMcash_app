@@ -36,7 +36,6 @@ function ModalReceitas({ visible, onClose, onSave }) {
     setValorReceita('');
     setObservacoes('');
     setSelectedDate(new Date());
-    setTipoReceita('Fixa');
     onClose();
   };
 
@@ -71,7 +70,7 @@ function ModalReceitas({ visible, onClose, onSave }) {
             placeholderTextColor="gray"
           />
 
-          <Text style={styles.preenchimentosinvestimento}>Data de Rencebimento</Text>
+          <Text style={styles.preenchimentosinvestimento}>Data de Recebimento</Text>
           <DatePicker
             selected={selectedDate}
             onChange={(date) => setSelectedDate(date)}
@@ -81,15 +80,6 @@ function ModalReceitas({ visible, onClose, onSave }) {
             dropdownMode="select"
             locale="pt-BR" // Defina o locale para 'pt-BR'
             customInput={<TextInput style={styles.input} />}
-          />
-
-          <Text style={styles.preenchimentosreceitas}>Tipo de Receitas</Text>
-          <TextInput
-            value={tipoReceita}
-            onChangeText={setTipoReceita}
-            placeholder="Digite"
-            style={styles.input}
-            placeholderTextColor="gray"
           />
 
           <TouchableOpacity style={styles.botaosalvar} onPress={salvarReceita}>

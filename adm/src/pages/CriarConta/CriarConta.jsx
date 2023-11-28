@@ -152,7 +152,7 @@ const CriarConta = () => {
         </SafeAreaView>
 
         <View>
-        <CustomButton onPress={CadastrarConta} title={"Criar Conta"} /> /*botao */
+        <CustomButton onPress={CadastrarConta} title={"Criar Conta"} />
         </View>
       </Animatable.View>
     </View>

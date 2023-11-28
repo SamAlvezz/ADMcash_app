@@ -74,7 +74,7 @@ export default function TelaGeral() {
           <Text style={styles.Resultadotext}>Resultado:</Text>
           <View style={styles.textdinamico}>
             <Text style={styles.DinheiroRes}>R$3.590,00</Text>
-            <Text style={styles.Rendatotaltext}>62% de sua renda total</Text>
+            <Text style={styles.Rendatotaltext}>56% de sua renda total</Text>
           </View>
         </View>
 

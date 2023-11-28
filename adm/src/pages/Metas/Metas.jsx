@@ -15,7 +15,7 @@ export default function Metas() {
     <View style={styles.container} texto={"Metas"}>
       <SafeAreaView style={styles.containerHeader}>
         <View>
-          <Text style={styles.mensagem}>Metas</Text>
+          <Text style={styles.text}>Metas</Text>
         </View>
         ,
       </SafeAreaView>

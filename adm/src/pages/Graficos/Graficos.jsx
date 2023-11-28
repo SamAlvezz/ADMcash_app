@@ -4,8 +4,8 @@ import { PieChart } from 'react-native-svg-charts'
 import { ScrollView } from "react-native";
 
 export default function Graficos() {
-  const data = [50, 10, 10, 30];
-  const colors = ['#F82B2B', '#BC6BFC', '#FC9F6B', '#3FE78C'];
+  const data = [31, 6, 6, 0, 56];
+  const colors = ['#F82B2B', '#FC9F6B', '#FCED6B', '#BC6BFC', '#3FE78C'];
   const pieData = data.map((value, index) => ({
     value,
     key: `${index}-${value}`,
@@ -47,13 +47,19 @@ export default function Graficos() {
   };
 
   const textData = [
-    { label: 'Fixas', value: '50%' },
-    { label: "Variáveis", value: '10%' },
-    { label: "Adicionais", value: '10%' },
-    { label: "Resultado", value: '30%' }
+    { label: "Fixas", value: '31%' },
+    { label: "Variáveis", value: '6%' },
+    { label: "Extras", value: '6%' },
+    { label: "Adicionais", value: '0%' },
+    { label: "Resultado", value: '56%' }
   ];
+
   const pieChartProps = {
-    style: { marginTop: 50, marginBottom: 25, height: 200 },
+    style: {
+      marginTop: 50,
+      marginBottom: 25,
+      height: 200
+    },
     data: pieData,
     innerRadius: '65%',
     outerRadius: '100%',
@@ -63,48 +69,93 @@ export default function Graficos() {
     animationDuration: 500
 
   };
-
+  /* os pedaços do gráfico são compostos pelos valores das categorias de despesas:
+  Fixas(vermelho), Variaveis(laranja), Extras(amarelo), Adicionais(roxo) e o Resultado(verde)
+  
+  A operação: o valor da Receita total no sistema menos o valor total de Despesas no sistema,
+  dai mostrar o valor e porcentagem 
+  no Resultado(verde).
+  
+  ex: Receitas (valortotal) será sempre 100%,
+    - Despesas (valortotal // soma de todas as categorias) 43%
+      Resultado (valor) 56% 
+  
+  Mas no gráfico continuará mostrando apenas as categorias de despesas e o resultado
+  */
   return (
     <ScrollView>
       <SafeAreaView style={styles.container}>
-        
-        <SafeAreaView style={styles.containerHeader}>
-          <Text style={styles.textHeader}>Gráficos</Text>
-        </SafeAreaView>
-        <Text style={styles.textdataatual}>Outubro de 2023</Text>
-        <PieChart {...pieChartProps}>
-          <Label />
-        </PieChart>
-        <SafeAreaView style={styles.ViewReceitaGraf}>
+        <View style={styles.subcontainer}>
+          <View style={styles.containerHeader}>
+            <Text style={styles.textHeader}>Gráficos</Text>
+          </View>
+          <Text style={styles.textdataatual}>Outubro de 2023</Text>
+          <PieChart {...pieChartProps}>
+            <Label />
+          </PieChart>
+        </View>
+      </SafeAreaView>
+
+      <View style={styles.subcontainer2}>
+        <View style={styles.ViewReceitaGraf}>
           <Text style={styles.ReceitaGrafText}>Receitas</Text>
           <View style={styles.ViewReceitaGraf}>
-          <Text style={styles.ReceitaGrafvalor}>R$ 5.600,00</Text>
-          <Text style={styles.ReceitaGrafvalor}>100%</Text>
+            <Text style={styles.ReceitaGrafvalor}>R$ 5.600,00</Text>
+            <Text style={styles.ReceitaGrafvalor}>100%</Text>
           </View>
-        </SafeAreaView>
-        <FlatList 
+        </View>
+        <FlatList
           data={textData}
           keyExtractor={(item) => item.label}
           renderItem={({ item }) => (
             <View style={styles.DatatextContainer}>
-              <Text style={styles.DatatextLabel}>{item.label}</Text>
-              <Text style={styles.DatatextValue}>{item.value}</Text>
+              {/* lógica para personalizar especificamente
+               o Resultado após verificação */}
+              {item.label === 'Resultado' && (
+                <Text style={[styles.DatatextLabel, { color: 'black', fontSize: 17 }]}>{item.label}</Text>
+              )}
+              {item.label !== 'Resultado' && (
+                <Text style={styles.DatatextLabel}>{item.label}</Text>
+              )}
+
+              {item.label === 'Resultado' && (
+                <Text style={[styles.DatatextValue, { color: '#3FE746', fontSize: 17 }]}>{item.value}</Text>
+              )}
+              {item.label !== 'Resultado' && (
+                <Text style={styles.DatatextValue}>{item.value}</Text>
+              )}
             </View>
           )}
-          style={{ marginVertical: 10, marginHorizontal: 20, backgroundColor: '#F5F5F5', borderRadius: 10, elevation: 3}}
+          style={{
+            marginVertical: 10,
+            marginHorizontal: 10,
+            backgroundColor: '#fafffe',
+            borderRadius: 10,
+            elevation: 3
+          }}
         />
-
-      </SafeAreaView>
+      </View>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: "#FFF",
+    flexDirection: 'column'
+    // height: '100%',
+    // marginBottom: 70 
   },
- 
+  subcontainer: {
+    backgroundColor: '#FFF',
+    height: '50%'
+  },
+
+  subcontainer2: {
+    backgroundColor: '#FFF',
+    height: '50%'
+  },
+
   textdataatual: {
     color: "#3F96E7",
     fontSize: 20,
@@ -129,32 +180,39 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
+
+    //borderBottomWidth: 1,
+    //borderBottomColor: '#ccc',
   },
 
   DatatextLabel: {
-    fontSize: 15,
+    fontSize: 14,
+    fontWeight: '700',
+    color: '#8c8b8b',
+    paddingStart: 20
   },
 
   DatatextValue: {
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontSize: 15,
+    fontWeight: '700',
+    color: '#8c8b8b',
 
   },
-  ReceitaGrafText:{
-    fontSize: 16,
+  ReceitaGrafText: {
+    fontSize: 15,
     fontWeight: '700',
-    paddingStart: '6%'
+    paddingStart: '6%',
+    marginTop: 10
   },
-  ReceitaGrafvalor:{
-    fontSize: 16,
+  ReceitaGrafvalor: {
+    fontSize: 15,
     fontWeight: '700',
     marginHorizontal: 6
   },
-  ViewReceitaGraf:{
-    flexDirection:'row',
-    justifyContent:"space-between",
-    marginHorizontal: 6
+  ViewReceitaGraf: {
+    flexDirection: 'row',
+    justifyContent: "space-between",
+    marginHorizontal: 6,
+    marginTop: 10
   }
 });

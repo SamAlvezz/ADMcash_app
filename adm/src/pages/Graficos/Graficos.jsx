@@ -47,11 +47,12 @@ export default function Graficos() {
   };
 
   const textData = [
-    { label: "Fixas", value: '31%' },
-    { label: "Variáveis", value: '6%' },
-    { label: "Extras", value: '6%' },
+    { label: "Despesas", value: 'R$-2.437,00   43%' },
+    { label: "Fixas", value: 'R$ 1750,00   31%' },
+    { label: "Variáveis", value: 'R$ 337,00   6%' },
+    { label: "Extras", value: 'R$ 350,00   6%' },
     { label: "Adicionais", value: '0%' },
-    { label: "Resultado", value: '56%' }
+    { label: "Resultado", value: 'R$ 3.163,00   56%' }
   ];
 
   const pieChartProps = {
@@ -67,8 +68,13 @@ export default function Graficos() {
     padAngle: 0.02,
     animate: true,
     animationDuration: 500
-
   };
+  const currentDate = new Date();
+  const formattedDate = currentDate.toLocaleDateString("pt-BR", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
   /* os pedaços do gráfico são compostos pelos valores das categorias de despesas:
   Fixas(vermelho), Variaveis(laranja), Extras(amarelo), Adicionais(roxo) e o Resultado(verde)
   
@@ -89,7 +95,7 @@ export default function Graficos() {
           <View style={styles.containerHeader}>
             <Text style={styles.textHeader}>Gráficos</Text>
           </View>
-          <Text style={styles.textdataatual}>Outubro de 2023</Text>
+          <Text style={styles.textdataatual}>{formattedDate}</Text>
           <PieChart {...pieChartProps}>
             <Label />
           </PieChart>
@@ -104,37 +110,63 @@ export default function Graficos() {
             <Text style={styles.ReceitaGrafvalor}>100%</Text>
           </View>
         </View>
-        <FlatList
-          data={textData}
-          keyExtractor={(item) => item.label}
-          renderItem={({ item }) => (
-            <View style={styles.DatatextContainer}>
-              {/* lógica para personalizar especificamente
-               o Resultado após verificação */}
-              {item.label === 'Resultado' && (
-                <Text style={[styles.DatatextLabel, { color: 'black', fontSize: 17 }]}>{item.label}</Text>
-              )}
-              {item.label !== 'Resultado' && (
-                <Text style={styles.DatatextLabel}>{item.label}</Text>
-              )}
+        <View style={styles.alinhaSquare}>
+          <View style={styles.colorSquaresContainer}>
+            <View style={[styles.colorSquare, { backgroundColor: '#F82B2B' }]} />
+            <View style={[styles.colorSquare, { backgroundColor: '#FC9F6B' }]} />
+            <View style={[styles.colorSquare, { backgroundColor: '#FCED6B' }]} />
+            <View style={[styles.colorSquare, { backgroundColor: '#BC6BFC' }]} />
+            <View style={[styles.colorSquare, { backgroundColor: '#3FE78C' }]} />
+          </View>
+          <FlatList
+            data={textData}
+            keyExtractor={(item) => item.label}
+            renderItem={({ item }) => (
+              <View style={styles.DatatextContainer}>
+                {/* lógica para personalizar especificamente
+               o Resultado e a Despesa após verificação */}
+                {item.label === 'Resultado' && (
+                  <Text style={[styles.DatatextLabel, { color: 'black', fontSize: 16 }]}>
+                    {item.label}
+                  </Text>
+                )}
+                {item.label === 'Despesas' && (
+                  <Text style={[styles.DatatextLabel, { color: 'black', fontSize: 16 }]}>
+                    {item.label}
+                  </Text>
+                )}
+                {item.label !== 'Resultado' && item.label !== 'Despesas' && (
+                  <Text style={styles.DatatextLabel}>{item.label}</Text>
+                )}
 
-              {item.label === 'Resultado' && (
-                <Text style={[styles.DatatextValue, { color: '#3FE746', fontSize: 17 }]}>{item.value}</Text>
-              )}
-              {item.label !== 'Resultado' && (
-                <Text style={styles.DatatextValue}>{item.value}</Text>
-              )}
-            </View>
-          )}
-          style={{
-            marginVertical: 10,
-            marginHorizontal: 10,
-            backgroundColor: '#fafffe',
-            borderRadius: 10,
-            elevation: 3
-          }}
-        />
+                {item.label === 'Resultado' && (
+                  <Text style={[styles.DatatextValue, { color: '#3FE746', fontSize: 15 }]}>
+                    {item.value}
+                  </Text>
+                )}
+                {item.label === 'Despesas' && (
+                  <Text style={[styles.DatatextValue, { color: 'red', fontSize: 15 }]}>
+                    {item.value}
+                  </Text>
+                )}
+                {item.label !== 'Resultado' && item.label !== 'Despesas' && (
+                  <Text style={styles.DatatextValue}>{item.value}</Text>
+                )}
+
+              </View>
+            )}
+            style={{
+              marginVertical: 7,
+              marginHorizontal: 10,
+              backgroundColor: '#fafffe',
+              borderRadius: 10,
+              elevation: 3,
+              marginLeft: 7
+            }}
+          />
+        </View>
       </View>
+
     </ScrollView>
   );
 }
@@ -180,32 +212,30 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 10,
-
     //borderBottomWidth: 1,
     //borderBottomColor: '#ccc',
   },
 
   DatatextLabel: {
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: '700',
     color: '#8c8b8b',
-    paddingStart: 20
   },
 
   DatatextValue: {
-    fontSize: 15,
+    fontSize: 13,
     fontWeight: '700',
     color: '#8c8b8b',
 
   },
   ReceitaGrafText: {
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: '700',
     paddingStart: '6%',
     marginTop: 10
   },
   ReceitaGrafvalor: {
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: '700',
     marginHorizontal: 6
   },
@@ -214,5 +244,21 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginHorizontal: 6,
     marginTop: 10
+  },
+  colorSquaresContainer: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginTop: 52
+  },
+
+  colorSquare: {
+    width: 20,
+    height: 20,
+    marginVertical: 8,
+    borderRadius: 4,
+    marginStart: 10
+  },
+  alinhaSquare: {
+    flexDirection: 'row'
   }
 });

@@ -108,8 +108,6 @@ const styles = StyleSheet.create({
   },
   preenchimentosreceitas: {
     fontSize: 20,
-   
-  
 
   },
   input: {

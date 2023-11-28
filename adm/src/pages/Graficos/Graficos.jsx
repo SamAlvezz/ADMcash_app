@@ -126,12 +126,12 @@ export default function Graficos() {
                 {/* lógica para personalizar especificamente
                o Resultado e a Despesa após verificação */}
                 {item.label === 'Resultado' && (
-                  <Text style={[styles.DatatextLabel, { color: 'black', fontSize: 16 }]}>
+                  <Text style={[styles.DatatextLabel, { color: 'black', fontSize: 17 }]}>
                     {item.label}
                   </Text>
                 )}
                 {item.label === 'Despesas' && (
-                  <Text style={[styles.DatatextLabel, { color: 'black', fontSize: 16 }]}>
+                  <Text style={[styles.DatatextLabel, { color: 'black', fontSize: 17 }]}>
                     {item.label}
                   </Text>
                 )}
@@ -140,12 +140,12 @@ export default function Graficos() {
                 )}
 
                 {item.label === 'Resultado' && (
-                  <Text style={[styles.DatatextValue, { color: '#3FE746', fontSize: 15 }]}>
+                  <Text style={[styles.DatatextValue, { color: '#3FE746', fontSize: 16 }]}>
                     {item.value}
                   </Text>
                 )}
                 {item.label === 'Despesas' && (
-                  <Text style={[styles.DatatextValue, { color: 'red', fontSize: 15 }]}>
+                  <Text style={[styles.DatatextValue, { color: 'red', fontSize: 16 }]}>
                     {item.value}
                   </Text>
                 )}
@@ -217,25 +217,25 @@ const styles = StyleSheet.create({
   },
 
   DatatextLabel: {
-    fontSize: 13,
+    fontSize: 14,
     fontWeight: '700',
     color: '#8c8b8b',
   },
 
   DatatextValue: {
-    fontSize: 13,
+    fontSize: 14,
     fontWeight: '700',
     color: '#8c8b8b',
 
   },
   ReceitaGrafText: {
-    fontSize: 16,
+    fontSize: 17,
     fontWeight: '700',
     paddingStart: '6%',
     marginTop: 10
   },
   ReceitaGrafvalor: {
-    fontSize: 16,
+    fontSize: 17,
     fontWeight: '700',
     marginHorizontal: 6
   },
@@ -248,13 +248,13 @@ const styles = StyleSheet.create({
   colorSquaresContainer: {
     flexDirection: 'column',
     alignItems: 'center',
-    marginTop: 52
+    marginTop: 53
   },
 
   colorSquare: {
     width: 20,
     height: 20,
-    marginVertical: 8,
+    marginVertical: 9,
     borderRadius: 4,
     marginStart: 10
   },

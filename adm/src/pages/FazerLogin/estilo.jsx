@@ -11,7 +11,7 @@ const styles = {
 
   },
   messagem: {
-    fontSize: 24,
+    fontSize: 26,
     color: "#09301B",
     fontWeight: 800,
     marginBottom: 30,
@@ -20,7 +20,7 @@ const styles = {
   },
   titulo: {
     color: "#09301B",
-    fontSize: 24,
+    fontSize: 26,
     marginTop: 30,
 
   },
@@ -39,7 +39,7 @@ const styles = {
   },
   botaotexto: {
     color: "#00000080",
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "bold",
     marginTop: 15,
     marginBottom: 100

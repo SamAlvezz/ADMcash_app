@@ -16,7 +16,7 @@ const styles = {
    
     titulo: {
         fontWeight: 'bold',
-        fontSize: 40,
+        fontSize: 43,
         color: '#09301B',
         marginBottom: 30,
         
@@ -25,13 +25,13 @@ const styles = {
          
         fontstyle: 'normal',
         fontweight: 'bold',
-        fontSize: 24,
+        fontSize: 26,
         color: '#09301B',
     },
     textocash: {
         marginBottom: 50,
         marginTop: 15,
-        fontSize: 16,
+        fontSize: 17,
         lineHeight: 22,
         textAlign: 'center',
         color: '#262323',
@@ -56,7 +56,7 @@ const styles = {
         paddingVertical: 7,
     },
     textoCriar: {
-        fontSize: 20,
+        fontSize: 22,
         color: 'white',
        
     },
@@ -71,7 +71,7 @@ const styles = {
         marginBottom: 40
     },
     textoLogin: {
-        fontSize: 20,
+        fontSize: 22,
         color: 'black',
         
         

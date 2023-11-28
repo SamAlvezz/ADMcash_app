@@ -16,27 +16,27 @@ import ptBR from 'date-fns/locale/pt-BR';
 registerLocale('pt-BR', ptBR);
 
 function ModalReceitas({ visible, onClose, onSave }) {
-  const [nomeInvestimento, setNomeInvestimento] = useState('');
-  const [valorInvestimento, setValorInvestimento] = useState('');
+  const [nomeReceita, setNomeReceita] = useState('');
+  const [valorReceita, setValorReceita] = useState('');
   const [observacoes, setObservacoes] = useState('');
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [tipoInvestimento, setTipoInvestimento] = useState('Fixa');
+  const [tipoReceita, setTipoReceita] = useState('Fixa');
 
-  const salvarInvestimento = () => {
+  const salvarReceita = () => {
     const novaReceita = {
-      nome: nomeInvestimento,
-      valor: valorInvestimento,
+      nome: nomeReceita,
+      valor: valorReceita,
       observacoes: observacoes,
       dataValidade: selectedDate,
-      tipo: tipoInvestimento,
+      tipo: tipoReceita,
     };
 
     onSave(novaReceita);
-    setNomeInvestimento('');
-    setValorInvestimento('');
+    setNomeReceita('');
+    setValorReceita('');
     setObservacoes('');
     setSelectedDate(new Date());
-    setTipoInvestimento('Fixa');
+    setTipoReceita('Fixa');
     onClose();
   };
 
@@ -44,19 +44,19 @@ function ModalReceitas({ visible, onClose, onSave }) {
     <Modal visible={visible} animationType="slide">
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          <Text style={styles.preenchimentosinvestimento}>Nome do Investimento</Text>
+          <Text style={styles.preenchimentosinvestimento}>Nome da Receita</Text>
           <TextInput
-            value={nomeInvestimento}
-            onChangeText={setNomeInvestimento}
+            value={nomeReceita}
+            onChangeText={setNomeReceita}
             placeholder="Digite"
             style={styles.input}
             placeholderTextColor="gray"
           />
 
-          <Text style={styles.preenchimentosinvestimento}>Valor do Investimento</Text>
+          <Text style={styles.preenchimentosinvestimento}>Valor da Receita</Text>
           <TextInput
-            value={valorInvestimento}
-            onChangeText={setValorInvestimento}
+            value={valorReceita}
+            onChangeText={setValorReceita}
             placeholder="R$00,00"
             style={styles.input}
             placeholderTextColor="gray"
@@ -71,7 +71,7 @@ function ModalReceitas({ visible, onClose, onSave }) {
             placeholderTextColor="gray"
           />
 
-          <Text style={styles.preenchimentosinvestimento}>Data de Validade</Text>
+          <Text style={styles.preenchimentosinvestimento}>Data de Rencebimento</Text>
           <DatePicker
             selected={selectedDate}
             onChange={(date) => setSelectedDate(date)}
@@ -83,16 +83,16 @@ function ModalReceitas({ visible, onClose, onSave }) {
             customInput={<TextInput style={styles.input} />}
           />
 
-          <Text style={styles.preenchimentosdespesas}>Tipo de Investimento</Text>
+          <Text style={styles.preenchimentosreceitas}>Tipo de Receitas</Text>
           <TextInput
-            value={tipoInvestimento}
-            onChangeText={setTipoInvestimento}
+            value={tipoReceita}
+            onChangeText={setTipoReceita}
             placeholder="Digite"
             style={styles.input}
             placeholderTextColor="gray"
           />
 
-          <TouchableOpacity style={styles.botaosalvar} onPress={salvarInvestimento}>
+          <TouchableOpacity style={styles.botaosalvar} onPress={salvarReceita}>
             <Text style={styles.txt}>Salvar</Text>
           </TouchableOpacity>
         </View>
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 20,
   },
-  preenchimentosinvestimento: {
+  preenchimentosreceitas: {
     fontSize: 20,
    
   

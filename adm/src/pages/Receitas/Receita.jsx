@@ -23,16 +23,16 @@ export default function Receita() {
 
   const adicionarReceita = async (novaReceita) => {
     if (editingIndex !== null) {
-      // Editar despesa existente
+      // Editar receita existente
       const updatedReceitas = [...receitas];
-      updatedReceitas[editingIndex] = novaDespesa;
+      updatedReceitas[editingIndex] = novaReceita;
       setReceitas(updatedReceitas);
 
       const body = {
         NOME_DESP: novaReceita.nome,
         VALOR_DESP: novaReceita.valor,
         DESCRICAO: novaReceita.observacoes,
-        DATA_VENCIMENTO: novaReceita.dataValidade,
+        DATA_RECEBIMENTO: novaReceita.dataRecebimento,
       };
 
       // await axios.post();
@@ -44,7 +44,7 @@ export default function Receita() {
     );
 
     // Format the date as an ISO string
-    const formattedDate = novaReceita.dataValidade.toISOString();
+    const formattedDate = novaReceita.dataRecebimento.toISOString();
 
     const currencyString = novaReceita.valor;
 
@@ -60,12 +60,12 @@ export default function Receita() {
       NOME_DESP: novaReceita.nome,
       VALOR_DESP: numericValue,
       DESCRICAO: novaReceita.observacoes,
-      DATA_VENCIMENTO: formattedDate,
+      DATA_RECEBIMENTO: formattedDate,
     };
 
     try {
       const response = await axios.post(
-        "https://localhost:44318/api/despesas/criardespesa",
+        "https://localhost:44318/api/receitas/criarreceita",
         body
       );
     } catch (error) {
@@ -73,7 +73,7 @@ export default function Receita() {
     }
 
     setModalVisible(false);
-    calcularTotalDespesas();
+    calcularTotalReceitas();
   };
 
   const excluirReceita = (index) => {
@@ -96,15 +96,15 @@ export default function Receita() {
         //pegar do back
 
         const response = await axios.get(
-          "https://localhost:44318/api/Despesas/listardespesa"
+          "https://localhost:44318/api/receitas/listarreceita"
         );
         if (response.status === 200) {
           setReceitas(response.data);
           return;
         }
-        console.error("Erro ao carregar despesas", response);
+        console.error("Erro ao carregar receitas", response);
       } catch (error) {
-        console.error("Erro ao carregar despesas", error);
+        console.error("Erro ao carregar receitas", error);
       }
       calcularTotalReceita();
     };
@@ -200,10 +200,9 @@ export default function Receita() {
           >
             <View style={styles.itemContainer}>
               <View style={styles.alinhalist}>
-                <Text style={styles.ItemTitulo}>{item.nomE_DESP}</Text>
-                <Text style={styles.itemText}> - {item.tipo} - </Text>
+                <Text style={styles.ItemTitulo}>{item.nomE_RCT}</Text>
                 <Text style={[styles.itemText, styles.dataText]}>
-                  {new Date(item.datA_VENCIMENTO).toLocaleDateString("pt-BR")}
+                  {new Date(item.datA_RECEBIMENTO).toLocaleDateString("pt-BR")}
                 </Text>
               </View>
 

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Cxvp4xIcuSLuutJaqck8Z4530j5QZlnL/xUXYg0r4nbwusIRQHkslpd4G2y3jNwZ8DtlmarZNv7uLVmxRHvBfw==",
+  "dgSpecHash": "Y40XF/P9rr/UD66sqZxpM2xHyuIxsAnpL1tr0H0vp/ljHiUd0p5fqr+9nTva+i7Tqf73BebU1DbdPJHShK3A7Q==",
   "success": true,
-  "projectFilePath": "C:\\repo\\TCC\\ADMcash_app\\API\\AdmAPI\\AdmAPI.csproj",
+  "projectFilePath": "C:\\repo\\tcc\\ADMcash_app\\API\\AdmAPI\\AdmAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\tiago\\.nuget\\packages\\bouncycastle.cryptography\\2.2.1\\bouncycastle.cryptography.2.2.1.nupkg.sha512",
     "C:\\Users\\tiago\\.nuget\\packages\\google.protobuf\\3.21.9\\google.protobuf.3.21.9.nupkg.sha512",

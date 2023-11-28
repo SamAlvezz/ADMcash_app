@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "C:\\repo\\TCC\\ADMcash_app\\API\\AdmAPI\\AdmAPI.csproj": {}
+    "C:\\repo\\tcc\\ADMcash_app\\API\\AdmAPI\\AdmAPI.csproj": {}
   },
   "projects": {
-    "C:\\repo\\TCC\\ADMcash_app\\API\\AdmAPI\\AdmAPI.csproj": {
+    "C:\\repo\\tcc\\ADMcash_app\\API\\AdmAPI\\AdmAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\repo\\TCC\\ADMcash_app\\API\\AdmAPI\\AdmAPI.csproj",
+        "projectUniqueName": "C:\\repo\\tcc\\ADMcash_app\\API\\AdmAPI\\AdmAPI.csproj",
         "projectName": "AdmAPI",
-        "projectPath": "C:\\repo\\TCC\\ADMcash_app\\API\\AdmAPI\\AdmAPI.csproj",
+        "projectPath": "C:\\repo\\tcc\\ADMcash_app\\API\\AdmAPI\\AdmAPI.csproj",
         "packagesPath": "C:\\Users\\tiago\\.nuget\\packages\\",
-        "outputPath": "C:\\repo\\TCC\\ADMcash_app\\API\\AdmAPI\\obj\\",
+        "outputPath": "C:\\repo\\tcc\\ADMcash_app\\API\\AdmAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
           "C:\\Users\\tiago\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -60,8 +62,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -73,7 +74,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
         }
       }
     }

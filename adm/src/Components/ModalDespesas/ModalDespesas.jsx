@@ -23,7 +23,7 @@ function ModalDespesas({ visible, onClose, onSave, onExcluir, editingIndex }) {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [tipoDespesa, setTipoDespesa] = useState("Fixa");
 
-/* salvando despesa */
+  /* salvando despesa */
   const salvarDespesa = () => {
     const novaDespesa = {
       nome: nomeDespesa,
@@ -41,7 +41,7 @@ function ModalDespesas({ visible, onClose, onSave, onExcluir, editingIndex }) {
     setTipoDespesa("Fixa");
     onClose();
   };
-/* excluindo */
+  /* excluindo */
   const excluirDespesa = () => {
     onExcluir({
       nome: nomeDespesa,
@@ -58,15 +58,15 @@ function ModalDespesas({ visible, onClose, onSave, onExcluir, editingIndex }) {
 
 
   const handleValorChange = (text) => {
-    if(text == "") return;
+    if (text == "") return;
     // Remova todos os caracteres não numéricos
     const numericValue = text.replace(/[^0-9]/g, "");
     // Adicione um sinal de menos no início, se ainda não estiver presente
     const formattedValue = numericValue
       ? `R$ -${Number(numericValue / 100).toLocaleString("pt-BR", {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        })}`
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })}`
       : "";
 
     setValorDespesa(formattedValue);
@@ -129,12 +129,12 @@ function ModalDespesas({ visible, onClose, onSave, onExcluir, editingIndex }) {
               <Picker.Item label="Extra" value="Variável" />
             </Picker>
             <View style={styles.ViewBotoes}>
-              <TouchableOpacity
+             {/* <TouchableOpacity
                 style={styles.botaoexcluir}
                 onPress={excluirDespesa}
-              >
+              
                 <Text style={styles.txtexcluir}>Excluir</Text>
-              </TouchableOpacity>
+              </TouchableOpacity>*/}
               <TouchableOpacity
                 style={styles.botaosalvar}
                 onPress={salvarDespesa}
@@ -153,10 +153,10 @@ const styles = StyleSheet.create({
   centeredView: {
     backgroundColor: "rgba(24, 24, 24, 0.6)",
     flex: 1,
+    justifyContent: "center",
+    paddingVertical: "20%", 
   },
   modalView: {
-    marginTop: "10%",
-    marginBottom: "10%",
     marginHorizontal: 10,
     borderRadius: 20,
     backgroundColor: "white",
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     height: 40,
     width: "100%",
     borderWidth: 1,
-    borderColor: "#3FE78C",
+    borderColor: "#f53656",
     paddingLeft: 10,
     paddingRight: 10,
     fontSize: 18,
@@ -178,8 +178,8 @@ const styles = StyleSheet.create({
   },
 
   ViewBotoes: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    //flexDirection: "row",
+    //justifyContent: "space-between",
     paddingHorizontal: 25,
   },
   botaosalvar: {
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     borderBottomColor: "#E0E0E0",
   },
-  botaoexcluir: {
+ /* botaoexcluir: {
     width: 90,
     height: 45,
     backgroundColor: "#F9FFFC",
@@ -213,12 +213,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: 600,
     color: "#E73F3F",
-  },
+  },*/
   txtsalvar: {
-    color: "#3FE78C",
-    fontSize: 16,
+    color: "#1a800d",
+    fontSize: 17,
     textAlign: "center",
-    fontWeight: 600,
+    fontWeight: 700,
   },
 });
 

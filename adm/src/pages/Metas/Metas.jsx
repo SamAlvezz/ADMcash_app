@@ -8,9 +8,10 @@ import {
 } from "react-native";
 import * as Progress from 'react-native-progress';
 import { AntDesign } from "@expo/vector-icons";
+import { Dimensions } from 'react-native';
 
 export default function Metas() {
-
+  const screenWidth = Dimensions.get('window').width;
   return (
     <SafeAreaView style={styles.container} texto={"Metas"}>
       <View style={styles.containerHeader}>
@@ -29,13 +30,16 @@ export default function Metas() {
           <Text style={styles.titulo}>Ford Ka</Text>
           <Text style={styles.dataBaterMeta}>15/11/24</Text>
         </View>
+        <View style={styles.row}>
+          <Text style={styles.Progresso}>Progresso:</Text>
+          <Text style={styles.ValorPosto}>R$15.200,00</Text>
+        </View>
         <View style={{ marginLeft: 6 }}>
-          <Text style={styles.Progresso}>Progresso</Text>
           <Progress.Bar
             styleAttr="Horizontal"
             indeterminate={false}
             progress={0.5}
-            width={280}
+            width={330} //Galaxy a12
             height={15}
             borderRadius={8}
             color='#3FE78C'
@@ -142,9 +146,23 @@ const styles = StyleSheet.create({
     fontWeight: 700,
     fontSize: 16
   },
+
+  row: {
+    flexDirection: 'row',
+    justifyContent:'space-between',
+    marginHorizontal: 5
+
+  },
+
+  ValorPosto: {
+    color: '#3FE78C',
+    fontSize: 17,
+    fontWeight: 700
+
+  },
   Progresso: {
     fontWeight: 700,
-    fontSize: 15,
+    fontSize: 17,
     marginHorizontal: 7,
     marginBottom: 4
   },

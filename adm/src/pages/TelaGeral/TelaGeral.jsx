@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
   },
   ServicotituloDes: {
     fontSize: 18,
-    fontWeight: 600,
+    fontWeight: 700,
     marginBottom: "4%",
     marginTop: "3%",
     marginHorizontal: 11,
@@ -169,7 +169,6 @@ const styles = StyleSheet.create({
   },
 
   dinheiroRec: {
-
     fontSize: 17,
     fontWeight: 700,
     marginHorizontal: 11,
@@ -179,6 +178,7 @@ const styles = StyleSheet.create({
     whiteSpace: "nowrap",
     color: "#3FE78C",
   },
+
   dinheiroDes: {
     color: "#FD5252",
     fontSize: 17,

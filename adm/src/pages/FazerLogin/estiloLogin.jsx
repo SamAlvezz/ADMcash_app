@@ -16,12 +16,17 @@ const styles = {
     fontWeight: 800,
     marginBottom: 30,
     marginTop: 10
-
   },
+
   titulo: {
     color: "#09301B",
     fontSize: 26,
     marginTop: 30,
+
+  },
+  ViewDosEspaces: {
+    marginHorizontal: 5
+
 
   },
   input: {
@@ -34,15 +39,14 @@ const styles = {
   botao: {
     borderRadius: 4,
     paddingVertical: 8,
-    justifyContent: "",
-    alignItems: "left",
+    marginTop: 15,
+    marginBottom: 100,
+    marginHorizontal:8
   },
   botaotexto: {
     color: "#00000080",
     fontSize: 18,
     fontWeight: "bold",
-    marginTop: 15,
-    marginBottom: 100
   },
 
   containerEmail: {
@@ -67,7 +71,7 @@ const styles = {
     opacity: 0.5,
     paddingStart: "5%",
   },
-  
+
 };
 
 export default styles;

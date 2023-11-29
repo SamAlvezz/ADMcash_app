@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, SafeAreaView, FlatList } from "react-native";
 import { PieChart } from 'react-native-svg-charts'
 import { ScrollView } from "react-native";
 
+
 export default function Graficos() {
   const data = [31, 6, 6, 0, 56];
   const colors = ['#F82B2B', '#FC9F6B', '#FCED6B', '#BC6BFC', '#3FE78C'];
@@ -102,7 +103,7 @@ export default function Graficos() {
         </View>
       </SafeAreaView>
 
-      <View style={styles.subcontainer2}>
+      <SafeAreaView style={styles.subcontainer2}>
         <View style={styles.ViewReceitaGraf}>
           <Text style={styles.ReceitaGrafText}>Receitas</Text>
           <View style={styles.ViewReceitaGraf}>
@@ -165,8 +166,7 @@ export default function Graficos() {
             }}
           />
         </View>
-      </View>
-
+      </SafeAreaView>
     </ScrollView>
   );
 }

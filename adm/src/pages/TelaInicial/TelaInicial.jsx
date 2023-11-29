@@ -2,7 +2,7 @@ import React from 'react';
 import { Text } from 'react-native';
 import { Pressable } from 'react-native';
 import { Image } from 'react-native';
-import styles from './estilo';
+import styles from './estiloInicial';
 import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';

@@ -12,6 +12,7 @@ import ModalReceitas from "../../Components/ModalReceitas/ModalReceitas";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { CheckBox } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
+import * as Animatable from "react-native-animatable";
 import axios from "axios";
 
 export default function Receita() {
@@ -120,109 +121,111 @@ export default function Receita() {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
-      <SafeAreaView style={styles.containerHeader}>
-        <View style={styles.rowarrow}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <AntDesign name="arrowleft" size={24} color="white" style={styles.backButton} />
-          </TouchableOpacity>
+    <SafeAreaView style={styles.container}>
+      <Animatable.View animation="fadeInLeft" delay={100}>
+        <View style={styles.containerHeader}>
+          <View style={styles.rowarrow}>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <AntDesign name="arrowleft" size={24} color="white" style={styles.backButton} />
+            </TouchableOpacity>
+            <View>
+              <Text style={styles.mensagem}>  Receitas</Text>
+            </View>
+          </View>
           <View>
-            <Text style={styles.mensagem}>  Receitas</Text>
+            <Text style={styles.Valor}>Valor das Receitas</Text>
+          </View>
+          <View>
+            <Text style={styles.Total}>R${totalReceita.toFixed(2)}</Text>
           </View>
         </View>
-        <View>
-          <Text style={styles.Valor}>Valor das Receitas</Text>
-        </View>
-        <View>
-          <Text style={styles.Total}>R${totalReceita.toFixed(2)}</Text>
-        </View>
-      </SafeAreaView>
 
-      <SafeAreaView style={styles.area1}>
-        <Text style={styles.text}>Registre as suas Receitas aqui.</Text>
-      </SafeAreaView>
-      <SafeAreaView style={styles.area2}>
-        <View style={styles.filterIcon}>
-          <TouchableOpacity onPress={toggleFiltros}>
-            <AntDesign name="filter" size={20} color="black" />
-          </TouchableOpacity>
+        <View style={styles.area1}>
+          <Text style={styles.text}>Registre as suas Receitas aqui.</Text>
         </View>
+        <View style={styles.area2}>
+          <View style={styles.filterIcon}>
+            <TouchableOpacity onPress={toggleFiltros}>
+              <AntDesign name="filter" size={20} color="black" />
+            </TouchableOpacity>
+          </View>
 
-        <Text style={styles.AdcText}>Adicionar</Text>
-        <TouchableOpacity
-          style={styles.AdcIcone}
-          onPress={() => setModalVisible(true)}
-        >
-          <AntDesign name="pluscircle" size={20} color={"#3F96E7"} />
-        </TouchableOpacity>
-      </SafeAreaView>
-      {filtroVisivel && (
-        <View style={styles.filtrosContainer}>
-          <CheckBox
-            title="Todos"
-            checked={selectedFilter === "Todos"}
-            onPress={() => setSelectedFilter("Todos")}
-          />
-          <CheckBox
-            title="Fixa"
-            checked={selectedFilter === "Fixa"}
-            onPress={() => setSelectedFilter("Fixa")}
-          />
-          <CheckBox
-            title="Adicional"
-            checked={selectedFilter === "Adicional"}
-            onPress={() => setSelectedFilter("Adicional")}
-          />
-          <CheckBox
-            title="Variável"
-            checked={selectedFilter === "Variável"}
-            onPress={() => setSelectedFilter("Variável")}
-          />
-          <CheckBox
-            title="Extra"
-            checked={selectedFilter === "Extra"}
-            onPress={() => setSelectedFilter("Extra")}
-          />
-        </View>
-      )}
-
-      <ModalReceitas
-        visible={modalVisible}
-        onClose={() => setModalVisible(false)}
-        onSave={adicionarReceita}
-        onExcluir={(index) => excluirReceita(index)}
-        editingIndex={editingIndex}
-      />
-
-      <FlatList
-        data={receitas.filter(
-          (item) => selectedFilter === "Todos" || item.tipo === selectedFilter
-        )}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item, index }) => (
+          <Text style={styles.AdcText}>Adicionar</Text>
           <TouchableOpacity
-            onPress={() => {
-              setEditingIndex(index);
-              setModalVisible(true);
-            }}
+            style={styles.AdcIcone}
+            onPress={() => setModalVisible(true)}
           >
-            <View style={styles.itemContainer}>
-              <View style={styles.alinhalist}>
-                <Text style={styles.ItemTitulo}>{item.nomE_RCT}</Text>
-                <Text style={[styles.itemText, styles.dataText]}>
-                  {new Date(item.datA_RECEBIMENTO).toLocaleDateString("pt-BR")}
-                </Text>
-              </View>
-
-              <Text style={styles.itemValor}>{item.valor}</Text>
-
-              <Text style={styles.itemObs}>obs: {item.observacoes}</Text>
-            </View>
+            <AntDesign name="pluscircle" size={20} color={"#3F96E7"} />
           </TouchableOpacity>
+        </View>
+        {filtroVisivel && (
+          <View style={styles.filtrosContainer}>
+            <CheckBox
+              title="Todos"
+              checked={selectedFilter === "Todos"}
+              onPress={() => setSelectedFilter("Todos")}
+            />
+            <CheckBox
+              title="Fixa"
+              checked={selectedFilter === "Fixa"}
+              onPress={() => setSelectedFilter("Fixa")}
+            />
+            <CheckBox
+              title="Adicional"
+              checked={selectedFilter === "Adicional"}
+              onPress={() => setSelectedFilter("Adicional")}
+            />
+            <CheckBox
+              title="Variável"
+              checked={selectedFilter === "Variável"}
+              onPress={() => setSelectedFilter("Variável")}
+            />
+            <CheckBox
+              title="Extra"
+              checked={selectedFilter === "Extra"}
+              onPress={() => setSelectedFilter("Extra")}
+            />
+          </View>
         )}
-        style={styles.flatlist}
-      />
-    </View>
+
+        <ModalReceitas
+          visible={modalVisible}
+          onClose={() => setModalVisible(false)}
+          onSave={adicionarReceita}
+          onExcluir={(index) => excluirReceita(index)}
+          editingIndex={editingIndex}
+        />
+
+        <FlatList
+          data={receitas.filter(
+            (item) => selectedFilter === "Todos" || item.tipo === selectedFilter
+          )}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item, index }) => (
+            <TouchableOpacity
+              onPress={() => {
+                setEditingIndex(index);
+                setModalVisible(true);
+              }}
+            >
+              <View style={styles.itemContainer}>
+                <View style={styles.alinhalist}>
+                  <Text style={styles.ItemTitulo}>{item.nomE_RCT}</Text>
+                  <Text style={[styles.itemText, styles.dataText]}>
+                    {new Date(item.datA_RECEBIMENTO).toLocaleDateString("pt-BR")}
+                  </Text>
+                </View>
+
+                <Text style={styles.itemValor}>{item.valor}</Text>
+
+                <Text style={styles.itemObs}>obs: {item.observacoes}</Text>
+              </View>
+            </TouchableOpacity>
+          )}
+          style={styles.flatlist}
+        />
+      </Animatable.View>
+    </SafeAreaView>
   );
 }
 

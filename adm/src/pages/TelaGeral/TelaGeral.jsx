@@ -8,6 +8,7 @@ import {
   ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import * as Animatable from "react-native-animatable";
 
 export default function TelaGeral() {
   const navigation = useNavigation();
@@ -26,61 +27,63 @@ export default function TelaGeral() {
   return (
     <ScrollView>
       <SafeAreaView style={styles.container}>
-        <SafeAreaView style={styles.containerHeader}>
-          <View>
-            <Text style={styles.mensagem}>Bem vindo(a)!</Text>
-          </View>
-        </SafeAreaView>
+        <Animatable.View animation="fadeInLeft" delay={100}>
+          <SafeAreaView style={styles.containerHeader}>
+            <View>
+              <Text style={styles.mensagem}>Bem vindo(a)!</Text>
+            </View>
+          </SafeAreaView>
 
-        <View style={styles.textview}>
-          <Text style={styles.text}>
-            Registre e acompanhe suas receitas e despesas.
-          </Text>
-          {/*por aqui button ajuda*/}
-        </View>
-
-        <SafeAreaView style={styles.ServicoView}>
-          <Text style={styles.Servicotitulo}>Receitas</Text>
-          <TouchableOpacity
-            style={styles.botao}
-            onPress={() => navigate("Receitas")}
-          >
-            <Text style={styles.botaotext}>Gerenciar Receitas</Text>
-          </TouchableOpacity>
-          <View style={styles.textdinamico}>
-            <Text style={styles.dinheiroRec}>R$5.600,00</Text>
-            <Text style={styles.porcentagemRec}>100%</Text>
-          </View>
-        </SafeAreaView>
-
-        <SafeAreaView style={styles.ServicoView}>
-          <Text style={styles.Servicotitulo}>Despesas</Text>
-          <TouchableOpacity
-            style={styles.botao}
-            onPress={() => navigate("Despesas")}
-          >
-            <Text style={styles.botaotext}>Gerenciar Despesas</Text>
-          </TouchableOpacity>
-
-          <View style={styles.textdinamico}>
-            <Text style={styles.dinheiroDes}>
-              R$-2.437,00
+          <View style={styles.textview}>
+            <Text style={styles.text}>
+              Registre e acompanhe suas receitas e despesas.
             </Text>
-            <Text style={styles.porcentagemDes}>43%</Text>
+            {/*por aqui button ajuda*/}
           </View>
-        </SafeAreaView>
 
-        <View style={styles.ResultadoView}>
-          <Text style={styles.Resultadotext}>Resultado:</Text>
-          <View style={styles.textdinamico}>
-            <Text style={styles.DinheiroRes}>R$3.590,00</Text>
-            <Text style={styles.Rendatotaltext}>56% de sua renda total</Text>
+          <SafeAreaView style={styles.ServicoView}>
+            <Text style={styles.ServicotituloRec}>Receitas</Text>
+            <TouchableOpacity
+              style={styles.botao}
+              onPress={() => navigate("Receitas")}
+            >
+              <Text style={styles.botaotext}>Gerenciar Receitas</Text>
+            </TouchableOpacity>
+            <View style={styles.textdinamico}>
+              <Text style={styles.dinheiroRec}>R$5.600,00</Text>
+              <Text style={styles.porcentagemRec}>100%</Text>
+            </View>
+          </SafeAreaView>
+
+          <SafeAreaView style={styles.ServicoView}>
+            <Text style={styles.ServicotituloDes}>Despesas</Text>
+            <TouchableOpacity
+              style={styles.botao}
+              onPress={() => navigate("Despesas")}
+            >
+              <Text style={styles.botaotext}>Gerenciar Despesas</Text>
+            </TouchableOpacity>
+
+            <View style={styles.textdinamico}>
+              <Text style={styles.dinheiroDes}>
+                R$-2.437,00
+              </Text>
+              <Text style={styles.porcentagemDes}>43%</Text>
+            </View>
+          </SafeAreaView>
+
+          <View style={styles.ResultadoView}>
+            <Text style={styles.Resultadotext}>Resultado:</Text>
+            <View style={styles.textdinamico}>
+              <Text style={styles.DinheiroRes}>R$3.590,00</Text>
+              <Text style={styles.Rendatotaltext}>56% de sua renda total</Text>
+            </View>
           </View>
-        </View>
 
-        <View style={styles.containerdata}>
-          <Text style={styles.Data}>{formattedDate}</Text>
-        </View>
+          <View style={styles.containerdata}>
+            <Text style={styles.Data}>{formattedDate}</Text>
+          </View>
+          </Animatable.View>
       </SafeAreaView>
     </ScrollView>
   );
@@ -89,10 +92,7 @@ export default function TelaGeral() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: 'center',
     backgroundColor: "#FFF",
-    backgroundColor: '#F9FFFC'
   },
   containerHeader: {
     backgroundColor: "#3FE78C",
@@ -117,27 +117,35 @@ const styles = StyleSheet.create({
   text: {
     color: "#00000080",
     fontSize: 16,
-    marginHorizontal: 3
+    marginHorizontal: 7
   },
   ServicoView: {
     marginBottom: "5%",
     width: '95%',
     height: 140,
     borderRadius: 10,
-    backgroundColor: "#FFF",
+    backgroundColor: "#fafffd",
     padding: 16,
     borderBottomWidth: 2,
     borderBottomColor: "#E0E0E0",
+    marginLeft: 10
   },
-  Servicotitulo: {
-    color: "#3F96E7",
+  ServicotituloRec: {
     fontSize: 18,
     fontWeight: 700,
     marginBottom: "4%",
     marginTop: "3%",
-    marginHorizontal: 11
+    marginHorizontal: 11,
+    color: "#3FE78C",
   },
-
+  ServicotituloDes: {
+    fontSize: 18,
+    fontWeight: 600,
+    marginBottom: "4%",
+    marginTop: "3%",
+    marginHorizontal: 11,
+    color: "#FD5252",
+  },
   botao: {
     borderRadius: 14,
     backgroundColor: "#3FE78C",
@@ -149,7 +157,7 @@ const styles = StyleSheet.create({
   botaotext: {
     color: "#fff",
     fontSize: 16,
-    fontWeight: 700,
+    fontWeight: 600,
     paddingStart: "8%",
     shadowColor: 'black',
     shadowOffset: { width: 0, height: 4 },
@@ -161,7 +169,7 @@ const styles = StyleSheet.create({
   },
 
   dinheiroRec: {
-    color: "#3FE746F5",
+
     fontSize: 17,
     fontWeight: 700,
     marginHorizontal: 11,
@@ -169,6 +177,7 @@ const styles = StyleSheet.create({
     maxWidth: 250,
     textOverflow: "ellipsis",
     whiteSpace: "nowrap",
+    color: "#3FE78C",
   },
   dinheiroDes: {
     color: "#FD5252",
@@ -182,10 +191,11 @@ const styles = StyleSheet.create({
 
   },
   porcentagemRec: {
-    color: "#3FE746F5",
     fontSize: 17,
     fontWeight: 700,
-    marginEnd: 6
+    marginEnd: 6,
+    color: "#3FE78C",
+
   },
   porcentagemDes: {
     color: "#FD5252",
@@ -200,7 +210,7 @@ const styles = StyleSheet.create({
   },
 
   ResultadoView: {
-    backgroundColor: "#fff",
+    backgroundColor: "#fafffd",
     marginBottom: "5%",
     width: '95%',
     height: 130,
@@ -208,42 +218,42 @@ const styles = StyleSheet.create({
     padding: 16,
     borderBottomWidth: 2,
     borderBottomColor: "#E0E0E0",
-    
-   
+    marginLeft: 10
   },
 
   Resultadotext: {
     fontSize: 20,
-    fontWeight: 700,
+    fontWeight: 600,
     marginHorizontal: 11,
     marginBottom: "3%",
     marginTop: "5%",
-    color: "#3F96E7"
+    color: "#8c8b8b",
 
   },
   DinheiroRes: {
     color: "#3FE746F5",
     fontSize: 19,
-    fontWeight: 700,
+    fontWeight: 600,
     marginStart: 10,
     marginTop: 3
   },
   Rendatotaltext: {
-    color: "#3F96E7",
+    color: "#8c8b8b",
     fontSize: 15,
     fontWeight: 700,
     maxWidth: 90,
     marginTop: -20,
-  
+
   },
   Data: {
-    color: "#3F96E7",
+    color: "#0076f0",
     fontSize: 20,
-    fontWeight: 700,
+    fontWeight: 600,
     marginTop: "3%",
   },
   containerdata: {
     marginTop: "4%",
-    marginBottom: 100
+    marginBottom: 100,
+    alignItems:'center'
   },
 });

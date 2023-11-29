@@ -11,6 +11,7 @@ import { AntDesign } from "@expo/vector-icons";
 import ModalReceitas from "../../Components/ModalReceitas/ModalReceitas";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { CheckBox } from "react-native-elements";
+import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 
 export default function Receita() {
@@ -116,11 +117,18 @@ export default function Receita() {
     setFiltroVisivel(!filtroVisivel);
   };
 
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <SafeAreaView style={styles.containerHeader}>
-        <View>
-          <Text style={styles.mensagem}>Receitas</Text>
+        <View style={styles.rowarrow}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <AntDesign name="arrowleft" size={24} color="white" style={styles.backButton} />
+          </TouchableOpacity>
+          <View>
+            <Text style={styles.mensagem}>  Receitas</Text>
+          </View>
         </View>
         <View>
           <Text style={styles.Valor}>Valor das Receitas</Text>
@@ -227,6 +235,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#3FE78C",
     width: "100%",
   },
+  backButton: {
+    marginLeft: 16,
+    marginTop: 5
+  },
+  rowarrow: {
+    flexDirection: 'row',
+    marginTop: 17,
+    marginBottom: 20
+
+  },
   area1: {
     flexDirection: "row",
     marginBottom: "6%",
@@ -240,9 +258,6 @@ const styles = StyleSheet.create({
   mensagem: {
     fontSize: 24,
     color: "#fff",
-    marginTop: "7%",
-    marginBottom: "7%",
-    paddingStart: "5%",
   },
   Valor: {
     fontSize: 15,

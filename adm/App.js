@@ -12,9 +12,6 @@ import ModalDespesas from "./src/Components/ModalDespesas/ModalDespesas";
 import ModalReceitas from "./src/Components/ModalReceitas/ModalReceitas";
 import Usuarios from "./src/pages/Usuarios/Usuarios";
 
-
-
-
 const Stack = createStackNavigator();
 
 
@@ -44,8 +41,16 @@ function App() {
           headerTransparent: true,
           headerShown: false
         }}></Stack.Screen>
-        <Stack.Screen name="Receitas" component={Receitas}></Stack.Screen>
-        <Stack.Screen name="Despesas" component={Despesas}></Stack.Screen>
+        <Stack.Screen name="Receitas" component={Receitas}  options={{
+          title: "",
+          headerTransparent: true,
+          headerShown: false
+        }}></Stack.Screen>
+        <Stack.Screen name="Despesas" component={Despesas} options={{
+          title: "",
+          headerTransparent: true,
+          headerShown: false
+        }}></Stack.Screen>
         <Stack.Screen name="ModalDespesas" component={ModalDespesas}></Stack.Screen>
         <Stack.Screen name="ModalReceitas" component={ModalReceitas}></Stack.Screen>
         <Stack.Screen name="TelaGeral" component={TelaGeral}></Stack.Screen>

@@ -1,4 +1,4 @@
-import react from "react";
+import React from "react";
 
 import {
   View,
@@ -11,13 +11,14 @@ import {
 import { AntDesign } from "@expo/vector-icons";
 
 export default function Metas() {
+
+
   return (
     <View style={styles.container} texto={"Metas"}>
       <SafeAreaView style={styles.containerHeader}>
         <View>
           <Text style={styles.text}>Metas</Text>
         </View>
-        ,
       </SafeAreaView>
 
       <Text style={styles.text}></Text>
@@ -56,6 +57,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: 600
   },
+
   botaotext: {
     color: "#fff",
     fontSize: 13,

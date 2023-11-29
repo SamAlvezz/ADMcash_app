@@ -12,6 +12,7 @@ import ModalDespesas from "../../Components/ModalDespesas/ModalDespesas";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { CheckBox } from "react-native-elements";
 import axios from "axios";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Despesas() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -116,11 +117,18 @@ export default function Despesas() {
     setFiltroVisivel(!filtroVisivel);
   };
 
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <SafeAreaView style={styles.containerHeader}>
         <View>
-          <Text style={styles.mensagem}>Despesas</Text>
+          <View style={styles.rowarrow}>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <AntDesign name="arrowleft" size={24} color="white" style={styles.backButton} />
+            </TouchableOpacity>
+            <Text style={styles.mensagem}>  Despesas</Text>
+          </View>
         </View>
         <View>
           <Text style={styles.Valor}>Valor das despesas</Text>
@@ -228,6 +236,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#E73F3F",
     width: "100%",
   },
+  backButton: {
+    marginLeft: 16,
+    marginTop: 5
+  },
+  rowarrow: {
+    flexDirection: 'row',
+    marginTop: 17,
+    marginBottom: 20
+
+  },
   area1: {
     flexDirection: "row",
     marginBottom: "6%",
@@ -241,9 +259,6 @@ const styles = StyleSheet.create({
   mensagem: {
     fontSize: 24,
     color: "#fff",
-    marginTop: "7%",
-    marginBottom: "7%",
-    paddingStart: "5%",
   },
   Valor: {
     fontSize: 15,

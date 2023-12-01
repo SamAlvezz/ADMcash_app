@@ -1,26 +1,18 @@
-﻿
-
-
-using AdmAPI.DTO;
+﻿using AdmAPI.DTO;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using static Org.BouncyCastle.Bcpg.Attr.ImageAttrib;
 
 namespace AdmAPI.DAO
 {
     public class DespesaDAO
     {
-
         public List<DespesaDTO> ListarDespesas()
         {
-            
-            string hoje = DateTime.Now.ToString("d");
-            
             var conexao = ConnectionFactory.Build();
             conexao.Open();
 
-            var query = "SELECT*FROM DESPESAS";
+            var query = "SELECT * FROM DESPESAS";
 
             var comando = new MySqlCommand(query, conexao);
             var dataReader = comando.ExecuteReader();
@@ -45,13 +37,10 @@ namespace AdmAPI.DAO
 
         public List<DespesaDTO> BuscarDespesas(string filtro)
         {
-            string hoje = DateTime.Now.ToString("d");
-           
-
             var conexao = ConnectionFactory.Build();
             conexao.Open();
 
-            var query = "SELECT*FROM DESPESAS Where Nome Like '%" + filtro + "%'";
+            var query = "SELECT * FROM DESPESAS WHERE Nome LIKE '%" + filtro + "%'";
 
             var comando = new MySqlCommand(query, conexao);
             var dataReader = comando.ExecuteReader();
@@ -82,7 +71,7 @@ namespace AdmAPI.DAO
             conexao.Open();
 
             var query = @"INSERT INTO DESPESAS (NOME_DESP, VALOR_DESP, DESCRICAO, DATA_VENCIMENTO) VALUES
-            (@NOME_DESP, @VALOR_DESP, @DESCRICAO, @DATA_VENCIMENTO);";
+                          (@NOME_DESP, @VALOR_DESP, @DESCRICAO, @DATA_VENCIMENTO);";
 
             var comando = new MySqlCommand(query, conexao);
             comando.Parameters.AddWithValue("@NOME_DESP", despesa.NOME_DESP);
@@ -93,6 +82,7 @@ namespace AdmAPI.DAO
             comando.ExecuteNonQuery();
             conexao.Close();
         }
+
         public void AlterarDespesa(DespesaDTO despesa)
         {
             var dateOnly = despesa.DATA_VENCIMENTO.Date;
@@ -100,7 +90,7 @@ namespace AdmAPI.DAO
             conexao.Open();
 
             var query = @"UPDATE DESPESAS SET NOME_DESP = @NOME_DESP, VALOR_DESP = @VALOR_DESP, DESCRICAO = @DESCRICAO, DATA_VENCIMENTO = @DATA_VENCIMENTO
-            where COD_DESP = @COD_DESP";
+                          WHERE COD_DESP = @COD_DESP";
 
             var comando = new MySqlCommand(query, conexao);
             comando.Parameters.AddWithValue("@COD_DESP", despesa.COD_DESP);
@@ -112,12 +102,13 @@ namespace AdmAPI.DAO
             comando.ExecuteNonQuery();
             conexao.Close();
         }
-            public void RemoverDespesa(int COD_DESP)
+
+        public void RemoverDespesa(int COD_DESP)
         {
             var conexao = ConnectionFactory.Build();
             conexao.Open();
 
-            var query = @"DELETE FROM DESPESAS WHERE COD_DESPESAS = @COD_DESPESAS;";
+            var query = @"DELETE FROM DESPESAS WHERE COD_DESP = @COD_DESP;";
 
             var comando = new MySqlCommand(query, conexao);
             comando.Parameters.AddWithValue("@COD_DESP", COD_DESP);
@@ -127,3 +118,4 @@ namespace AdmAPI.DAO
         }
     }
 }
+

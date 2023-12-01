@@ -34,9 +34,9 @@ namespace AdmAPI.Controllers
             return Ok();
         }
 
-        [Route("removerdespesa")]
+        [Route("removerdespesa/{COD_DESP}")]
         [HttpDelete]
-        public IActionResult RemoverDespesa(int COD_DESP)
+        public IActionResult RemoverDespesa([FromRoute]int COD_DESP)
         {
             var dao = new DespesaDAO();
             dao.RemoverDespesa(COD_DESP);

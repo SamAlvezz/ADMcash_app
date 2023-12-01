@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import ModalDespesas from "../../Components/ModalDespesas/ModalDespesas";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { CheckBox } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import * as Animatable from "react-native-animatable";
@@ -23,12 +22,15 @@ export default function Despesas() {
   const [totalDespesas, setTotalDespesas] = useState(0);
   const [editingIndex, setEditingIndex] = useState(null);
 
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
   const adicionarDespesa = async (novaDespesa) => {
     if (editingIndex !== null) {
       // Editar despesa existente
       const updatedDespesas = [...despesas];
       updatedDespesas[editingIndex] = novaDespesa;
       setDespesas(updatedDespesas);
+
 
       const body = {
         NOME_DESP: novaDespesa.nome,
@@ -37,80 +39,110 @@ export default function Despesas() {
         DATA_VENCIMENTO: novaDespesa.dataValidade,
       };
 
-      // await axios.post();
+      try {
+        await axios.put(
+          `https://localhost:44318/api/Despesas/atualizardespesa/${novaDespesa.COD_DESP}`,
+          body
+        );
+      } catch (error) {
+        console.log(error);
+      }
     } else {
       // Adicionar nova despesa
-    }
-    novaDespesa.dataValidade.setUTCHours(
-      novaDespesa.dataValidade.getUTCHours() - 3
-    );
-
-    // Format the date as an ISO string
-    const formattedDate = novaDespesa.dataValidade.toISOString();
-
-    const currencyString = novaDespesa.valor;
-
-    // Remove non-numeric characters and replace comma with dot
-    const numericString = currencyString
-      .replace(/[^\d.,]/g, "")
-      .replace(",", ".");
-
-    // Parse the string as a float
-    const numericValue = parseFloat(numericString);
-
-    const body = {
-      NOME_DESP: novaDespesa.nome,
-      VALOR_DESP: numericValue,
-      DESCRICAO: novaDespesa.observacoes,
-      DATA_VENCIMENTO: formattedDate,
-    };
-
-    try {
-      const response = await axios.post(
-        "https://localhost:44318/api/despesas/criardespesa",
-        body
+      novaDespesa.dataValidade.setUTCHours(
+        novaDespesa.dataValidade.getUTCHours() - 3
       );
-    } catch (error) {
-      console.log(error);
+
+      // Format the date as an ISO string
+      const formattedDate = novaDespesa.dataValidade.toISOString();
+
+      const currencyString = novaDespesa.valor;
+
+      // Remove non-numeric characters and replace comma with dot
+      const numericString = currencyString
+        .replace(/[^\d.,]/g, "")
+        .replace(",", ".");
+
+      // Parse the string as a float
+      const numericValue = parseFloat(numericString);
+
+      const body = {
+        NOME_DESP: novaDespesa.nome,
+        VALOR_DESP: numericValue,
+        DESCRICAO: novaDespesa.observacoes,
+        DATA_VENCIMENTO: formattedDate,
+      };
+
+      try {
+        const response = await axios.post(
+          "https://localhost:44318/api/Despesas/criardespesa",
+          body
+        );
+      } catch (error) {
+        console.log(error);
+      }
     }
 
     setModalVisible(false);
+    await loadDespesas();
+  };
+
+  function handleModalOpen(index) {
+    setSelectedIndex(index);
+    setModalVisible(true);
+  }
+
+  const excluirDespesa = async (index) => {
+    const despesaId = despesas[index].coD_DESP;
+
+    await excluirDespesaApi(despesaId);
+
+    // Remove the expense from the state
+    // setDespesas((prevDespesas) => prevDespesas.filter((_, i) => i !== index));
     calcularTotalDespesas();
   };
 
-  const excluirDespesa = (index) => {
-    const updatedDespesas = [...despesas];
-    updatedDespesas.splice(index, 1);
-    setDespesas(updatedDespesas);
+  const excluirDespesaApi = async (despesaId) => {
+    try {
+      await axios.delete(
+        `https://localhost:44318/api/Despesas/removerdespesa/${despesaId}`
+      );
+      console.log("Despesa excluída com sucesso");
+
+      // Optional: reload the expenses after deletion
+      await loadDespesas();
+    } catch (error) {
+      console.error("Erro ao excluir despesa", error);
+    }
   };
 
   const calcularTotalDespesas = () => {
     const total = despesas.reduce(
-      (acc, despesa) => acc + parseFloat(despesa.valor),
+      (acc, despesa) => acc + parseFloat(despesa.VALOR_DESP),
       0
     );
     setTotalDespesas(total);
   };
 
-  useEffect(() => {
-    const loadDespesas = async () => {
-      try {
-        //pegar do back
+  const loadDespesas = async () => {
+    try {
+      const response = await axios.get(
+        "https://localhost:44318/api/Despesas/listardespesa"
+      );
+      if (response.status === 200) {
+        setDespesas(response.data);
+        console.log(response.data)
 
-        const response = await axios.get(
-          "https://localhost:44318/api/Despesas/listardespesa"
-        );
-        if (response.status === 200) {
-          setDespesas(response.data);
-          return;
-        }
+      } else {
         console.error("Erro ao carregar despesas", response);
-      } catch (error) {
-        console.error("Erro ao carregar despesas", error);
       }
-      calcularTotalDespesas();
-    };
+    } catch (error) {
+      console.error("Erro ao carregar despesas", error);
+    }
+    calcularTotalDespesas();
+  };
 
+  useEffect(() => {
     loadDespesas();
   }, []);
 
@@ -127,9 +159,14 @@ export default function Despesas() {
           <View>
             <View style={styles.rowarrow}>
               <TouchableOpacity onPress={() => navigation.goBack()}>
-                <AntDesign name="arrowleft" size={24} color="white" style={styles.backButton} />
+                <AntDesign
+                  name="arrowleft"
+                  size={24}
+                  color="white"
+                  style={styles.backButton}
+                />
               </TouchableOpacity>
-              <Text style={styles.mensagem}>  Despesas</Text>
+              <Text style={styles.mensagem}> Despesas</Text>
             </View>
           </View>
           <View>
@@ -192,8 +229,9 @@ export default function Despesas() {
           visible={modalVisible}
           onClose={() => setModalVisible(false)}
           onSave={adicionarDespesa}
-          onExcluir={(index) => excluirDespesa(index)}
+          onExcluir={excluirDespesa}
           editingIndex={editingIndex}
+          index={selectedIndex}
         />
 
         <FlatList
@@ -205,7 +243,7 @@ export default function Despesas() {
             <TouchableOpacity
               onPress={() => {
                 setEditingIndex(index);
-                setModalVisible(true);
+                handleModalOpen(index);
               }}
             >
               <View style={styles.itemContainer}>
@@ -217,9 +255,15 @@ export default function Despesas() {
                   </Text>
                 </View>
 
-                <Text style={styles.itemValor}>{item.valor}</Text>
+                <Text style={styles.itemValor}>{item.VALOR_DESP}</Text>
 
-                <Text style={styles.itemObs}>obs: {item.observacoes}</Text>
+                <Text style={styles.itemObs}>obs: {item.DESCRICAO}</Text>
+                <TouchableOpacity
+                  style={styles.excluirButton}
+                  onPress={() => excluirDespesa(index)}
+                >
+                  <Text style={styles.excluirButtonText}>Excluir</Text>
+                </TouchableOpacity>
               </View>
             </TouchableOpacity>
           )}
@@ -241,13 +285,12 @@ const styles = StyleSheet.create({
   },
   backButton: {
     marginLeft: 16,
-    marginTop: 5
+    marginTop: 5,
   },
   rowarrow: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginTop: 17,
-    marginBottom: 20
-
+    marginBottom: 20,
   },
   area1: {
     flexDirection: "row",

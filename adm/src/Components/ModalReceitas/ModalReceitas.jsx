@@ -21,7 +21,7 @@ function ModalReceitas({ visible, onClose, onSave }) {
   const [observacoes, setObservacoes] = useState('');
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [tipoReceita, setTipoReceita] = useState('Fixa');
-
+ 
   const salvarReceita = () => {
     const novaReceita = {
       nome: nomeReceita,
@@ -40,10 +40,10 @@ function ModalReceitas({ visible, onClose, onSave }) {
   };
 
   return (
-    <Modal visible={visible} animationType="slide">
+    <Modal transparent={true} visible={visible} animationType="fade">
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          <Text style={styles.preenchimentosinvestimento}>Nome da Receita</Text>
+          <Text style={styles.preenchimentosreceitas}>Nome da Receita</Text>
           <TextInput
             value={nomeReceita}
             onChangeText={setNomeReceita}
@@ -52,7 +52,7 @@ function ModalReceitas({ visible, onClose, onSave }) {
             placeholderTextColor="gray"
           />
 
-          <Text style={styles.preenchimentosinvestimento}>Valor da Receita</Text>
+          <Text style={styles.preenchimentosreceitas}>Valor da Receita</Text>
           <TextInput
             value={valorReceita}
             onChangeText={setValorReceita}
@@ -61,7 +61,7 @@ function ModalReceitas({ visible, onClose, onSave }) {
             placeholderTextColor="gray"
           />
 
-          <Text style={styles.preenchimentosinvestimento}>Observações</Text>
+          <Text style={styles.preenchimentosreceitas}>Observações</Text>
           <TextInput
             value={observacoes}
             onChangeText={setObservacoes}
@@ -70,7 +70,7 @@ function ModalReceitas({ visible, onClose, onSave }) {
             placeholderTextColor="gray"
           />
 
-          <Text style={styles.preenchimentosinvestimento}>Data de Recebimento</Text>
+          <Text style={styles.preenchimentosreceitas}>Data de Recebimento</Text>
           <DatePicker
             selected={selectedDate}
             onChange={(date) => setSelectedDate(date)}
@@ -93,18 +93,16 @@ function ModalReceitas({ visible, onClose, onSave }) {
 
 const styles = StyleSheet.create({
   centeredView: {
-    backgroundColor: 'rgba(24, 24, 24, 0.6)',
-    height: 800,
-    width: 360,
-    alignItems: 'center',
+    backgroundColor: "rgba(24, 24, 24, 0.6)",
+    flex: 1,
+    justifyContent: "center",
+    paddingVertical: "20%", 
   },
   modalView: {
-    marginTop: '10%',
-    width: 332,
-    height: 800,
+    marginHorizontal: 10,
     borderRadius: 20,
-    backgroundColor: 'white',
-    padding: 20,
+    backgroundColor: "white",
+    padding: 30,
   },
   preenchimentosreceitas: {
     fontSize: 20,
@@ -122,18 +120,24 @@ const styles = StyleSheet.create({
     borderRadius: 14
   },
   botaosalvar: {
-    width: 160,
+    width: 90,
     height: 45,
-    backgroundColor: '#3FE78C',
-    alignItems: 'center',
+    backgroundColor: "#F9FFFC",
+    alignItems: "center",
     borderRadius: 14,
-    justifyContent: 'center',
-    alignSelf: 'center'
+    justifyContent: "center",
+    alignSelf: "center",
+    marginTop: "5%",
+    padding: 12,
+    borderBottomWidth: 2,
+    borderBottomColor: "#E0E0E0",
 
   },
   txt: {
-    fontSize: 16,
-    textAlign: 'center',
+    color: "#1a800d",
+    fontSize: 17,
+    textAlign: "center",
+    fontWeight: 700,
   },
 });
 

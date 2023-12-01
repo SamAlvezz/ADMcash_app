@@ -1,26 +1,58 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, SafeAreaView, FlatList } from "react-native";
-import { PieChart } from 'react-native-svg-charts'
+import { PieChart } from "react-native-svg-charts";
 import { ScrollView } from "react-native";
-
 
 export default function Graficos() {
   const data = [31, 6, 6, 0, 56];
-  const colors = ['#F82B2B', '#FC9F6B', '#FCED6B', '#BC6BFC', '#3FE78C'];
+
+  const [grafico, setGrafico] = useState([]);
+
+  const colors = ["#F82B2B", "#FC9F6B", "#FCED6B", "#BC6BFC", "#3FE78C"];
   const pieData = data.map((value, index) => ({
     value,
     key: `${index}-${value}`,
     svg: {
-      fill: colors[index % colors.length]
-    }
+      fill: colors[index % colors.length],
+    },
   }));
+
+  const obj = {
+    receitas: [
+      {
+        nome: "Salário",
+        valor: 5000,
+      },
+      {
+        nome: "Rendimentos",
+        valor: 200,
+      },
+    ],
+    despesas: [
+      {
+        nome: "Conta de luz",
+        valor: 200,
+      },
+      {
+        nome: "Conta de agua",
+        valor: 150,
+      },
+      {
+        nome: "internet",
+        valor: 100,
+      },
+    ],
+  };
+
+  useEffect(() => {
+    calcularGrafico();
+  }, []);
 
   const Label = ({ slices }) => {
     return slices.map((slice, index) => {
       const { pieCentroid, data } = slice;
       const percentage = ((data.value / data.total) * 100).toFixed(2);
       return (
-
         <React.Fragment key={`label-${index}`}>
           <Text
             x={pieCentroid[0]}
@@ -46,29 +78,74 @@ export default function Graficos() {
       );
     });
   };
+  function calcularGrafico() {
+    let totalDespesas = 0;
+    let totalReceitas = 0;
+
+    for (const receita of obj.receitas) {
+      totalReceitas += receita.valor;
+    }
+
+    // Calcule a soma das despesas
+    for (const despesa of obj.despesas) {
+      totalDespesas -= despesa.valor;
+    }
+    const resultado = totalReceitas + totalDespesas;
+
+    let itensGrafico = [];
+    debugger;
+
+    const percentageReceita = Number(((totalReceitas * 100) / resultado).toFixed(2));
+    const totalReceitaObject = {
+      label: "Receitas",
+      value: `R$ ${totalReceitas} - ${percentageReceita} %`,
+    };
+    itensGrafico.push(totalReceitaObject);
+
+    const percentageDespesas = Number(((totalDespesas * 100) / resultado).toFixed(2));
+    const totalDespesasObject = {
+      label: "Despesas",
+      value: `R$ ${totalDespesas * -1} - ${percentageDespesas} %`,
+    };
+
+    itensGrafico.push(totalDespesasObject);
+
+    obj.despesas.forEach((despesa) => {
+      const percentageDespesa = Number(((despesa * 100) / resultado).toFixed(2));
+      const despesasObject = {
+        label: despesa.nome,
+        value: `R$ ${percentageDespesa * -1} ${percentageDespesa} %`,
+      };
+
+      itensGrafico.push(despesasObject);
+    });
+
+    setGrafico(itensGrafico);
+
+  }
 
   const textData = [
-    { label: "Despesas", value: 'R$-2.437,00   43%' },
-    { label: "Fixas", value: 'R$ 1750,00   31%' },
-    { label: "Variáveis", value: 'R$ 337,00   6%' },
-    { label: "Extras", value: 'R$ 350,00   6%' },
-    { label: "Adicionais", value: '0%' },
-    { label: "Resultado", value: 'R$ 3.163,00   56%' }
+    { label: "Despesas", value: "R$-2.437,00   43%" },
+    { label: "Fixas", value: "R$ 1750,00   31%" },
+    { label: "Variáveis", value: "R$ 337,00   6%" },
+    { label: "Extras", value: "R$ 350,00   6%" },
+    { label: "Adicionais", value: "0%" },
+    { label: "Resultado", value: "R$ 3.163,00   56%" },
   ];
 
   const pieChartProps = {
     style: {
       marginTop: 50,
       marginBottom: 25,
-      height: 200
+      height: 200,
     },
     data: pieData,
-    innerRadius: '65%',
-    outerRadius: '100%',
-    labelRadius: '80%',
+    innerRadius: "65%",
+    outerRadius: "100%",
+    labelRadius: "80%",
     padAngle: 0.02,
     animate: true,
-    animationDuration: 500
+    animationDuration: 500,
   };
   const currentDate = new Date();
   const formattedDate = currentDate.toLocaleDateString("pt-BR", {
@@ -113,56 +190,85 @@ export default function Graficos() {
         </View>
         <View style={styles.alinhaSquare}>
           <View style={styles.colorSquaresContainer}>
-            <View style={[styles.colorSquare, { backgroundColor: '#F82B2B' }]} />
-            <View style={[styles.colorSquare, { backgroundColor: '#FC9F6B' }]} />
-            <View style={[styles.colorSquare, { backgroundColor: '#FCED6B' }]} />
-            <View style={[styles.colorSquare, { backgroundColor: '#BC6BFC' }]} />
-            <View style={[styles.colorSquare, { backgroundColor: '#3FE78C' }]} />
+            <View
+              style={[styles.colorSquare, { backgroundColor: "#F82B2B" }]}
+            />
+            <View
+              style={[styles.colorSquare, { backgroundColor: "#FC9F6B" }]}
+            />
+            <View
+              style={[styles.colorSquare, { backgroundColor: "#FCED6B" }]}
+            />
+            <View
+              style={[styles.colorSquare, { backgroundColor: "#BC6BFC" }]}
+            />
+            <View
+              style={[styles.colorSquare, { backgroundColor: "#3FE78C" }]}
+            />
           </View>
           <FlatList
-            data={textData}
+            data={grafico}
             keyExtractor={(item) => item.label}
             renderItem={({ item }) => (
               <View style={styles.DatatextContainer}>
                 {/* lógica para personalizar especificamente
                o Resultado e a Despesa após verificação */}
-                {item.label === 'Resultado' && (
-                  <Text style={[styles.DatatextLabel, { color: 'black', fontSize: 17 }]}>
+                {item.label === "Resultado" && (
+                  <Text
+                    style={[
+                      styles.DatatextLabel,
+                      { color: "black", fontSize: 17 },
+                    ]}
+                  >
                     {item.label}
                   </Text>
                 )}
-                {item.label === 'Despesas' && (
-                  <Text style={[styles.DatatextLabel, { color: 'black', fontSize: 17 }]}>
+                {item.label === "Despesas" && (
+                  <Text
+                    style={[
+                      styles.DatatextLabel,
+                      { color: "black", fontSize: 17 },
+                    ]}
+                  >
                     {item.label}
                   </Text>
                 )}
-                {item.label !== 'Resultado' && item.label !== 'Despesas' && (
+                {item.label !== "Resultado" && item.label !== "Despesas" && (
                   <Text style={styles.DatatextLabel}>{item.label}</Text>
                 )}
 
-                {item.label === 'Resultado' && (
-                  <Text style={[styles.DatatextValue, { color: '#3FE746', fontSize: 16 }]}>
+                {item.label === "Resultado" && (
+                  <Text
+                    style={[
+                      styles.DatatextValue,
+                      { color: "#3FE746", fontSize: 16 },
+                    ]}
+                  >
                     {item.value}
                   </Text>
                 )}
-                {item.label === 'Despesas' && (
-                  <Text style={[styles.DatatextValue, { color: 'red', fontSize: 16 }]}>
+                {item.label === "Despesas" && (
+                  <Text
+                    style={[
+                      styles.DatatextValue,
+                      { color: "red", fontSize: 16 },
+                    ]}
+                  >
                     {item.value}
                   </Text>
                 )}
-                {item.label !== 'Resultado' && item.label !== 'Despesas' && (
+                {item.label !== "Resultado" && item.label !== "Despesas" && (
                   <Text style={styles.DatatextValue}>{item.value}</Text>
                 )}
-
               </View>
             )}
             style={{
               marginVertical: 7,
               marginHorizontal: 10,
-              backgroundColor: '#fafffe',
+              backgroundColor: "#fafffe",
               borderRadius: 10,
               elevation: 3,
-              marginLeft: 7
+              marginLeft: 7,
             }}
           />
         </View>
@@ -174,18 +280,18 @@ export default function Graficos() {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#FFF",
-    flexDirection: 'column'
+    flexDirection: "column",
     // height: '100%',
-    // marginBottom: 70 
+    // marginBottom: 70
   },
   subcontainer: {
-    backgroundColor: '#FFF',
-    height: '50%'
+    backgroundColor: "#FFF",
+    height: "50%",
   },
 
   subcontainer2: {
-    backgroundColor: '#FFF',
-    height: '50%'
+    backgroundColor: "#FFF",
+    height: "50%",
   },
 
   textdataatual: {
@@ -193,24 +299,24 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 700,
     marginTop: "3%",
-    alignSelf: 'center'
+    alignSelf: "center",
   },
   textHeader: {
     fontSize: 30,
     color: "#fff",
-    fontWeight: 600
+    fontWeight: 600,
   },
   containerHeader: {
-    backgroundColor: '#3FE78C',
-    width: '100%',
+    backgroundColor: "#3FE78C",
+    width: "100%",
     height: 100,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   DatatextContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     padding: 10,
     //borderBottomWidth: 1,
     //borderBottomColor: '#ccc',
@@ -218,37 +324,36 @@ const styles = StyleSheet.create({
 
   DatatextLabel: {
     fontSize: 14,
-    fontWeight: '700',
-    color: '#8c8b8b',
+    fontWeight: "700",
+    color: "#8c8b8b",
   },
 
   DatatextValue: {
     fontSize: 14,
-    fontWeight: '700',
-    color: '#8c8b8b',
-
+    fontWeight: "700",
+    color: "#8c8b8b",
   },
   ReceitaGrafText: {
     fontSize: 17,
-    fontWeight: '700',
-    paddingStart: '6%',
-    marginTop: 10
+    fontWeight: "700",
+    paddingStart: "6%",
+    marginTop: 10,
   },
   ReceitaGrafvalor: {
     fontSize: 17,
-    fontWeight: '700',
-    marginHorizontal: 6
+    fontWeight: "700",
+    marginHorizontal: 6,
   },
   ViewReceitaGraf: {
-    flexDirection: 'row',
+    flexDirection: "row",
     justifyContent: "space-between",
     marginHorizontal: 6,
-    marginTop: 10
+    marginTop: 10,
   },
   colorSquaresContainer: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    marginTop: 53
+    flexDirection: "column",
+    alignItems: "center",
+    marginTop: 53,
   },
 
   colorSquare: {
@@ -256,9 +361,9 @@ const styles = StyleSheet.create({
     height: 20,
     marginVertical: 9,
     borderRadius: 4,
-    marginStart: 10
+    marginStart: 10,
   },
   alinhaSquare: {
-    flexDirection: 'row'
-  }
+    flexDirection: "row",
+  },
 });

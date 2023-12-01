@@ -16,7 +16,7 @@ import ptBR from "date-fns/locale/pt-BR";
 // Registre o locale pt-BR para o DatePicker
 registerLocale("pt-BR", ptBR);
 
-function ModalDespesas({ visible, onClose, onSave, onExcluir, editingIndex }) {
+function ModalDespesas({ visible, onClose, onSave, onExcluir, index }) {
   const [nomeDespesa, setNomeDespesa] = useState("");
   const [valorDespesa, setValorDespesa] = useState("");
   const [observacoes, setObservacoes] = useState("");
@@ -43,11 +43,8 @@ function ModalDespesas({ visible, onClose, onSave, onExcluir, editingIndex }) {
   };
   /* excluindo */
   const excluirDespesa = () => {
-    onExcluir({
-      nome: nomeDespesa,
-      dataValidade: selectedDate,
-    });
-    onExcluir(editingIndex);
+    debugger;
+    onExcluir(index);
     setNomeDespesa("");
     setValorDespesa("");
     setObservacoes("");
@@ -129,12 +126,13 @@ function ModalDespesas({ visible, onClose, onSave, onExcluir, editingIndex }) {
               <Picker.Item label="Extra" value="Variável" />
             </Picker>
             <View style={styles.ViewBotoes}>
-             {/* <TouchableOpacity
+              <TouchableOpacity
                 style={styles.botaoexcluir}
-                onPress={excluirDespesa}
+                onPress={excluirDespesa}> 
+                 <Text style={styles.txtexcluir}>Excluir</Text>                
+                </TouchableOpacity>
               
-                <Text style={styles.txtexcluir}>Excluir</Text>
-              </TouchableOpacity>*/}
+              
               <TouchableOpacity
                 style={styles.botaosalvar}
                 onPress={salvarDespesa}
@@ -178,8 +176,8 @@ const styles = StyleSheet.create({
   },
 
   ViewBotoes: {
-    //flexDirection: "row",
-    //justifyContent: "space-between",
+    flexDirection: "row",
+    justifyContent: "space-between",
     paddingHorizontal: 25,
   },
   botaosalvar: {
@@ -195,7 +193,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     borderBottomColor: "#E0E0E0",
   },
- /* botaoexcluir: {
+  botaoexcluir: {
     width: 90,
     height: 45,
     backgroundColor: "#F9FFFC",
@@ -213,7 +211,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: 600,
     color: "#E73F3F",
-  },*/
+  },
   txtsalvar: {
     color: "#1a800d",
     fontSize: 17,

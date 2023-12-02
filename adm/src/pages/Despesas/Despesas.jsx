@@ -275,7 +275,7 @@ export default function Despesas() {
                     {new Date(item.datA_VENCIMENTO).toLocaleDateString("pt-BR")}
                   </Text>
                 </View>
-                <Text style={styles.itemValor}>{item.valoR_DESP}</Text>
+                <Text style={styles.itemValor}>R$ -{item.valoR_DESP},00</Text>
                 <Text style={styles.itemObs}>obs: {item.DESCRICAO}</Text>
                 <TouchableOpacity
                   style={styles.excluirButton}

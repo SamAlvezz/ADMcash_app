@@ -253,9 +253,11 @@ export default function Despesas() {
                   <Text style={[styles.itemText, styles.dataText]}>
                     {new Date(item.datA_VENCIMENTO).toLocaleDateString("pt-BR")}
                   </Text>
+                  
+                  
                 </View>
 
-                <Text style={styles.itemValor}>{item.VALOR_DESP}</Text>
+                
 
                 <Text style={styles.itemObs}>obs: {item.DESCRICAO}</Text>
                 <TouchableOpacity
@@ -264,6 +266,7 @@ export default function Despesas() {
                 >
                   <Text style={styles.excluirButtonText}>Excluir</Text>
                 </TouchableOpacity>
+                <Text style={styles.itemValor}>R$ -{item.valoR_DESP}</Text>
               </View>
             </TouchableOpacity>
           )}
@@ -355,7 +358,9 @@ const styles = StyleSheet.create({
   itemValor: {
     fontSize: 16,
     color: "#FC6B6B",
-
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
     fontWeight: 500,
   },
   ItemTitulo: {

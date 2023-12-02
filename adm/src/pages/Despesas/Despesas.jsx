@@ -12,6 +12,7 @@ import ModalDespesas from "../../Components/ModalDespesas/ModalDespesas";
 import { CheckBox } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import * as Animatable from "react-native-animatable";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from "axios";
 
 export default function Despesas() {
@@ -41,7 +42,7 @@ export default function Despesas() {
 
       try {
         await axios.put(
-          `https://localhost:44318/api/Despesas/atualizardespesa/${novaDespesa.COD_DESP}`,
+        `https://localhost:44318/api/Despesas/atualizardespesa/${novaDespesa.COD_DESP}`,
           body
         );
       } catch (error) {
@@ -83,6 +84,8 @@ export default function Despesas() {
       }
     }
 
+    calcularTotalDespesas();
+
     setModalVisible(false);
     await loadDespesas();
   };
@@ -118,11 +121,17 @@ export default function Despesas() {
 
   const calcularTotalDespesas = () => {
     const total = despesas.reduce(
-      (acc, despesa) => acc + parseFloat(despesa.VALOR_DESP),
+      (acc, despesa) => acc + parseFloat(despesa.valoR_DESP),
       0
     );
+    console.log("Total de despesas calculado:", total);
     setTotalDespesas(total);
   };
+
+  AsyncStorage.setItem('totalDespesas', totalDespesas.toString())
+      .catch(error => {
+        console.error('Erro ao salvar totalDespesas no AsyncStorage:', error);
+      });
 
   const loadDespesas = async () => {
     try {
@@ -131,19 +140,31 @@ export default function Despesas() {
       );
       if (response.status === 200) {
         setDespesas(response.data);
-        console.log(response.data)
-
+        calcularTotalDespesas(); // Movido para cá
+        console.log(response.data);
       } else {
         console.error("Erro ao carregar despesas", response);
       }
     } catch (error) {
       console.error("Erro ao carregar despesas", error);
     }
-    calcularTotalDespesas();
+  };
+  
+  const loadTotalDespesas = async () => {
+    // Recupere o total do AsyncStorage ao montar o componente
+    try {
+      const savedTotal = await AsyncStorage.getItem('totalDespesas');
+      if (savedTotal !== null) {
+        setTotalDespesas(parseFloat(savedTotal));
+      }
+    } catch (error) {
+      console.error('Erro ao carregar totalDespesas do AsyncStorage:', error);
+    }
   };
 
   useEffect(() => {
     loadDespesas();
+    loadTotalDespesas();
   }, []);
 
   const toggleFiltros = () => {
@@ -173,7 +194,7 @@ export default function Despesas() {
             <Text style={styles.Valor}>Valor das despesas</Text>
           </View>
           <View>
-            <Text style={styles.Total}>R${totalDespesas.toFixed(2)}</Text>
+            <Text style={styles.Total}>R$-{totalDespesas.toFixed(2) }</Text>
           </View>
         </View>
 
@@ -253,12 +274,8 @@ export default function Despesas() {
                   <Text style={[styles.itemText, styles.dataText]}>
                     {new Date(item.datA_VENCIMENTO).toLocaleDateString("pt-BR")}
                   </Text>
-                  
-                  
                 </View>
-
-                
-
+                <Text style={styles.itemValor}>{item.valoR_DESP}</Text>
                 <Text style={styles.itemObs}>obs: {item.DESCRICAO}</Text>
                 <TouchableOpacity
                   style={styles.excluirButton}
@@ -266,7 +283,6 @@ export default function Despesas() {
                 >
                   <Text style={styles.excluirButtonText}>Excluir</Text>
                 </TouchableOpacity>
-                <Text style={styles.itemValor}>R$ -{item.valoR_DESP}</Text>
               </View>
             </TouchableOpacity>
           )}
@@ -358,9 +374,7 @@ const styles = StyleSheet.create({
   itemValor: {
     fontSize: 16,
     color: "#FC6B6B",
-    textOverflow: "ellipsis",
-    whiteSpace: "nowrap",
-    overflow: "hidden",
+
     fontWeight: 500,
   },
   ItemTitulo: {

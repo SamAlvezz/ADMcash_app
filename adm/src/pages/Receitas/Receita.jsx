@@ -84,6 +84,10 @@ export default function Receita() {
     setReceitas(updatedReceitas);
   };
 
+  useEffect(()=>{
+    calcularTotalReceita();
+  }, [receitas])
+
   const calcularTotalReceita = () => {
     const total = receitas.reduce(
       (acc, receita) => acc + parseFloat(receita.valor),

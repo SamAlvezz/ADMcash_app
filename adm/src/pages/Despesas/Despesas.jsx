@@ -119,6 +119,10 @@ export default function Despesas() {
     }
   };
 
+  useEffect(()=>{
+    calcularTotalDespesas();
+  }, [despesas])
+
   const calcularTotalDespesas = () => {
     const total = despesas.reduce(
       (acc, despesa) => acc + parseFloat(despesa.valoR_DESP),

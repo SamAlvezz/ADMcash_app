@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
@@ -7,15 +7,22 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import * as Animatable from "react-native-animatable";
 import { useState } from "react";
+import axios from "axios";
 
 export default function TelaGeral() {
   const navigation = useNavigation();
   const currentDate = new Date();
-  const [receitas, setReceitas] = useState(0);
-  const [despesas, setDespesas] = useState(0);
+  const [relatorio, setRelatorio] = useState({
+    totalDespesas: 0,
+    totalReceitas: 0,
+    resultado: 0,
+    percentualDepesas: 0,
+    percentualReceitas: 0
+  });
+
   const formattedDate = currentDate.toLocaleDateString("pt-BR", {
     year: "numeric",
     month: "long",
@@ -25,6 +32,22 @@ export default function TelaGeral() {
   function navigate(page) {
     navigation.navigate(page);
     navigation.navigate(page);
+  }
+  useFocusEffect(() => {
+    BuscarRelatorio();
+  });
+
+  useEffect(() => {
+    BuscarRelatorio();
+  }, []);
+
+  async function BuscarRelatorio() {
+    const response = await axios.get("https://localhost:44318/api/Despesas/relatorio");
+    if (response.status != 200) {
+      alert("Erro, ao buscar relatório");
+      return;
+    }
+    setRelatorio(response.data);
   }
 
   return (
@@ -53,8 +76,8 @@ export default function TelaGeral() {
               <Text style={styles.botaotext}>Gerenciar Receitas</Text>
             </TouchableOpacity>
             <View style={styles.textdinamico}>
-              <Text style={styles.dinheiroRec}>R${receitas.toFixed(2)}</Text>
-              <Text style={styles.porcentagemRec}>100%</Text>
+              <Text style={styles.dinheiroRec}>R${relatorio.totalReceitas.toFixed(2)}</Text>
+              <Text style={styles.porcentagemRec}>{relatorio.percentualReceitas}%</Text>
             </View>
           </SafeAreaView>
 
@@ -69,24 +92,24 @@ export default function TelaGeral() {
 
             <View style={styles.textdinamico}>
               <Text style={styles.dinheiroDes}>R$
-              {despesas.toFixed(2)}
+                {relatorio.totalDespesas.toFixed(2)}
               </Text>
-              <Text style={styles.porcentagemDes}>43%</Text>
+              <Text style={styles.porcentagemDes}>{relatorio.percentualDepesas}%</Text>
             </View>
           </SafeAreaView>
 
           <View style={styles.ResultadoView}>
             <Text style={styles.Resultadotext}>Resultado:</Text>
             <View style={styles.textdinamico}>
-              <Text style={styles.DinheiroRes}>R${(receitas + despesas).toFixed(2)}</Text>
-              <Text style={styles.Rendatotaltext}>56% de sua renda total</Text>
+              <Text style={relatorio.resultado < 0 ? styles.dinheiroDes : styles.dinheiroRec}>R${(relatorio.resultado).toFixed(2)}</Text>
+              <Text style={styles.Rendatotaltext}>{relatorio.percentualDepesas}% de sua renda total</Text>
             </View>
           </View>
 
           <View style={styles.containerdata}>
             <Text style={styles.Data}>{formattedDate}</Text>
           </View>
-          </Animatable.View>
+        </Animatable.View>
       </SafeAreaView>
     </ScrollView>
   );
@@ -257,6 +280,6 @@ const styles = StyleSheet.create({
   containerdata: {
     marginTop: "4%",
     marginBottom: 100,
-    alignItems:'center'
+    alignItems: 'center'
   },
 });

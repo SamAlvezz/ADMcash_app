@@ -9,10 +9,13 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import * as Animatable from "react-native-animatable";
+import { useState } from "react";
 
 export default function TelaGeral() {
   const navigation = useNavigation();
   const currentDate = new Date();
+  const [receitas, setReceitas] = useState(0);
+  const [despesas, setDespesas] = useState(0);
   const formattedDate = currentDate.toLocaleDateString("pt-BR", {
     year: "numeric",
     month: "long",
@@ -50,7 +53,7 @@ export default function TelaGeral() {
               <Text style={styles.botaotext}>Gerenciar Receitas</Text>
             </TouchableOpacity>
             <View style={styles.textdinamico}>
-              <Text style={styles.dinheiroRec}>R$5.600,00</Text>
+              <Text style={styles.dinheiroRec}>R${receitas.toFixed(2)}</Text>
               <Text style={styles.porcentagemRec}>100%</Text>
             </View>
           </SafeAreaView>
@@ -65,8 +68,8 @@ export default function TelaGeral() {
             </TouchableOpacity>
 
             <View style={styles.textdinamico}>
-              <Text style={styles.dinheiroDes}>
-                R$-2.437,00
+              <Text style={styles.dinheiroDes}>R$
+              {despesas.toFixed(2)}
               </Text>
               <Text style={styles.porcentagemDes}>43%</Text>
             </View>
@@ -75,7 +78,7 @@ export default function TelaGeral() {
           <View style={styles.ResultadoView}>
             <Text style={styles.Resultadotext}>Resultado:</Text>
             <View style={styles.textdinamico}>
-              <Text style={styles.DinheiroRes}>R$3.590,00</Text>
+              <Text style={styles.DinheiroRes}>R${(receitas + despesas).toFixed(2)}</Text>
               <Text style={styles.Rendatotaltext}>56% de sua renda total</Text>
             </View>
           </View>

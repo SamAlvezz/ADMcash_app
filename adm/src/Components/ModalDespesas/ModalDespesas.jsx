@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Picker,
+  TouchableWithoutFeedback
 } from "react-native";
 import { registerLocale, setDefaultLocale } from "react-datepicker";
 import ptBR from "date-fns/locale/pt-BR";
@@ -69,80 +70,86 @@ function ModalDespesas({ visible, onClose, onSave, onExcluir, index }) {
     setValorDespesa(formattedValue);
   };
 
+  const handleTouchablePress = () => {
+    Keyboard.dismiss();
+    onClose();
+  };
+
   return (
     <Modal transparent={true} visible={visible} animationType="fade">
-      <View style={styles.centeredView}>
-        <ScrollView pagingEnabled={true} showsVerticalScrollIndicator={false}>
-          <View style={styles.modalView}>
-            <Text style={styles.preenchimentosdespesas}>Nome da Despesa</Text>
-            <TextInput
-              value={nomeDespesa}
-              onChangeText={setNomeDespesa}
-              placeholder="Digite"
-              style={styles.input}
-              placeholderTextColor="gray"
-            />
+      <TouchableWithoutFeedback onPress={handleTouchablePress}>
+        <View style={styles.centeredView}>
+          <ScrollView pagingEnabled={true} showsVerticalScrollIndicator={false}>
+            <View style={styles.modalView}>
+              <Text style={styles.preenchimentosdespesas}>Nome da Despesa</Text>
+              <TextInput
+                value={nomeDespesa}
+                onChangeText={setNomeDespesa}
+                placeholder="Digite"
+                style={styles.input}
+                placeholderTextColor="gray"
+              />
 
-            <Text style={styles.preenchimentosdespesas}>Valor da Despesa</Text>
-            <TextInput
-              value={valorDespesa}
-              onChangeText={(text) => handleValorChange(text)}
-              placeholder="R$00,00"
-              keyboardType="numeric"
-              style={styles.input}
-              placeholderTextColor="gray"
-            />
+              <Text style={styles.preenchimentosdespesas}>Valor da Despesa</Text>
+              <TextInput
+                value={valorDespesa}
+                onChangeText={(text) => handleValorChange(text)}
+                placeholder="R$00,00"
+                keyboardType="numeric"
+                style={styles.input}
+                placeholderTextColor="gray"
+              />
 
-            <Text style={styles.preenchimentosdespesas}>Observações</Text>
-            <TextInput
-              value={observacoes}
-              onChangeText={setObservacoes}
-              placeholder="Digite"
-              style={styles.input}
-              placeholderTextColor="gray"
-            />
+              <Text style={styles.preenchimentosdespesas}>Observações</Text>
+              <TextInput
+                value={observacoes}
+                onChangeText={setObservacoes}
+                placeholder="Digite"
+                style={styles.input}
+                placeholderTextColor="gray"
+              />
 
-            <Text style={styles.preenchimentosdespesas}>Data de Validade</Text>
-            <DatePicker
-              selected={selectedDate}
-              onChange={(date) => setSelectedDate(date)}
-              dateFormat="dd/MM/yyyy"
-              showMonthDropdown
-              showYearDropdown
-              dropdownMode="select"
-              locale="pt-BR" // Defina o locale para 'pt-BR'
-              customInput={<TextInput style={styles.input} />}
-            />
+              <Text style={styles.preenchimentosdespesas}>Data de Validade</Text>
+              <DatePicker
+                selected={selectedDate}
+                onChange={(date) => setSelectedDate(date)}
+                dateFormat="dd/MM/yyyy"
+                showMonthDropdown
+                showYearDropdown
+                dropdownMode="select"
+                locale="pt-BR" // Defina o locale para 'pt-BR'
+                customInput={<TextInput style={styles.input} />}
+              />
 
-            <Text style={styles.preenchimentosdespesas}>Tipo de Despesa</Text>
-            <Picker
-              selectedValue={tipoDespesa}
-              onValueChange={(itemValue) => setTipoDespesa(itemValue)}
-              style={styles.input}
-            >
-              <Picker.Item label="Fixa" value="Fixa" />
-              <Picker.Item label="Adicional" value="Fixa" />
-              <Picker.Item label="Variável" value="Variável" />
-              <Picker.Item label="Extra" value="Variável" />
-            </Picker>
-            <View style={styles.ViewBotoes}>
-              <TouchableOpacity
+              <Text style={styles.preenchimentosdespesas}>Tipo de Despesa</Text>
+              <Picker
+                selectedValue={tipoDespesa}
+                onValueChange={(itemValue) => setTipoDespesa(itemValue)}
+                style={styles.input}
+              >
+                <Picker.Item label="Fixa" value="Fixa" />
+                <Picker.Item label="Variável" value="Variável" />
+                <Picker.Item label="Adicional" value="Adicional" />
+                <Picker.Item label="Extra" value="Extra" />
+              </Picker>
+              <View style={styles.ViewBotoes}>
+                {/*<TouchableOpacity
                 style={styles.botaoexcluir}
                 onPress={excluirDespesa}> 
                  <Text style={styles.txtexcluir}>Excluir</Text>                
+                </TouchableOpacity>*/}
+
+                <TouchableOpacity
+                  style={styles.botaosalvar}
+                  onPress={salvarDespesa}
+                >
+                  <Text style={styles.txtsalvar}>Salvar</Text>
                 </TouchableOpacity>
-              
-              
-              <TouchableOpacity
-                style={styles.botaosalvar}
-                onPress={salvarDespesa}
-              >
-                <Text style={styles.txtsalvar}>Salvar</Text>
-              </TouchableOpacity>
+              </View>
             </View>
-          </View>
-        </ScrollView>
-      </View>
+          </ScrollView>
+        </View>
+      </TouchableWithoutFeedback>
     </Modal>
   );
 }
@@ -152,7 +159,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(24, 24, 24, 0.6)",
     flex: 1,
     justifyContent: "center",
-    paddingVertical: "20%", 
+    paddingVertical: "20%",
   },
   modalView: {
     marginHorizontal: 10,

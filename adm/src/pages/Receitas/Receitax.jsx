@@ -1,4 +1,4 @@
-/*import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -9,113 +9,166 @@ import {
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import ModalReceitas from "../../Components/ModalReceitas/ModalReceitas";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { CheckBox } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import * as Animatable from "react-native-animatable";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from "axios";
 
-export default function Receita() {
+export default function Receitas() {
   const [modalVisible, setModalVisible] = useState(false);
-  const [receitas, setReceitas] = useState([]);
+  const [Receitas, setReceitas] = useState([]);
   const [selectedFilter, setSelectedFilter] = useState("Todos");
   const [filtroVisivel, setFiltroVisivel] = useState(false);
-  const [totalReceita, setTotalReceita] = useState(0);
+  const [totalReceitas, setTotalReceitas] = useState(0);
   const [editingIndex, setEditingIndex] = useState(null);
 
-  const adicionarReceita = async (novaReceita) => {
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const adicionarDespesa = async (novaDespesa) => {
     if (editingIndex !== null) {
-      // Editar receita existente
-      const updatedReceitas = [...receitas];
-      updatedReceitas[editingIndex] = novaReceita;
+      // Editar despesa existente
+      const updatedReceitas = [...Receitas];
+      updatedReceitas[editingIndex] = novaDespesa;
       setReceitas(updatedReceitas);
 
+
       const body = {
-        NOME_DESP: novaReceita.nome,
-        VALOR_DESP: novaReceita.valor,
-        DESCRICAO: novaReceita.observacoes,
-        DATA_RECEBIMENTO: novaReceita.dataRecebimento,
+        NOME_DESP: novaDespesa.nome,
+        VALOR_DESP: novaDespesa.valor,
+        DESCRICAO: novaDespesa.observacoes,
+        DATA_VENCIMENTO: novaDespesa.dataValidade,
       };
 
-      // await axios.post();
+      try {
+        await axios.put(
+        `https://localhost:44318/api/Receitas/atualizardespesa/${novaDespesa.COD_DESP}`,
+          body
+        );
+      } catch (error) {
+        console.log(error);
+      }
     } else {
       // Adicionar nova despesa
-    }
-    novaReceita.dataRecebimento.setUTCHours(
-      novaReceita.dataRecebimento.getUTCHours() - 3
-    );
-
-    // Format the date as an ISO string
-    const formattedDate = novaReceita.dataRecebimento.toISOString();
-
-    const currencyString = novaReceita.valor;
-
-    // Remove non-numeric characters and replace comma with dot
-    const numericString = currencyString
-      .replace(/[^\d.,]/g, "")
-      .replace(",", ".");
-
-    // Parse the string as a float
-    const numericValue = parseFloat(numericString);
-
-    const body = {
-      NOME_RCT: novaReceita.nome,
-      VALOR_RCT: numericValue,
-      DESCRICAO: novaReceita.observacoes,
-      DATA_RECEBIMENTO: formattedDate,
-    };
-
-    try {
-      const response = await axios.post(
-        "https://localhost:44318/api/receitas/criarreceita",
-        body
+      novaDespesa.dataValidade.setUTCHours(
+        novaDespesa.dataValidade.getUTCHours() - 3
       );
-    } catch (error) {
-      console.log(error);
+
+      // Format the date as an ISO string
+      const formattedDate = novaDespesa.dataValidade.toISOString();
+
+      const currencyString = novaDespesa.valor;
+
+      // Remove non-numeric characters and replace comma with dot
+      const numericString = currencyString
+        .replace(/[^\d.,]/g, "")
+        .replace(",", ".");
+
+      // Parse the string as a float
+      const numericValue = parseFloat(numericString);
+
+      const body = {
+        NOME_DESP: novaDespesa.nome,
+        VALOR_DESP: numericValue,
+        DESCRICAO: novaDespesa.observacoes,
+        DATA_VENCIMENTO: formattedDate,
+      };
+
+      try {
+        const response = await axios.post(
+          "https://localhost:44318/api/Receitas/criardespesa",
+          body
+        );
+      } catch (error) {
+        console.log(error);
+      }
     }
+
+    calcularTotalReceitas();
 
     setModalVisible(false);
+    await loadReceitas();
+  };
+
+  function handleModalOpen(index) {
+    setSelectedIndex(index);
+    setModalVisible(true);
+  }
+
+  const excluirDespesa = async (index) => {
+    const despesaId = Receitas[index].coD_DESP;
+
+    await excluirDespesaApi(despesaId);
+
+    // Remove the expense from the state
+    // setReceitas((prevReceitas) => prevReceitas.filter((_, i) => i !== index));
     calcularTotalReceitas();
   };
 
-  const excluirReceita = (index) => {
-    const updatedReceitas = [...receitas];
-    updatedReceitas.splice(index, 1);
-    setReceitas(updatedReceitas);
+  const excluirDespesaApi = async (despesaId) => {
+    try {
+      await axios.delete(
+        `https://localhost:44318/api/Receitas/removerdespesa/${despesaId}`
+      );
+      console.log("Despesa excluída com sucesso");
+
+      // Optional: reload the expenses after deletion
+      await loadReceitas();
+    } catch (error) {
+      console.error("Erro ao excluir despesa", error);
+    }
   };
 
   useEffect(()=>{
-    calcularTotalReceita();
-  }, [receitas])
+    calcularTotalReceitas();
+  }, [Receitas])
 
-  const calcularTotalReceita = () => {
-    const total = receitas.reduce(
-      (acc, receita) => acc + parseFloat(receita.valor),
+  const calcularTotalReceitas = () => {
+    const total = Receitas.reduce(
+      (acc, despesa) => acc + parseFloat(despesa.valoR_DESP),
       0
     );
-    setTotalReceita(total);
+    console.log("Total de Receitas calculado:", total);
+    setTotalReceitas(total);
+  };
+
+  AsyncStorage.setItem('totalReceitas', totalReceitas.toString())
+      .catch(error => {
+        console.error('Erro ao salvar totalReceitas no AsyncStorage:', error);
+      });
+
+  const loadReceitas = async () => {
+    try {
+      const response = await axios.get(
+        "https://localhost:44318/api/Receitas/listardespesa"
+      );
+      if (response.status === 200) {
+        setReceitas(response.data);
+        calcularTotalReceitas(); // Movido para cá
+        console.log(response.data);
+      } else {
+        console.error("Erro ao carregar Receitas", response);
+      }
+    } catch (error) {
+      console.error("Erro ao carregar Receitas", error);
+    }
+  };
+  
+  const loadTotalReceitas = async () => {
+    // Recupere o total do AsyncStorage ao montar o componente
+    try {
+      const savedTotal = await AsyncStorage.getItem('totalReceitas');
+      if (savedTotal !== null) {
+        setTotalReceitas(parseFloat(savedTotal));
+      }
+    } catch (error) {
+      console.error('Erro ao carregar totalReceitas do AsyncStorage:', error);
+    }
   };
 
   useEffect(() => {
-    const loadReceita = async () => {
-      try {
-        //pegar do back
-
-        const response = await axios.get(
-          "https://localhost:44318/api/receitas/listarreceita"
-        );
-        if (response.status === 200) {
-          setReceitas(response.data);
-          return;
-        }
-        console.error("Erro ao carregar receitas", response);
-      } catch (error) {
-        console.error("Erro ao carregar receitas", error);
-      }
-      calcularTotalReceita();
-    };
-
-    loadReceita();
+    loadReceitas();
+    loadTotalReceitas();
   }, []);
 
   const toggleFiltros = () => {
@@ -128,24 +181,29 @@ export default function Receita() {
     <SafeAreaView style={styles.container}>
       <Animatable.View animation="fadeInLeft" delay={100}>
         <View style={styles.containerHeader}>
-          <View style={styles.rowarrow}>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-              <AntDesign name="arrowleft" size={24} color="white" style={styles.backButton} />
-            </TouchableOpacity>
-            <View>
-              <Text style={styles.mensagem}>  Receitas</Text>
+          <View>
+            <View style={styles.rowarrow}>
+              <TouchableOpacity onPress={() => navigation.goBack()}>
+                <AntDesign
+                  name="arrowleft"
+                  size={24}
+                  color="white"
+                  style={styles.backButton}
+                />
+              </TouchableOpacity>
+              <Text style={styles.mensagem}> Receitas</Text>
             </View>
           </View>
           <View>
             <Text style={styles.Valor}>Valor das Receitas</Text>
           </View>
           <View>
-            <Text style={styles.Total}>R${totalReceita.toFixed(2)}</Text>
+            <Text style={styles.Total}>R$-{totalReceitas.toFixed(2) }</Text>
           </View>
         </View>
 
         <View style={styles.area1}>
-          <Text style={styles.text}>Registre as suas Receitas aqui.</Text>
+          <Text style={styles.text}>Registre as Receitas e categorize.</Text>
         </View>
         <View style={styles.area2}>
           <View style={styles.filterIcon}>
@@ -195,13 +253,14 @@ export default function Receita() {
         <ModalReceitas
           visible={modalVisible}
           onClose={() => setModalVisible(false)}
-          onSave={adicionarReceita}
-          onExcluir={(index) => excluirReceita(index)}
+          onSave={adicionarDespesa}
+          onExcluir={excluirDespesa}
           editingIndex={editingIndex}
+          index={selectedIndex}
         />
 
         <FlatList
-          data={receitas.filter(
+          data={Receitas.filter(
             (item) => selectedFilter === "Todos" || item.tipo === selectedFilter
           )}
           keyExtractor={(item, index) => index.toString()}
@@ -209,20 +268,25 @@ export default function Receita() {
             <TouchableOpacity
               onPress={() => {
                 setEditingIndex(index);
-                setModalVisible(true);
+                handleModalOpen(index);
               }}
             >
               <View style={styles.itemContainer}>
                 <View style={styles.alinhalist}>
-                  <Text style={styles.ItemTitulo}>{item.nomE_RCT}</Text>
+                  <Text style={styles.ItemTitulo}>{item.nomE_DESP}</Text>
+                  <Text style={styles.itemText}> - {item.tipo} - </Text>
                   <Text style={[styles.itemText, styles.dataText]}>
-                    {new Date(item.datA_RECEBIMENTO).toLocaleDateString("pt-BR")}
+                    {new Date(item.datA_VENCIMENTO).toLocaleDateString("pt-BR")}
                   </Text>
                 </View>
-
-                <Text style={styles.itemValor}>{item.valor}</Text>
-
-                <Text style={styles.itemObs}>obs: {item.observacoes}</Text>
+                <Text style={styles.itemValor}>R$ -{item.valoR_DESP},00</Text>
+                <Text style={styles.itemObs}>obs: {item.DESCRICAO}</Text>
+                <TouchableOpacity
+                  style={styles.excluirButton}
+                  onPress={() => excluirDespesa(index)}
+                >
+                  <Text style={styles.excluirButtonText}>Excluir</Text>
+                </TouchableOpacity>
               </View>
             </TouchableOpacity>
           )}
@@ -239,18 +303,17 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFF",
   },
   containerHeader: {
-    backgroundColor: "#3FE78C",
+    backgroundColor: "#E73F3F",
     width: "100%",
   },
   backButton: {
     marginLeft: 16,
-    marginTop: 5
+    marginTop: 5,
   },
   rowarrow: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginTop: 17,
-    marginBottom: 20
-
+    marginBottom: 20,
   },
   area1: {
     flexDirection: "row",
@@ -355,4 +418,3 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
   },
 });
-*/

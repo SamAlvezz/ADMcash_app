@@ -20,7 +20,6 @@ function ModalReceitas({ visible, onClose, onSave }) {
   const [valorReceita, setValorReceita] = useState('');
   const [observacoes, setObservacoes] = useState('');
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [tipoReceita, setTipoReceita] = useState('Fixa');
  
   const salvarReceita = () => {
     const novaReceita = {
@@ -28,7 +27,6 @@ function ModalReceitas({ visible, onClose, onSave }) {
       valor: valorReceita,
       observacoes: observacoes,
       dataRecebimento: selectedDate,
-      tipo: tipoReceita,
     };
 
     onSave(novaReceita);
@@ -38,6 +36,18 @@ function ModalReceitas({ visible, onClose, onSave }) {
     setSelectedDate(new Date());
     onClose();
   };
+  const handleValorChange = (text) => {
+    if (text == "") return;
+    // Remova todos os caracteres não numéricos
+    const numericValue = text.replace(/[^0-9]/g, "");
+    const formattedValue = numericValue
+      ? `R$ ${Number(numericValue / 100).toLocaleString("pt-BR", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })}`
+      : "";
+      setValorReceita(formattedValue);
+    };
 
   return (
     <Modal transparent={true} visible={visible} animationType="fade">
@@ -55,7 +65,7 @@ function ModalReceitas({ visible, onClose, onSave }) {
           <Text style={styles.preenchimentosreceitas}>Valor da Receita</Text>
           <TextInput
             value={valorReceita}
-            onChangeText={setValorReceita}
+            onChangeText={(text) => handleValorChange(text)}
             placeholder="R$00,00"
             style={styles.input}
             placeholderTextColor="gray"

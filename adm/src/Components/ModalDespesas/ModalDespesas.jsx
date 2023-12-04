@@ -70,14 +70,9 @@ function ModalDespesas({ visible, onClose, onSave, onExcluir, index }) {
     setValorDespesa(formattedValue);
   };
 
-  const handleTouchablePress = () => {
-    Keyboard.dismiss();
-    onClose();
-  };
 
   return (
     <Modal transparent={true} visible={visible} animationType="fade">
-      <TouchableWithoutFeedback onPress={handleTouchablePress}>
         <View style={styles.centeredView}>
           <ScrollView pagingEnabled={true} showsVerticalScrollIndicator={false}>
             <View style={styles.modalView}>
@@ -149,7 +144,6 @@ function ModalDespesas({ visible, onClose, onSave, onExcluir, index }) {
             </View>
           </ScrollView>
         </View>
-      </TouchableWithoutFeedback>
     </Modal>
   );
 }

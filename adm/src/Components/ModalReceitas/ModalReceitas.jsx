@@ -36,6 +36,17 @@ function ModalReceitas({ visible, onClose, onSave }) {
     setSelectedDate(new Date());
     onClose();
   };
+
+  const excluirReceita = () => {
+    debugger;
+    onExcluir(index);
+    setNomeReceita("");
+    setValorReceita("");
+    setObservacoes("");
+    setSelectedDate(new Date());
+    onClose();
+  };
+
   const handleValorChange = (text) => {
     if (text == "") return;
     // Remova todos os caracteres não numéricos

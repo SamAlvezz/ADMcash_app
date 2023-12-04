@@ -91,7 +91,7 @@ export default function Receitas() {
   }
 
   const excluirReceita = async (index) => {
-    const receitaId = Receitas[index].coD_RCT;
+    const receitaId = receitas[index].coD_RCT;
 
     await excluirReceitaApi(receitaId);
 
@@ -151,6 +151,15 @@ export default function Receitas() {
 
   const navigation = useNavigation();
 
+  const formatCurrency = (value) => {
+    const numericValue = parseFloat(value);
+    if (isNaN(numericValue)) {
+      return '';
+    }
+    return `R$ ${numericValue.toFixed(2)}`;
+  };
+  
+
   return (
     <SafeAreaView style={styles.container}>
       <Animatable.View animation="fadeInLeft" delay={100}>
@@ -198,7 +207,7 @@ export default function Receitas() {
         />
 
         <FlatList
-          data={Receitas}
+          data={receitas}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item, index }) => (
             <TouchableOpacity
@@ -215,7 +224,7 @@ export default function Receitas() {
                     {new Date(item.datA_RECEBIMENTO).toLocaleDateString("pt-BR")}
                   </Text>
                 </View>
-                <Text style={styles.itemValor}>R$ {item.valoR_RCT},00</Text>
+                 <Text style={styles.itemValor}>{formatCurrency(item.valoR_RCT)}</Text>
                 <Text style={styles.itemObs}>obs: {item.descricao}</Text>
                 <TouchableOpacity
                   style={styles.excluirButton}
@@ -300,7 +309,7 @@ const styles = StyleSheet.create({
   },
   itemValor: {
     fontSize: 16,
-    color: "#FC6B6B",
+    color: "#3FE78C",
 
     fontWeight: 500,
   },

@@ -12,7 +12,6 @@ import ModalDespesas from "../../Components/ModalDespesas/ModalDespesas";
 import { CheckBox } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import * as Animatable from "react-native-animatable";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from "axios";
 
 export default function Despesas() {
@@ -132,10 +131,6 @@ export default function Despesas() {
     setTotalDespesas(total);
   };
 
-  AsyncStorage.setItem('totalDespesas', totalDespesas.toString())
-      .catch(error => {
-        console.error('Erro ao salvar totalDespesas no AsyncStorage:', error);
-      });
 
   const loadDespesas = async () => {
     try {
@@ -144,7 +139,7 @@ export default function Despesas() {
       );
       if (response.status === 200) {
         setDespesas(response.data);
-        calcularTotalDespesas(); // Movido para cá
+        calcularTotalDespesas(); 
         console.log(response.data);
       } else {
         console.error("Erro ao carregar despesas", response);
@@ -154,21 +149,9 @@ export default function Despesas() {
     }
   };
   
-  const loadTotalDespesas = async () => {
-    // Recupere o total do AsyncStorage ao montar o componente
-    try {
-      const savedTotal = await AsyncStorage.getItem('totalDespesas');
-      if (savedTotal !== null) {
-        setTotalDespesas(parseFloat(savedTotal));
-      }
-    } catch (error) {
-      console.error('Erro ao carregar totalDespesas do AsyncStorage:', error);
-    }
-  };
 
   useEffect(() => {
     loadDespesas();
-    loadTotalDespesas();
   }, []);
 
   const toggleFiltros = () => {
@@ -280,7 +263,7 @@ export default function Despesas() {
                   </Text>
                 </View>
                 <Text style={styles.itemValor}>R$ -{item.valoR_DESP},00</Text>
-                <Text style={styles.itemObs}>obs: {item.DESCRICAO}</Text>
+                <Text style={styles.itemObs}>obs: {item.descricao}</Text>
                 <TouchableOpacity
                   style={styles.excluirButton}
                   onPress={() => excluirDespesa(index)}

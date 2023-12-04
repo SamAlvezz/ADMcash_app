@@ -11,7 +11,6 @@ import { AntDesign } from "@expo/vector-icons";
 import ModalReceitas from "../../Components/ModalReceitas/ModalReceitas";
 import { useNavigation } from "@react-navigation/native";
 import * as Animatable from "react-native-animatable";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from "axios";
 
 export default function Receitas() {
@@ -38,7 +37,7 @@ export default function Receitas() {
 
       try {
         await axios.put(
-          `https://localhost:44318/api/Receitas/atualizarreceita/${novaReceita.COD_RTC}`,
+          `https://localhost:44318/api/Receitas/atualizarreceita/${novaReceita.COD_RCT}`,
           body
         );
       } catch (error) {
@@ -64,8 +63,8 @@ export default function Receitas() {
       const numericValue = parseFloat(numericString);
 
       const body = {
-        NOME_RTC: novaReceita.nome,
-        VALOR_RTC: numericValue,
+        NOME_RCT: novaReceita.nome,
+        VALOR_RCT: numericValue,
         DESCRICAO: novaReceita.observacoes,
         DATA_RECEBIMENTO: formattedDate,
       };
@@ -92,7 +91,7 @@ export default function Receitas() {
   }
 
   const excluirReceita = async (index) => {
-    const receitaId = Receitas[index].coD_RTC;
+    const receitaId = Receitas[index].coD_RCT;
 
     await excluirReceitaApi(receitaId);
 
@@ -121,17 +120,12 @@ export default function Receitas() {
 
   const calcularTotalReceitas = () => {
     const total = receitas.reduce(
-      (acc, receita) => acc + parseFloat(receita.valoR_RTC),
+      (acc, receita) => acc + parseFloat(receita.valoR_RCT),
       0
     );
     console.log("Total de Receitas calculado:", total);
     setTotalReceitas(total);
   };
-
-  AsyncStorage.setItem('totalReceitas', totalReceitas.toString())
-    .catch(error => {
-      console.error('Erro ao salvar totalReceitas no AsyncStorage:', error);
-    });
 
   const loadReceitas = async () => {
     try {
@@ -140,7 +134,7 @@ export default function Receitas() {
       );
       if (response.status === 200) {
         setReceitas(response.data);
-        calcularTotalReceitas(); // Movido para cá
+        calcularTotalReceitas();
         console.log(response.data);
       } else {
         console.error("Erro ao carregar Receitas", response);
@@ -150,21 +144,8 @@ export default function Receitas() {
     }
   };
 
-  const loadTotalReceitas = async () => {
-    // Recupere o total do AsyncStorage ao montar o componente
-    try {
-      const savedTotal = await AsyncStorage.getItem('totalReceitas');
-      if (savedTotal !== null) {
-        setTotalReceitas(parseFloat(savedTotal));
-      }
-    } catch (error) {
-      console.error('Erro ao carregar totalReceitas do AsyncStorage:', error);
-    }
-  };
-
   useEffect(() => {
     loadReceitas();
-    loadTotalReceitas();
   }, []);
 
 
@@ -198,7 +179,7 @@ export default function Receitas() {
         <View style={styles.area1}>
           <Text style={styles.text}>Registre as Receitas e categorize.</Text>
         </View>
-
+        <View style={styles.rowadd}>
           <Text style={styles.AdcText}>Adicionar</Text>
           <TouchableOpacity
             style={styles.AdcIcone}
@@ -206,7 +187,7 @@ export default function Receitas() {
           >
             <AntDesign name="pluscircle" size={20} color={"#3F96E7"} />
           </TouchableOpacity>
-
+        </View>
         <ModalReceitas
           visible={modalVisible}
           onClose={() => setModalVisible(false)}
@@ -228,14 +209,14 @@ export default function Receitas() {
             >
               <View style={styles.itemContainer}>
                 <View style={styles.alinhalist}>
-                  <Text style={styles.ItemTitulo}>{item.nomE_RTC}</Text>
+                  <Text style={styles.ItemTitulo}>{item.nomE_RCT}</Text>
                   <Text style={styles.itemText}> - {item.tipo} - </Text>
                   <Text style={[styles.itemText, styles.dataText]}>
                     {new Date(item.datA_RECEBIMENTO).toLocaleDateString("pt-BR")}
                   </Text>
                 </View>
-                <Text style={styles.itemValor}>R$ {item.valoR_RTC},00</Text>
-                <Text style={styles.itemObs}>obs: {item.DESCRICAO}</Text>
+                <Text style={styles.itemValor}>R$ {item.valoR_RCT},00</Text>
+                <Text style={styles.itemObs}>obs: {item.descricao}</Text>
                 <TouchableOpacity
                   style={styles.excluirButton}
                   onPress={() => excluirReceita(index)}
@@ -300,7 +281,6 @@ const styles = StyleSheet.create({
   AdcText: {
     fontSize: 18,
     opacity: 0.5,
-    paddingStart: "40%",
   },
   AdcIcone: {
     paddingStart: 5,
@@ -353,4 +333,8 @@ const styles = StyleSheet.create({
   dataText: {
     marginLeft: "auto",
   },
+  rowadd:{
+    flexDirection: 'row',
+    paddingStart: "60%"
+  }
 });

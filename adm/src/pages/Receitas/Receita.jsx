@@ -1,4 +1,4 @@
-/*import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -9,118 +9,164 @@ import {
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import ModalReceitas from "../../Components/ModalReceitas/ModalReceitas";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { CheckBox } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import * as Animatable from "react-native-animatable";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from "axios";
 
-export default function Receita() {
+export default function Receitas() {
   const [modalVisible, setModalVisible] = useState(false);
   const [receitas, setReceitas] = useState([]);
-  const [selectedFilter, setSelectedFilter] = useState("Todos");
-  const [filtroVisivel, setFiltroVisivel] = useState(false);
-  const [totalReceita, setTotalReceita] = useState(0);
+  const [totalReceitas, setTotalReceitas] = useState(0);
   const [editingIndex, setEditingIndex] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const adicionarReceita = async (novaReceita) => {
     if (editingIndex !== null) {
-      // Editar receita existente
+      // Editar Receita existente
       const updatedReceitas = [...receitas];
       updatedReceitas[editingIndex] = novaReceita;
       setReceitas(updatedReceitas);
 
+
       const body = {
-        NOME_DESP: novaReceita.nome,
-        VALOR_DESP: novaReceita.valor,
+        NOME_RTC: novaReceita.nome,
+        VALOR_RTC: novaReceita.valor,
         DESCRICAO: novaReceita.observacoes,
         DATA_RECEBIMENTO: novaReceita.dataRecebimento,
       };
 
-      // await axios.post();
+      try {
+        await axios.put(
+          `https://localhost:44318/api/Receitas/atualizarreceita/${novaReceita.COD_RTC}`,
+          body
+        );
+      } catch (error) {
+        console.log(error);
+      }
     } else {
-      // Adicionar nova despesa
-    }
-    novaReceita.dataRecebimento.setUTCHours(
-      novaReceita.dataRecebimento.getUTCHours() - 3
-    );
-
-    // Format the date as an ISO string
-    const formattedDate = novaReceita.dataRecebimento.toISOString();
-
-    const currencyString = novaReceita.valor;
-
-    // Remove non-numeric characters and replace comma with dot
-    const numericString = currencyString
-      .replace(/[^\d.,]/g, "")
-      .replace(",", ".");
-
-    // Parse the string as a float
-    const numericValue = parseFloat(numericString);
-
-    const body = {
-      NOME_RCT: novaReceita.nome,
-      VALOR_RCT: numericValue,
-      DESCRICAO: novaReceita.observacoes,
-      DATA_RECEBIMENTO: formattedDate,
-    };
-
-    try {
-      const response = await axios.post(
-        "https://localhost:44318/api/receitas/criarreceita",
-        body
+      // Adicionar nova Receita
+      novaReceita.dataRecebimento.setUTCHours(
+        novaReceita.dataRecebimento.getUTCHours() - 3
       );
-    } catch (error) {
-      console.log(error);
+
+      // Format the date as an ISO string
+      const formattedDate = novaReceita.dataRecebimento.toISOString();
+
+      const currencyString = novaReceita.valor;
+
+      // Remove non-numeric characters and replace comma with dot
+      const numericString = currencyString
+        .replace(/[^\d.,]/g, "")
+        .replace(",", ".");
+
+      // Parse the string as a float
+      const numericValue = parseFloat(numericString);
+
+      const body = {
+        NOME_RTC: novaReceita.nome,
+        VALOR_RTC: numericValue,
+        DESCRICAO: novaReceita.observacoes,
+        DATA_RECEBIMENTO: formattedDate,
+      };
+
+      try {
+        const response = await axios.post(
+          "https://localhost:44318/api/Receitas/criarreceita",
+          body
+        );
+      } catch (error) {
+        console.log(error);
+      }
     }
+
+    calcularTotalReceitas();
 
     setModalVisible(false);
+    await loadReceitas();
+  };
+
+  function handleModalOpen(index) {
+    setSelectedIndex(index);
+    setModalVisible(true);
+  }
+
+  const excluirReceita = async (index) => {
+    const receitaId = Receitas[index].coD_RTC;
+
+    await excluirReceitaApi(receitaId);
+
+    // Remove the expense from the state
+    // setReceitas((prevReceitas) => prevReceitas.filter((_, i) => i !== index));
     calcularTotalReceitas();
   };
 
-  const excluirReceita = (index) => {
-    const updatedReceitas = [...receitas];
-    updatedReceitas.splice(index, 1);
-    setReceitas(updatedReceitas);
-  };
+  const excluirReceitaApi = async (receitaId) => {
+    try {
+      await axios.delete(
+        `https://localhost:44318/api/Receitas/removerreceita/${receitaId}`
+      );
+      console.log("Receita excluída com sucesso");
 
-  useEffect(()=>{
-    calcularTotalReceita();
-  }, [receitas])
-
-  const calcularTotalReceita = () => {
-    const total = receitas.reduce(
-      (acc, receita) => acc + parseFloat(receita.valor),
-      0
-    );
-    setTotalReceita(total);
+      // Optional: reload the expenses after deletion
+      await loadReceitas();
+    } catch (error) {
+      console.error("Erro ao excluir Receita", error);
+    }
   };
 
   useEffect(() => {
-    const loadReceita = async () => {
-      try {
-        //pegar do back
+    calcularTotalReceitas();
+  }, [receitas])
 
-        const response = await axios.get(
-          "https://localhost:44318/api/receitas/listarreceita"
-        );
-        if (response.status === 200) {
-          setReceitas(response.data);
-          return;
-        }
-        console.error("Erro ao carregar receitas", response);
-      } catch (error) {
-        console.error("Erro ao carregar receitas", error);
+  const calcularTotalReceitas = () => {
+    const total = receitas.reduce(
+      (acc, receita) => acc + parseFloat(receita.valoR_RTC),
+      0
+    );
+    console.log("Total de Receitas calculado:", total);
+    setTotalReceitas(total);
+  };
+
+  AsyncStorage.setItem('totalReceitas', totalReceitas.toString())
+    .catch(error => {
+      console.error('Erro ao salvar totalReceitas no AsyncStorage:', error);
+    });
+
+  const loadReceitas = async () => {
+    try {
+      const response = await axios.get(
+        "https://localhost:44318/api/Receitas/listarreceita"
+      );
+      if (response.status === 200) {
+        setReceitas(response.data);
+        calcularTotalReceitas(); // Movido para cá
+        console.log(response.data);
+      } else {
+        console.error("Erro ao carregar Receitas", response);
       }
-      calcularTotalReceita();
-    };
+    } catch (error) {
+      console.error("Erro ao carregar Receitas", error);
+    }
+  };
 
-    loadReceita();
+  const loadTotalReceitas = async () => {
+    // Recupere o total do AsyncStorage ao montar o componente
+    try {
+      const savedTotal = await AsyncStorage.getItem('totalReceitas');
+      if (savedTotal !== null) {
+        setTotalReceitas(parseFloat(savedTotal));
+      }
+    } catch (error) {
+      console.error('Erro ao carregar totalReceitas do AsyncStorage:', error);
+    }
+  };
+
+  useEffect(() => {
+    loadReceitas();
+    loadTotalReceitas();
   }, []);
 
-  const toggleFiltros = () => {
-    setFiltroVisivel(!filtroVisivel);
-  };
 
   const navigation = useNavigation();
 
@@ -128,31 +174,30 @@ export default function Receita() {
     <SafeAreaView style={styles.container}>
       <Animatable.View animation="fadeInLeft" delay={100}>
         <View style={styles.containerHeader}>
-          <View style={styles.rowarrow}>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-              <AntDesign name="arrowleft" size={24} color="white" style={styles.backButton} />
-            </TouchableOpacity>
-            <View>
-              <Text style={styles.mensagem}>  Receitas</Text>
+          <View>
+            <View style={styles.rowarrow}>
+              <TouchableOpacity onPress={() => navigation.goBack()}>
+                <AntDesign
+                  name="arrowleft"
+                  size={24}
+                  color="white"
+                  style={styles.backButton}
+                />
+              </TouchableOpacity>
+              <Text style={styles.mensagem}> Receitas</Text>
             </View>
           </View>
           <View>
             <Text style={styles.Valor}>Valor das Receitas</Text>
           </View>
           <View>
-            <Text style={styles.Total}>R${totalReceita.toFixed(2)}</Text>
+            <Text style={styles.Total}>R${totalReceitas.toFixed(2)}</Text>
           </View>
         </View>
 
         <View style={styles.area1}>
-          <Text style={styles.text}>Registre as suas Receitas aqui.</Text>
+          <Text style={styles.text}>Registre as Receitas e categorize.</Text>
         </View>
-        <View style={styles.area2}>
-          <View style={styles.filterIcon}>
-            <TouchableOpacity onPress={toggleFiltros}>
-              <AntDesign name="filter" size={20} color="black" />
-            </TouchableOpacity>
-          </View>
 
           <Text style={styles.AdcText}>Adicionar</Text>
           <TouchableOpacity
@@ -161,68 +206,42 @@ export default function Receita() {
           >
             <AntDesign name="pluscircle" size={20} color={"#3F96E7"} />
           </TouchableOpacity>
-        </View>
-        {filtroVisivel && (
-          <View style={styles.filtrosContainer}>
-            <CheckBox
-              title="Todos"
-              checked={selectedFilter === "Todos"}
-              onPress={() => setSelectedFilter("Todos")}
-            />
-            <CheckBox
-              title="Fixa"
-              checked={selectedFilter === "Fixa"}
-              onPress={() => setSelectedFilter("Fixa")}
-            />
-            <CheckBox
-              title="Adicional"
-              checked={selectedFilter === "Adicional"}
-              onPress={() => setSelectedFilter("Adicional")}
-            />
-            <CheckBox
-              title="Variável"
-              checked={selectedFilter === "Variável"}
-              onPress={() => setSelectedFilter("Variável")}
-            />
-            <CheckBox
-              title="Extra"
-              checked={selectedFilter === "Extra"}
-              onPress={() => setSelectedFilter("Extra")}
-            />
-          </View>
-        )}
 
         <ModalReceitas
           visible={modalVisible}
           onClose={() => setModalVisible(false)}
           onSave={adicionarReceita}
-          onExcluir={(index) => excluirReceita(index)}
+          onExcluir={excluirReceita}
           editingIndex={editingIndex}
+          index={selectedIndex}
         />
 
         <FlatList
-          data={receitas.filter(
-            (item) => selectedFilter === "Todos" || item.tipo === selectedFilter
-          )}
+          data={Receitas}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item, index }) => (
             <TouchableOpacity
               onPress={() => {
                 setEditingIndex(index);
-                setModalVisible(true);
+                handleModalOpen(index);
               }}
             >
               <View style={styles.itemContainer}>
                 <View style={styles.alinhalist}>
-                  <Text style={styles.ItemTitulo}>{item.nomE_RCT}</Text>
+                  <Text style={styles.ItemTitulo}>{item.nomE_RTC}</Text>
+                  <Text style={styles.itemText}> - {item.tipo} - </Text>
                   <Text style={[styles.itemText, styles.dataText]}>
                     {new Date(item.datA_RECEBIMENTO).toLocaleDateString("pt-BR")}
                   </Text>
                 </View>
-
-                <Text style={styles.itemValor}>{item.valor}</Text>
-
-                <Text style={styles.itemObs}>obs: {item.observacoes}</Text>
+                <Text style={styles.itemValor}>R$ {item.valoR_RTC},00</Text>
+                <Text style={styles.itemObs}>obs: {item.DESCRICAO}</Text>
+                <TouchableOpacity
+                  style={styles.excluirButton}
+                  onPress={() => excluirReceita(index)}
+                >
+                  <Text style={styles.excluirButtonText}>Excluir</Text>
+                </TouchableOpacity>
               </View>
             </TouchableOpacity>
           )}
@@ -244,13 +263,12 @@ const styles = StyleSheet.create({
   },
   backButton: {
     marginLeft: 16,
-    marginTop: 5
+    marginTop: 5,
   },
   rowarrow: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginTop: 17,
-    marginBottom: 20
-
+    marginBottom: 20,
   },
   area1: {
     flexDirection: "row",
@@ -287,19 +305,7 @@ const styles = StyleSheet.create({
   AdcIcone: {
     paddingStart: 5,
   },
-  filtroButton: {
-    flexDirection: "row",
-    justifyContent: "center",
-    backgroundColor: "#EDEDED",
-    padding: 8,
-  },
-  filtroButtonText: {
-    color: "#FC6B6B",
-  },
-  filterText: {
-    color: "#00000080",
-    fontSize: 16,
-  },
+
   itemContainer: {
     backgroundColor: "#FFFFFF",
     borderRadius: 8,
@@ -336,17 +342,10 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
     marginTop: 5,
   },
-  filtrosContainer: {
-    maxWidth: "50%",
-    marginLeft: 30,
-  },
   flatlist: {
     flex: 1,
     paddingHorizontal: 16,
     marginTop: 16,
-  },
-  filterIcon: {
-    paddingStart: "8%",
   },
   alinhalist: {
     flexDirection: "row",
@@ -355,4 +354,3 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
   },
 });
-*/

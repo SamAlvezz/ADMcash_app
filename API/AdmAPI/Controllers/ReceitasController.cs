@@ -34,7 +34,7 @@ namespace AdmAPI.Controllers
             return Ok();
         }
 
-        [Route("removerreceita")]
+        [Route("removerreceita/{COD_RCT}")]
         [HttpDelete]
         public IActionResult RemoverReceita(int COD_RCT)
         {

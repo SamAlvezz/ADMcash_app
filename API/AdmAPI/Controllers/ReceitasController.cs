@@ -53,24 +53,6 @@ namespace AdmAPI.Controllers
             return Ok();
         }
 
-        [HttpGet]
-        [Route("relatorio")]
-        public IActionResult GerarRelatorio()
-        {
-
-            var despesaDAO = new DespesaDAO();
-            var despesas = despesaDAO.ListarDespesas();
-
-            var receitasDAO = new ReceitasDAO();
-            var receitas = receitasDAO.ListarReceitas();
-
-            var totalDespesas = despesas.Sum(despesa => despesa.VALOR_DESP);
-            var totalReceitas = receitas.Sum(receita => receita.VALOR_RCT);
-            var resultado = totalReceitas - totalDespesas;
-            var percentualDepesas = totalDespesas * 100 / resultado;
-            var percentualReceitas = totalReceitas * 100 / resultado;
-
-            return Ok(new { totalDespesas, totalReceitas, resultado, percentualDepesas, percentualReceitas });
-        }
+       
     }
 }

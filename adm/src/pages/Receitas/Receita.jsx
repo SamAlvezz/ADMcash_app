@@ -151,14 +151,6 @@ export default function Receitas() {
 
   const navigation = useNavigation();
 
-  const formatCurrency = (value) => {
-    const numericValue = parseFloat(value);
-    if (isNaN(numericValue)) {
-      return '';
-    }
-    return `R$ ${numericValue.toFixed(2)}`;
-  };
-  
 
   return (
     <SafeAreaView style={styles.container}>
@@ -181,7 +173,7 @@ export default function Receitas() {
             <Text style={styles.Valor}>Valor das Receitas</Text>
           </View>
           <View>
-            <Text style={styles.Total}>R${totalReceitas.toFixed(2)}</Text>
+            <Text style={styles.Total}>R${totalReceitas.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
           </View>
         </View>
 
@@ -219,12 +211,20 @@ export default function Receitas() {
               <View style={styles.itemContainer}>
                 <View style={styles.alinhalist}>
                   <Text style={styles.ItemTitulo}>{item.nomE_RCT}</Text>
-                  <Text style={styles.itemText}> - {item.tipo} - </Text>
+                  <Text style={styles.itemText}> - {item.tipo}  </Text>
                   <Text style={[styles.itemText, styles.dataText]}>
                     {new Date(item.datA_RECEBIMENTO).toLocaleDateString("pt-BR")}
                   </Text>
                 </View>
-                 <Text style={styles.itemValor}>{formatCurrency(item.valoR_RCT)}</Text>
+                <Text style={styles.itemValor}>{
+                  parseFloat(item.valoR_RCT).toLocaleString('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL',
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })
+                }</Text>
+
                 <Text style={styles.itemObs}>obs: {item.descricao}</Text>
                 <TouchableOpacity
                   style={styles.excluirButton}
@@ -301,7 +301,7 @@ const styles = StyleSheet.create({
     elevation: 4,
     marginVertical: 8,
     padding: 16,
-    borderBottomWidth: 1,
+    borderBottomWidth: 2,
     borderBottomColor: "#E0E0E0",
   },
   itemLabel: {
@@ -342,8 +342,16 @@ const styles = StyleSheet.create({
   dataText: {
     marginLeft: "auto",
   },
-  rowadd:{
+  rowadd: {
     flexDirection: 'row',
     paddingStart: "60%"
+  },
+  excluirButtonText: {
+    textAlign: 'right',
+    fontWeight: '700',
+    fontSize: 15,
+    color: '#5e5e5e'
+
+
   }
 });

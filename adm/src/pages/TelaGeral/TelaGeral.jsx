@@ -76,7 +76,7 @@ export default function TelaGeral() {
               <Text style={styles.botaotext}>Gerenciar Receitas</Text>
             </TouchableOpacity>
             <View style={styles.textdinamico}>
-              <Text style={styles.dinheiroRec}>R${relatorio.totalReceitas.toFixed(2)}</Text>
+              <Text style={styles.dinheiroRec}>R${relatorio.totalReceitas.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2})}</Text>
               <Text style={styles.porcentagemRec}>{relatorio.percentualReceitas.toFixed(2)}%</Text>
             </View>
           </SafeAreaView>
@@ -92,7 +92,7 @@ export default function TelaGeral() {
 
             <View style={styles.textdinamico}>
               <Text style={styles.dinheiroDes}>R$
-                {relatorio.totalDespesas.toFixed(2)}
+                {relatorio.totalDespesas.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2})}
               </Text>
               <Text style={styles.porcentagemDes}>{relatorio.percentualDepesas.toFixed(2)}%</Text>
             </View>
@@ -101,7 +101,8 @@ export default function TelaGeral() {
           <View style={styles.ResultadoView}>
             <Text style={styles.Resultadotext}>Resultado:</Text>
             <View style={styles.textdinamico}>
-              <Text style={relatorio.resultado < 0 ? styles.dinheiroDes : styles.dinheiroRec}>R${(relatorio.resultado).toFixed(2)}</Text>
+              <Text style={relatorio.resultado < 0 ? styles.dinheiroDes : styles.dinheiroRec}>
+                R${(relatorio.resultado).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2})}</Text>
               <Text style={styles.Rendatotaltext}>{relatorio.percentualDepesas.toFixed(2)}% de sua renda total</Text>
             </View>
           </View>

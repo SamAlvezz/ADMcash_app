@@ -10,7 +10,6 @@ import {
   TouchableOpacity,
   ScrollView,
   Picker,
-  TouchableWithoutFeedback
 } from "react-native";
 import { registerLocale, setDefaultLocale } from "react-datepicker";
 import ptBR from "date-fns/locale/pt-BR";
@@ -177,9 +176,9 @@ const styles = StyleSheet.create({
   },
 
   ViewBotoes: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingHorizontal: 25,
+    //flexDirection: "row",
+    //justifyContent: "space-between",
+    //paddingHorizontal: 25,
   },
   botaosalvar: {
     width: 90,
@@ -194,7 +193,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     borderBottomColor: "#E0E0E0",
   },
-  botaoexcluir: {
+ /* botaoexcluir: {
     width: 90,
     height: 45,
     backgroundColor: "#F9FFFC",
@@ -212,7 +211,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: 600,
     color: "#E73F3F",
-  },
+  },*/
   txtsalvar: {
     color: "#1a800d",
     fontSize: 17,

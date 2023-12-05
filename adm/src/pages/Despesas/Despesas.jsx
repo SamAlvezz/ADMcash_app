@@ -41,7 +41,7 @@ export default function Despesas() {
 
       try {
         await axios.put(
-        `https://localhost:44318/api/Despesas/atualizardespesa/${novaDespesa.COD_DESP}`,
+          `https://localhost:44318/api/Despesas/atualizardespesa/${novaDespesa.COD_DESP}`,
           body
         );
       } catch (error) {
@@ -118,7 +118,7 @@ export default function Despesas() {
     }
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     calcularTotalDespesas();
   }, [despesas])
 
@@ -139,7 +139,7 @@ export default function Despesas() {
       );
       if (response.status === 200) {
         setDespesas(response.data);
-        calcularTotalDespesas(); 
+        calcularTotalDespesas();
         console.log(response.data);
       } else {
         console.error("Erro ao carregar despesas", response);
@@ -148,7 +148,7 @@ export default function Despesas() {
       console.error("Erro ao carregar despesas", error);
     }
   };
-  
+
 
   useEffect(() => {
     loadDespesas();
@@ -181,12 +181,12 @@ export default function Despesas() {
             <Text style={styles.Valor}>Valor das despesas</Text>
           </View>
           <View>
-            <Text style={styles.Total}>R$-{totalDespesas.toFixed(2) }</Text>
+            <Text style={styles.Total}>R$-{totalDespesas.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2})}</Text>
           </View>
         </View>
 
         <View style={styles.area1}>
-          <Text style={styles.text}>Registre as despesas e categorize.</Text>
+          <Text style={styles.text}>Registre as despesas e categorize</Text>
         </View>
         <View style={styles.area2}>
           <View style={styles.filterIcon}>
@@ -257,12 +257,19 @@ export default function Despesas() {
               <View style={styles.itemContainer}>
                 <View style={styles.alinhalist}>
                   <Text style={styles.ItemTitulo}>{item.nomE_DESP}</Text>
-                  <Text style={styles.itemText}> - {item.tipo} - </Text>
+                  <Text style={styles.itemText}> - {item.tipo}  </Text>
                   <Text style={[styles.itemText, styles.dataText]}>
                     {new Date(item.datA_VENCIMENTO).toLocaleDateString("pt-BR")}
                   </Text>
                 </View>
-                <Text style={styles.itemValor}>R$ -{item.valoR_DESP},00</Text>
+                <Text style={styles.itemValor}>{
+                  parseFloat(item.valoR_DESP).toLocaleString('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL',
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })
+                }</Text>
                 <Text style={styles.itemObs}>obs: {item.descricao}</Text>
                 <TouchableOpacity
                   style={styles.excluirButton}
@@ -352,7 +359,7 @@ const styles = StyleSheet.create({
     elevation: 4,
     marginVertical: 8,
     padding: 16,
-    borderBottomWidth: 1,
+    borderBottomWidth: 2,
     borderBottomColor: "#E0E0E0",
   },
   itemLabel: {
@@ -400,4 +407,13 @@ const styles = StyleSheet.create({
   dataText: {
     marginLeft: "auto",
   },
+
+  excluirButtonText: {
+    textAlign: 'right',
+    fontWeight: '700',
+    fontSize: 15,
+    color: '#5e5e5e'
+
+
+  }
 });

@@ -1,22 +1,294 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, SafeAreaView, FlatList } from "react-native";
-import { PieChart } from "react-native-svg-charts";
-import { ScrollView } from "react-native";
+// import React, { useEffect, useState } from "react";
+// import { View, Text, StyleSheet, SafeAreaView, FlatList } from "react-native";
+// import { PieChart } from "react-native-svg-charts";
+// import { ScrollView } from "react-native";
+
+import { useState } from "react";
+import { useEffect } from "react";
+import { StyleSheet } from "react-native";
+import { View } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { VictoryLegend, VictoryPie } from "victory";
+import { VictoryContainer } from "victory";
+
+// export default function Graficos() {
+//   const data = [31, 6, 6, 0, 56];
+
+//   const [grafico, setGrafico] = useState([]);
+
+//   const colors = ["#F82B2B", "#FC9F6B", "#FCED6B", "#BC6BFC", "#3FE78C"];
+//   const pieData = data.map((value, index) => ({
+//     value,
+//     key: `${index}-${value}`,
+//     svg: {
+//       fill: colors[index % colors.length],
+//     },
+//   }));
+
+//   const obj = {
+//     receitas: [
+//       {
+//         nome: "Salário",
+//         valor: 5000,
+//       },
+//       {
+//         nome: "Rendimentos",
+//         valor: 200,
+//       },
+//     ],
+//     despesas: [
+//       {
+//         nome: "Conta de luz",
+//         valor: 200,
+//       },
+//       {
+//         nome: "Conta de agua",
+//         valor: 150,
+//       },
+//       {
+//         nome: "internet",
+//         valor: 100,
+//       },
+//     ],
+//   };
+
+//   useEffect(() => {
+//     calcularGrafico();
+//   }, []);
+
+//   const Label = ({ slices }) => {
+//     return slices.map((slice, index) => {
+//       const { pieCentroid, data } = slice;
+//       const percentage = ((data.value / data.total) * 100).toFixed(2);
+//       return (
+//         <React.Fragment key={`label-${index}`}>
+//           <Text
+//             x={pieCentroid[0]}
+//             y={pieCentroid[1] + 10}
+//             fill="black"
+//             textAnchor="middle"
+//             alignmentBaseline="middle"
+//             fontSize={14}
+//           >
+//             {data.label}
+//           </Text>
+//           <Text
+//             x={pieCentroid[0]}
+//             y={pieCentroid[1] + 30}
+//             fill="black"
+//             textAnchor="middle"
+//             alignmentBaseline="middle"
+//             fontSize={12}
+//           >
+//             {`${percentage}%`}
+//           </Text>
+//         </React.Fragment>
+//       );
+//     });
+//   };
+//   function calcularGrafico() {
+//     let totalDespesas = 0;
+//     let totalReceitas = 0;
+
+//     for (const receita of obj.receitas) {
+//       totalReceitas += receita.valor;
+//     }
+
+//     // Calcule a soma das despesas
+//     for (const despesa of obj.despesas) {
+//       totalDespesas -= despesa.valor;
+//     }
+//     const resultado = totalReceitas + totalDespesas;
+
+//     let itensGrafico = [];
+//     debugger;
+
+//     const percentageReceita = Number(((totalReceitas * 100) / resultado).toFixed(2));
+//     const totalReceitaObject = {
+//       label: "Receitas",
+//       value: `R$ ${totalReceitas} - ${percentageReceita} %`,
+//     };
+//     itensGrafico.push(totalReceitaObject);
+
+//     const percentageDespesas = Number(((totalDespesas * 100) / resultado).toFixed(2));
+//     const totalDespesasObject = {
+//       label: "Despesas",
+//       value: `R$ ${totalDespesas * -1} - ${percentageDespesas} %`,
+//     };
+
+//     itensGrafico.push(totalDespesasObject);
+
+//     obj.despesas.forEach((despesa) => {
+//       const percentageDespesa = Number(((despesa * 100) / resultado).toFixed(2));
+//       const despesasObject = {
+//         label: despesa.nome,
+//         value: `R$ ${percentageDespesa * -1} ${percentageDespesa} %`,
+//       };
+
+//       itensGrafico.push(despesasObject);
+//     });
+
+//     setGrafico(itensGrafico);
+
+//   }
+
+//   const textData = [
+//     { label: "Despesas", value: "R$-2.437,00   43%" },
+//     { label: "Fixas", value: "R$ 1750,00   31%" },
+//     { label: "Variáveis", value: "R$ 337,00   6%" },
+//     { label: "Extras", value: "R$ 350,00   6%" },
+//     { label: "Adicionais", value: "0%" },
+//     { label: "Resultado", value: "R$ 3.163,00   56%" },
+//   ];
+
+//   const pieChartProps = {
+//     style: {
+//       marginTop: 50,
+//       marginBottom: 25,
+//       height: 200,
+//     },
+//     data: pieData,
+//     innerRadius: "65%",
+//     outerRadius: "100%",
+//     labelRadius: "80%",
+//     padAngle: 0.02,
+//     animate: true,
+//     animationDuration: 500,
+//   };
+//   const currentDate = new Date();
+//   const formattedDate = currentDate.toLocaleDateString("pt-BR", {
+//     year: "numeric",
+//     month: "long",
+//     day: "numeric",
+//   });
+//   /* os pedaços do gráfico são compostos pelos valores das categorias de despesas:
+//   Fixas(vermelho), Variaveis(laranja), Extras(amarelo), Adicionais(roxo) e o Resultado(verde)
+
+//   A operação: o valor da Receita total no sistema menos o valor total de Despesas no sistema,
+//   dai mostrar o valor e porcentagem 
+//   no Resultado(verde).
+
+//   ex: Receitas (valortotal) será sempre 100%,
+//     - Despesas (valortotal // soma de todas as categorias) 43%
+//       Resultado (valor) 56% 
+
+//   Mas no gráfico continuará mostrando apenas as categorias de despesas e o resultado
+//   */
+//   return (
+//     <ScrollView>
+//       <SafeAreaView style={styles.container}>
+//         <View style={styles.subcontainer}>
+//           <View style={styles.containerHeader}>
+//             <Text style={styles.textHeader}>Gráficos</Text>
+//           </View>
+//           <Text style={styles.textdataatual}>{formattedDate}</Text>
+//           <PieChart {...pieChartProps}>
+//             <Label />
+//           </PieChart>
+//         </View>
+//       </SafeAreaView>
+
+//       <SafeAreaView style={styles.subcontainer2}>
+//         <View style={styles.ViewReceitaGraf}>
+//           <Text style={styles.ReceitaGrafText}>Receitas</Text>
+//           <View style={styles.ViewReceitaGraf}>
+//             <Text style={styles.ReceitaGrafvalor}>R$ 5.600,00</Text>
+//             <Text style={styles.ReceitaGrafvalor}>100%</Text>
+//           </View>
+//         </View>
+//         <View style={styles.alinhaSquare}>
+//           <View style={styles.colorSquaresContainer}>
+//             <View
+//               style={[styles.colorSquare, { backgroundColor: "#F82B2B" }]}
+//             />
+//             <View
+//               style={[styles.colorSquare, { backgroundColor: "#FC9F6B" }]}
+//             />
+//             <View
+//               style={[styles.colorSquare, { backgroundColor: "#FCED6B" }]}
+//             />
+//             <View
+//               style={[styles.colorSquare, { backgroundColor: "#BC6BFC" }]}
+//             />
+//             <View
+//               style={[styles.colorSquare, { backgroundColor: "#3FE78C" }]}
+//             />
+//           </View>
+//           <FlatList
+//             data={grafico}
+//             keyExtractor={(item) => item.label}
+//             renderItem={({ item }) => (
+//               <View style={styles.DatatextContainer}>
+//                 {/* lógica para personalizar especificamente
+//                o Resultado e a Despesa após verificação */}
+//                 {item.label === "Resultado" && (
+//                   <Text
+//                     style={[
+//                       styles.DatatextLabel,
+//                       { color: "black", fontSize: 17 },
+//                     ]}
+//                   >
+//                     {item.label}
+//                   </Text>
+//                 )}
+//                 {item.label === "Despesas" && (
+//                   <Text
+//                     style={[
+//                       styles.DatatextLabel,
+//                       { color: "black", fontSize: 17 },
+//                     ]}
+//                   >
+//                     {item.label}
+//                   </Text>
+//                 )}
+//                 {item.label !== "Resultado" && item.label !== "Despesas" && (
+//                   <Text style={styles.DatatextLabel}>{item.label}</Text>
+//                 )}
+
+//                 {item.label === "Resultado" && (
+//                   <Text
+//                     style={[
+//                       styles.DatatextValue,
+//                       { color: "#3FE746", fontSize: 16 },
+//                     ]}
+//                   >
+//                     {item.value}
+//                   </Text>
+//                 )}
+//                 {item.label === "Despesas" && (
+//                   <Text
+//                     style={[
+//                       styles.DatatextValue,
+//                       { color: "red", fontSize: 16 },
+//                     ]}
+//                   >
+//                     {item.value}
+//                   </Text>
+//                 )}
+//                 {item.label !== "Resultado" && item.label !== "Despesas" && (
+//                   <Text style={styles.DatatextValue}>{item.value}</Text>
+//                 )}
+//               </View>
+//             )}
+//             style={{
+//               marginVertical: 7,
+//               marginHorizontal: 10,
+//               backgroundColor: "#fafffe",
+//               borderRadius: 10,
+//               elevation: 3,
+//               marginLeft: 7,
+//             }}
+//           />
+//         </View>
+//       </SafeAreaView>
+//     </ScrollView>
+//   );
+// }
+
+
 
 export default function Graficos() {
-  const data = [31, 6, 6, 0, 56];
-
-  const [grafico, setGrafico] = useState([]);
-
-  const colors = ["#F82B2B", "#FC9F6B", "#FCED6B", "#BC6BFC", "#3FE78C"];
-  const pieData = data.map((value, index) => ({
-    value,
-    key: `${index}-${value}`,
-    svg: {
-      fill: colors[index % colors.length],
-    },
-  }));
-
   const obj = {
     receitas: [
       {
@@ -43,41 +315,36 @@ export default function Graficos() {
       },
     ],
   };
+  const [grafico, setGrafico] = useState([]);
 
   useEffect(() => {
-    calcularGrafico();
+    calcularGrafico2();
   }, []);
 
-  const Label = ({ slices }) => {
-    return slices.map((slice, index) => {
-      const { pieCentroid, data } = slice;
-      const percentage = ((data.value / data.total) * 100).toFixed(2);
-      return (
-        <React.Fragment key={`label-${index}`}>
-          <Text
-            x={pieCentroid[0]}
-            y={pieCentroid[1] + 10}
-            fill="black"
-            textAnchor="middle"
-            alignmentBaseline="middle"
-            fontSize={14}
-          >
-            {data.label}
-          </Text>
-          <Text
-            x={pieCentroid[0]}
-            y={pieCentroid[1] + 30}
-            fill="black"
-            textAnchor="middle"
-            alignmentBaseline="middle"
-            fontSize={12}
-          >
-            {`${percentage}%`}
-          </Text>
-        </React.Fragment>
-      );
+
+  function calcularGrafico2() {
+    let totalDespesas = 0;
+    for (const despesa of obj.despesas) {
+      totalDespesas += despesa.valor;
+    }
+
+    debugger;
+    let itensGrafico = [];
+    obj.despesas.forEach((despesa) => {
+      const percentageDespesa = Number(((despesa.valor * 100) / totalDespesas).toFixed(2));
+      const despesasObject = {
+        name: despesa.nome,
+        x: despesa.nome,
+        y: percentageDespesa
+      };
+
+      itensGrafico.push(despesasObject);
     });
-  };
+
+    setGrafico(itensGrafico);
+
+  }
+
   function calcularGrafico() {
     let totalDespesas = 0;
     let totalReceitas = 0;
@@ -93,28 +360,25 @@ export default function Graficos() {
     const resultado = totalReceitas + totalDespesas;
 
     let itensGrafico = [];
-    debugger;
+    // debugger;
 
-    const percentageReceita = Number(((totalReceitas * 100) / resultado).toFixed(2));
-    const totalReceitaObject = {
-      label: "Receitas",
-      value: `R$ ${totalReceitas} - ${percentageReceita} %`,
-    };
-    itensGrafico.push(totalReceitaObject);
+    // const percentageReceita = Number(((totalReceitas * 100) / resultado).toFixed(2));
 
-    const percentageDespesas = Number(((totalDespesas * 100) / resultado).toFixed(2));
-    const totalDespesasObject = {
-      label: "Despesas",
-      value: `R$ ${totalDespesas * -1} - ${percentageDespesas} %`,
-    };
+    // const percentageDespesas = Number(((totalDespesas * 100) / resultado).toFixed(2));
+    // const totalDespesasObject = {
+    //   label: "Despesas",
+    //   value: `R$ ${totalDespesas * -1} - ${percentageDespesas} %`,
+    // };
 
-    itensGrafico.push(totalDespesasObject);
+    // itensGrafico.push(totalDespesasObject);
 
     obj.despesas.forEach((despesa) => {
       const percentageDespesa = Number(((despesa * 100) / resultado).toFixed(2));
       const despesasObject = {
-        label: despesa.nome,
-        value: `R$ ${percentageDespesa * -1} ${percentageDespesa} %`,
+        // label: despesa.nome,
+        // value: `R$ ${percentageDespesa * -1} ${percentageDespesa} %`,
+        x: despesa.nome,
+        y: percentageDespesa
       };
 
       itensGrafico.push(despesasObject);
@@ -124,157 +388,36 @@ export default function Graficos() {
 
   }
 
-  const textData = [
-    { label: "Despesas", value: "R$-2.437,00   43%" },
-    { label: "Fixas", value: "R$ 1750,00   31%" },
-    { label: "Variáveis", value: "R$ 337,00   6%" },
-    { label: "Extras", value: "R$ 350,00   6%" },
-    { label: "Adicionais", value: "0%" },
-    { label: "Resultado", value: "R$ 3.163,00   56%" },
-  ];
 
-  const pieChartProps = {
-    style: {
-      marginTop: 50,
-      marginBottom: 25,
-      height: 200,
-    },
-    data: pieData,
-    innerRadius: "65%",
-    outerRadius: "100%",
-    labelRadius: "80%",
-    padAngle: 0.02,
-    animate: true,
-    animationDuration: 500,
-  };
-  const currentDate = new Date();
-  const formattedDate = currentDate.toLocaleDateString("pt-BR", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-  /* os pedaços do gráfico são compostos pelos valores das categorias de despesas:
-  Fixas(vermelho), Variaveis(laranja), Extras(amarelo), Adicionais(roxo) e o Resultado(verde)
-  
-  A operação: o valor da Receita total no sistema menos o valor total de Despesas no sistema,
-  dai mostrar o valor e porcentagem 
-  no Resultado(verde).
-  
-  ex: Receitas (valortotal) será sempre 100%,
-    - Despesas (valortotal // soma de todas as categorias) 43%
-      Resultado (valor) 56% 
-  
-  Mas no gráfico continuará mostrando apenas as categorias de despesas e o resultado
-  */
   return (
-    <ScrollView>
-      <SafeAreaView style={styles.container}>
-        <View style={styles.subcontainer}>
-          <View style={styles.containerHeader}>
-            <Text style={styles.textHeader}>Gráficos</Text>
-          </View>
-          <Text style={styles.textdataatual}>{formattedDate}</Text>
-          <PieChart {...pieChartProps}>
-            <Label />
-          </PieChart>
-        </View>
-      </SafeAreaView>
+    <ScrollView style={styles.container}>
+      <SafeAreaView style={styles.subcontainer}>
+        <View>
 
-      <SafeAreaView style={styles.subcontainer2}>
-        <View style={styles.ViewReceitaGraf}>
-          <Text style={styles.ReceitaGrafText}>Receitas</Text>
-          <View style={styles.ViewReceitaGraf}>
-            <Text style={styles.ReceitaGrafvalor}>R$ 5.600,00</Text>
-            <Text style={styles.ReceitaGrafvalor}>100%</Text>
-          </View>
-        </View>
-        <View style={styles.alinhaSquare}>
-          <View style={styles.colorSquaresContainer}>
-            <View
-              style={[styles.colorSquare, { backgroundColor: "#F82B2B" }]}
+          <VictoryContainer>
+            <VictoryLegend
+              standalone={false}
+              centerTitle
+              orientation="horizontal"
+              style={{ labels: { fontSize: 20, fill: "white" } }}
+              gutter={20}
+              colorScale={["tomato", "lightgreen", "gold", "cyan", "navy", 'teal', 'magenta', 'green', 'orange', 'aqua', 'fuchsia', 'purple']}
+              data={grafico}
+            >
+            </VictoryLegend>
+            <VictoryPie
+              data={grafico}
+              innerRadius={70}
+              standalone={false}
+              colorScale={["tomato", "lightgreen", "gold", "cyan", "navy", 'teal', 'magenta', 'green', 'orange', 'aqua', 'fuchsia', 'purple']}
+              labels={() => null}
             />
-            <View
-              style={[styles.colorSquare, { backgroundColor: "#FC9F6B" }]}
-            />
-            <View
-              style={[styles.colorSquare, { backgroundColor: "#FCED6B" }]}
-            />
-            <View
-              style={[styles.colorSquare, { backgroundColor: "#BC6BFC" }]}
-            />
-            <View
-              style={[styles.colorSquare, { backgroundColor: "#3FE78C" }]}
-            />
-          </View>
-          <FlatList
-            data={grafico}
-            keyExtractor={(item) => item.label}
-            renderItem={({ item }) => (
-              <View style={styles.DatatextContainer}>
-                {/* lógica para personalizar especificamente
-               o Resultado e a Despesa após verificação */}
-                {item.label === "Resultado" && (
-                  <Text
-                    style={[
-                      styles.DatatextLabel,
-                      { color: "black", fontSize: 17 },
-                    ]}
-                  >
-                    {item.label}
-                  </Text>
-                )}
-                {item.label === "Despesas" && (
-                  <Text
-                    style={[
-                      styles.DatatextLabel,
-                      { color: "black", fontSize: 17 },
-                    ]}
-                  >
-                    {item.label}
-                  </Text>
-                )}
-                {item.label !== "Resultado" && item.label !== "Despesas" && (
-                  <Text style={styles.DatatextLabel}>{item.label}</Text>
-                )}
-
-                {item.label === "Resultado" && (
-                  <Text
-                    style={[
-                      styles.DatatextValue,
-                      { color: "#3FE746", fontSize: 16 },
-                    ]}
-                  >
-                    {item.value}
-                  </Text>
-                )}
-                {item.label === "Despesas" && (
-                  <Text
-                    style={[
-                      styles.DatatextValue,
-                      { color: "red", fontSize: 16 },
-                    ]}
-                  >
-                    {item.value}
-                  </Text>
-                )}
-                {item.label !== "Resultado" && item.label !== "Despesas" && (
-                  <Text style={styles.DatatextValue}>{item.value}</Text>
-                )}
-              </View>
-            )}
-            style={{
-              marginVertical: 7,
-              marginHorizontal: 10,
-              backgroundColor: "#fafffe",
-              borderRadius: 10,
-              elevation: 3,
-              marginLeft: 7,
-            }}
-          />
+          </VictoryContainer>
         </View>
       </SafeAreaView>
     </ScrollView>
-  );
+  )
+
 }
 
 const styles = StyleSheet.create({

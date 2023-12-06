@@ -70,7 +70,7 @@ namespace AdmAPI.Controllers
             var percentualDepesas = totalDespesas * 100 / resultado;
             var percentualReceitas = totalReceitas * 100 / resultado;
 
-            return Ok(new { totalDespesas , totalReceitas, resultado, percentualDepesas, percentualReceitas });
+            return Ok(new { totalDespesas , totalReceitas, resultado, percentualDepesas, percentualReceitas, despesas });
         }
     }
 }

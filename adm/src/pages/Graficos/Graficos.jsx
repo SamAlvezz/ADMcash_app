@@ -67,11 +67,12 @@ export default function Graficos() {
 
 
     relatorio.despesas.forEach((despesa, index) => {
-      const percentageDespesa = Number(((despesa.valoR_DESP * 100) / relatorio.totalDespesas).toFixed(2));
+      const valorDespesaFormatado = despesa.valoR_DESP.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      const percentageDespesa = Number(((despesa.valoR_DESP * 100) / relatorio.totalDespesas).toFixed(1));
       const despesasObject = {
         key: index,
         name: despesa.nomE_DESP,
-        label: `R$ ${despesa.valoR_DESP} - ${percentageDespesa}%`,
+        label: `R$ ${valorDespesaFormatado} - ${percentageDespesa}%`,
         value: percentageDespesa
       };
 
@@ -125,24 +126,25 @@ export default function Graficos() {
 
       <SafeAreaView style={styles.subcontainer2}>
         <View style={styles.ViewReceitaGraf}>
-          <Text style={[styles.ReceitaGrafText, { color: "#CC3E3E" }]}>Despesas</Text>
+          <Text style={[styles.ReceitaGrafText, { color: "#FD5252" }]}>Despesas</Text>
           <View style={styles.ViewReceitaGraf}>
-            <Text style={[styles.ReceitaGrafvalor, { color: "#CC3E3E" }]}>R$ {relatorio.totalDespesas}</Text>
+          <Text style={[styles.ReceitaGrafvalor, { color: "#FD5252" }]}>R$ {relatorio.totalDespesas.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
+
           </View>
         </View>
         <View style={styles.alinhaSquare}>
           <Labels data={pieData} styles={styles}></Labels>
         </View>
         <View style={styles.ViewReceitaGraf}>
-          <Text style={[styles.ReceitaGrafText, { color: "#5D993D" }]}>Receitas</Text>
+          <Text style={[styles.ReceitaGrafText, { color: "#3FE78C" }]}>Receitas</Text>
           <View style={styles.ViewReceitaGraf}>
-            <Text style={[styles.ReceitaGrafvalor, { color: "#5D993D" }]}>R$ {relatorio.totalReceitas}</Text>
+            <Text style={[styles.ReceitaGrafvalor, { color: "#3FE78C" }]}>R$ {relatorio.totalReceitas.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
           </View>
         </View>
         <View style={styles.ViewReceitaGraf}>
-          <Text style={[styles.ReceitaGrafvalor, { color: relatorio.resultado > 0 ? "#5D993D" : "#CC3E3E" }]}>Balanço</Text>
+        <Text style={[styles.ReceitaGrafText, styles.balancoText, { color: relatorio.resultado > 0 ? "#3FE78C" : "#FD5252" }]}>Balanço</Text>
           <View style={styles.ViewReceitaGraf}>
-            <Text style={[styles.ReceitaGrafvalor, { color: relatorio.resultado > 0 ? "#5D993D" : "#CC3E3E" }]}>R$ {relatorio.resultado}</Text>
+            <Text style={[styles.ReceitaGrafvalor, { color: relatorio.resultado > 0 ? "#3FE78C" : "#FD5252" }]}>R$ {relatorio.resultado.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
           </View>
         </View>
       </SafeAreaView>
@@ -212,7 +214,8 @@ const styles = StyleSheet.create({
   ReceitaGrafvalor: {
     fontSize: 17,
     fontWeight: "700",
-    marginHorizontal: 6,
+    marginHorizontal: 10
+   
   },
   ViewReceitaGraf: {
     flexDirection: "row",
@@ -242,12 +245,18 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingLeft: 30,
-    paddingRight: 30
+    paddingLeft: 15,
+    paddingRight: 15
   },
   flatListItemLabel: {
     display: "flex",
     flexDirection: "row",
     alignItems: "center"
+  },
+
+  balancoText:{
+    paddingStart: "6%",
+marginBottom: 100
+
   }
 });

@@ -40,18 +40,41 @@ export default function Despesas() {
       };
 
       try {
-        await axios.put(
-          `https://localhost:44318/api/Despesas/atualizardespesa/${novaDespesa.COD_DESP}`,
-          body
-        );
+        let response;
+
+        if (editingIndex !== null) {
+          // Se estiver editando, utiliza o método PUT
+          response = await axios.put(
+            'https://localhost:44318/api/Despesas/atualizardespesa',
+            body
+          );
+        } else {
+          // Se for uma nova despesa, utiliza o método POST
+          response = await axios.post(
+            `https://localhost:44318/api/Despesas/criardespesa/${novaDespesa.COD_DESP}`,
+            body
+          );
+        }
+    
+        console.log("Resposta da API:", response.data);
+    
+        calcularTotalDespesas();
+    
+        setModalVisible(false);
+        await loadDespesas();
+        setEditingIndex(null); // Reseta o índice de edição
+        setSelectedIndex(null); // Reseta o índice selecionado na FlatList
       } catch (error) {
-        console.log(error);
+        console.log("Erro ao adicionar/atualizar despesa", error);
       }
-    } else {
-      // Adicionar nova despesa
-      novaDespesa.dataValidade.setUTCHours(
-        novaDespesa.dataValidade.getUTCHours() - 3
-      );
+  
+      calcularTotalDespesas();
+  
+      setModalVisible(false);
+      await loadDespesas();
+      setEditingIndex(null); // Reseta o índice de edição
+    };
+  
 
       // Format the date as an ISO string
       const formattedDate = novaDespesa.dataValidade.toISOString();
@@ -81,7 +104,7 @@ export default function Despesas() {
       } catch (error) {
         console.log(error);
       }
-    }
+    
 
     calcularTotalDespesas();
 
@@ -226,9 +249,9 @@ export default function Despesas() {
               onPress={() => setSelectedFilter("Variável")}
             />
             <CheckBox
-              title="Extra"
-              checked={selectedFilter === "Extra"}
-              onPress={() => setSelectedFilter("Extra")}
+              title="Emergencial"
+              checked={selectedFilter === "Emergencial"}
+              onPress={() => setSelectedFilter("Emergencial")}
             />
           </View>
         )}

@@ -48,17 +48,9 @@ function ModalReceitas({ visible, onClose, onSave }) {
   };
 
   const handleValorChange = (text) => {
-    if (text == "") return;
-    // Remova todos os caracteres não numéricos
-    const numericValue = text.replace(/[^0-9]/g, "");
-    const formattedValue = numericValue
-      ? `R$ ${Number(numericValue / 100).toLocaleString("pt-BR", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      })}`
-      : "";
-      setValorReceita(formattedValue);
-    };
+    setValorReceita(text);
+  };
+  
 
   return (
     <Modal transparent={true} visible={visible} animationType="fade">

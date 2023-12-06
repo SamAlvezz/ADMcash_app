@@ -36,7 +36,7 @@ export default function Labels({ data, styles }) {
       )}
       style={{
         marginVertical: 7,
-        marginHorizontal: 10,
+        marginHorizontal: 5,
         backgroundColor: "#fafffe",
         borderRadius: 10,
         elevation: 3,

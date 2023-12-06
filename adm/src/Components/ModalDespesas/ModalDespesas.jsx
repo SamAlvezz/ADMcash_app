@@ -124,7 +124,7 @@ function ModalDespesas({ visible, onClose, onSave, onExcluir, index }) {
                 <Picker.Item label="Fixa" value="Fixa" />
                 <Picker.Item label="Variável" value="Variável" />
                 <Picker.Item label="Adicional" value="Adicional" />
-                <Picker.Item label="Extra" value="Extra" />
+                <Picker.Item label="Emergencial" value="Emergencial" />
               </Picker>
               <View style={styles.ViewBotoes}>
                 {/*<TouchableOpacity

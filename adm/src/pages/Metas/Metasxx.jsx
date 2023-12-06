@@ -10,12 +10,14 @@ import * as Progress from 'react-native-progress';
 import { AntDesign } from "@expo/vector-icons";
 import { Dimensions } from 'react-native';
 import ModalMetas from "../../Components/ModalMetas/ModalMetas";
+import axios from "axios";
 
-export default function Metas() {
-  const screenWidth = Dimensions.get('window').width;
-  const [modalVisible, setModalVisible] = useState(false);
-
-  const handleOpenModal = () => {
+export default function Receitas() {
+    const [modalVisible, setModalVisible] = useState(false);
+    const [receitas, setReceitas] = useState([]);
+    const [totalMetas, setTotalReceitas] = useState(0);
+    const [editingIndex, setEditingIndex] = useState(null);
+    const [selectedIndex, setSelectedIndex] = useState(0);  const handleOpenModal = () => {
     setModalVisible(true);
   };
 

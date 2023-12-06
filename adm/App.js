@@ -10,6 +10,7 @@ import Despesas from "./src/pages/Despesas/Despesas";
 import Receitas from "./src/pages/Receitas/Receita"
 import ModalDespesas from "./src/Components/ModalDespesas/ModalDespesas";
 import ModalReceitas from "./src/Components/ModalReceitas/ModalReceitas";
+import ModalMetas from "./src/Components/ModalMetas/ModalMetas";
 import Usuarios from "./src/pages/Usuarios/Usuarios";
 
 const Stack = createStackNavigator();
@@ -53,6 +54,7 @@ function App() {
         }}></Stack.Screen>
         <Stack.Screen name="ModalDespesas" component={ModalDespesas}></Stack.Screen>
         <Stack.Screen name="ModalReceitas" component={ModalReceitas}></Stack.Screen>
+        <Stack.Screen name="ModalMetas" component={ModalMetas}></Stack.Screen>
         <Stack.Screen name="TelaGeral" component={TelaGeral}></Stack.Screen>
         <Stack.Screen name="Usuarios" component={Usuarios}></Stack.Screen>
       </Stack.Navigator>

@@ -2004,20 +2004,30 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\samue\\.nuget\\packages\\": {}
+    "D:\\home\\aluno\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\samue\\OneDrive\\Área de Trabalho\\adm\\ADMcash_app\\API\\AdmAPI\\AdmAPI.csproj",
+      "projectUniqueName": "D:\\home\\aluno\\Downloads\\admm\\ADMcash_app\\API\\AdmAPI\\AdmAPI.csproj",
       "projectName": "AdmAPI",
-      "projectPath": "C:\\Users\\samue\\OneDrive\\Área de Trabalho\\adm\\ADMcash_app\\API\\AdmAPI\\AdmAPI.csproj",
-      "packagesPath": "C:\\Users\\samue\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\samue\\OneDrive\\Área de Trabalho\\adm\\ADMcash_app\\API\\AdmAPI\\obj\\",
+      "projectPath": "D:\\home\\aluno\\Downloads\\admm\\ADMcash_app\\API\\AdmAPI\\AdmAPI.csproj",
+      "packagesPath": "D:\\home\\aluno\\.nuget\\packages\\",
+      "outputPath": "D:\\home\\aluno\\Downloads\\admm\\ADMcash_app\\API\\AdmAPI\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\samue\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "D:\\home\\aluno\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
@@ -2069,7 +2079,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files (x86)\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -21,7 +21,7 @@ function ModalDespesas({ visible, onClose, onSave, onExcluir, index }) {
   const [valorDespesa, setValorDespesa] = useState("");
   const [observacoes, setObservacoes] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [tipoDespesa, setTipoDespesa] = useState("Fixa");
+  //const [CategoriaDespesa, setCategoriaDespesa] = useState("Fixa");
 
   /* salvando despesa */
   const salvarDespesa = () => {
@@ -30,7 +30,7 @@ function ModalDespesas({ visible, onClose, onSave, onExcluir, index }) {
       valor: valorDespesa,
       observacoes: observacoes,
       dataValidade: selectedDate,
-      tipo: tipoDespesa,
+      //categoria: CategoriaDespesa,
     };
 
     onSave(novaDespesa);
@@ -38,7 +38,7 @@ function ModalDespesas({ visible, onClose, onSave, onExcluir, index }) {
     setValorDespesa("");
     setObservacoes("");
     setSelectedDate(new Date());
-    setTipoDespesa("Fixa");
+    //setCategoriaDespesa("Fixa");
     onClose();
   };
   /* excluindo */
@@ -49,7 +49,7 @@ function ModalDespesas({ visible, onClose, onSave, onExcluir, index }) {
     setValorDespesa("");
     setObservacoes("");
     setSelectedDate(new Date());
-    setTipoDespesa("Fixa");
+   // setCategoriaDespesa("Fixa");
     onClose();
   };
 
@@ -63,10 +63,10 @@ function ModalDespesas({ visible, onClose, onSave, onExcluir, index }) {
     setValorDespesa("");
     setObservacoes("");
     setSelectedDate(new Date());
-    setTipoDespesa("Fixa");
+   // setCategoriaDespesa("Fixa");
     onClose();
   };
-  
+
   return (
     <Modal transparent={true} visible={visible} animationType="fade">
       <View style={styles.centeredView}>
@@ -74,79 +74,80 @@ function ModalDespesas({ visible, onClose, onSave, onExcluir, index }) {
           <View style={styles.modalView}>
             <TouchableOpacity
               style={styles.botaoX}
-              onPress={fecharModal} 
+              onPress={fecharModal}
             >
               <Text style={styles.txtx}>x</Text>
             </TouchableOpacity>
-                 
-              <Text style={styles.preenchimentosdespesas}>Nome da Despesa</Text>
-              <TextInput
-                value={nomeDespesa}
-                onChangeText={setNomeDespesa}
-                placeholder="Digite"
-                style={styles.input}
-                placeholderTextColor="gray"
-              />
 
-              <Text style={styles.preenchimentosdespesas}>Valor da Despesa</Text>
-              <TextInput
-                value={valorDespesa}
-                onChangeText={(text) => handleValorChange(text)}
-                placeholder="R$00,00"
-                keyboardType="numeric"
-                style={styles.input}
-                placeholderTextColor="gray"
-              />
+            <Text style={styles.preenchimentosdespesas}>Nome da Despesa</Text>
+            <TextInput
+              value={nomeDespesa}
+              onChangeText={setNomeDespesa}
+              placeholder="Digite"
+              style={styles.input}
+              placeholderTextColor="gray"
+            />
 
-              <Text style={styles.preenchimentosdespesas}>Observações</Text>
-              <TextInput
-                value={observacoes}
-                onChangeText={setObservacoes}
-                placeholder="Digite"
-                style={styles.input}
-                placeholderTextColor="gray"
-              />
+            <Text style={styles.preenchimentosdespesas}>Valor da Despesa</Text>
+            <TextInput
+              value={valorDespesa}
+              onChangeText={(text) => handleValorChange(text)}
+              placeholder="R$00,00"
+              keyboardType="numeric"
+              style={styles.input}
+              placeholderTextColor="gray"
+            />
 
-              <Text style={styles.preenchimentosdespesas}>Data de Validade</Text>
-              <DatePicker
-                selected={selectedDate}
-                onChange={(date) => setSelectedDate(date)}
-                dateFormat="dd/MM/yyyy"
-                showMonthDropdown
-                showYearDropdown
-                dropdownMode="select"
-                locale="pt-BR" // Defina o locale para 'pt-BR'
-                customInput={<TextInput style={styles.input} />}
-              />
+            <Text style={styles.preenchimentosdespesas}>Observações</Text>
+            <TextInput
+              value={observacoes}
+              onChangeText={setObservacoes}
+              placeholder="Digite"
+              style={styles.input}
+              placeholderTextColor="gray"
+            />
 
-              <Text style={styles.preenchimentosdespesas}>Tipo de Despesa</Text>
-              <Picker
-                selectedValue={tipoDespesa}
-                onValueChange={(itemValue) => setTipoDespesa(itemValue)}
-                style={styles.input}
-              >
-                <Picker.Item label="Fixa" value="Fixa" />
-                <Picker.Item label="Variável" value="Variável" />
-                <Picker.Item label="Adicional" value="Adicional" />
-                <Picker.Item label="Emergencial" value="Emergencial" />
-              </Picker>
-              <View style={styles.ViewBotoes}>
-                {/*<TouchableOpacity
+            <Text style={styles.preenchimentosdespesas}>Data de Validade</Text>
+            <DatePicker
+              selected={selectedDate}
+              onChange={(date) => setSelectedDate(date)}
+              dateFormat="dd/MM/yyyy"
+              showMonthDropdown
+              showYearDropdown
+              dropdownMode="select"
+              locale="pt-BR" // Defina o locale para 'pt-BR'
+              customInput={<TextInput style={styles.input} />}
+            />
+
+    {/*        <Text style={styles.preenchimentosdespesas}>Categoria de Despesa</Text>
+            <Picker
+              selectedValue={CategoriaDespesa} // Change 'categoria' to 'CategoriaDespesa'
+              onValueChange={(itemValue) => setCategoriaDespesa(itemValue)} // Change 'setCategoria' to 'setCategoriaDespesa'
+              style={styles.input}
+            >
+              <Picker.Item label="Fixa" value="Fixa" />
+              <Picker.Item label="Variável" value="Variável" />
+              <Picker.Item label="Adicional" value="Adicional" />
+              <Picker.Item label="Emergencial" value="Emergencial" />
+            </Picker>
+  */}
+            <View style={styles.ViewBotoes}>
+              {/*<TouchableOpacity
                 style={styles.botaoexcluir}
                 onPress={excluirDespesa}> 
                  <Text style={styles.txtexcluir}>Excluir</Text>                
                 </TouchableOpacity>*/}
 
-                <TouchableOpacity
-                  style={styles.botaosalvar}
-                  onPress={salvarDespesa}
-                >
-                  <Text style={styles.txtsalvar}>Salvar</Text>
-                </TouchableOpacity>
-              </View>
+              <TouchableOpacity
+                style={styles.botaosalvar}
+                onPress={salvarDespesa}
+              >
+                <Text style={styles.txtsalvar}>Salvar</Text>
+              </TouchableOpacity>
             </View>
-          </ScrollView>
-        </View>
+          </View>
+        </ScrollView>
+      </View>
     </Modal>
   );
 }
@@ -197,40 +198,53 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     borderBottomColor: "#E0E0E0",
   },
- /* botaoexcluir: {
-    width: 90,
-    height: 45,
-    backgroundColor: "#F9FFFC",
-    alignItems: "center",
-    borderRadius: 14,
-    justifyContent: "center",
-    alignSelf: "center",
-    marginTop: "5%",
-    padding: 12,
-    borderBottomWidth: 2,
-    borderBottomColor: "#E0E0E0",
-  },
-  txtexcluir: {
-    fontSize: 16,
-    textAlign: "center",
-    fontWeight: 600,
-    color: "#E73F3F",
-  },*/
+  /* botaoexcluir: {
+     width: 90,
+     height: 45,
+     backgroundColor: "#F9FFFC",
+     alignItems: "center",
+     borderRadius: 14,
+     justifyContent: "center",
+     alignSelf: "center",
+     marginTop: "5%",
+     padding: 12,
+     borderBottomWidth: 2,
+     borderBottomColor: "#E0E0E0",
+   },
+   txtexcluir: {
+     fontSize: 16,
+     textAlign: "center",
+     fontWeight: 600,
+     color: "#E73F3F",
+   },*/
   txtsalvar: {
     color: "#1a800d",
     fontSize: 17,
     textAlign: "center",
     fontWeight: 700,
   },
-  botaoX:{
-    alignSelf:'flex-end'
-    
-      },
-    
-      txtx:{
+  botaoX: {
+    alignSelf: 'flex-end'
+
+  },
+
+  txtx: {
     fontSize: 20,
     fontWeight: '700'
-      }
+  }
 });
 
 export default ModalDespesas;
+
+
+
+
+
+
+
+
+
+
+
+
+

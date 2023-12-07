@@ -35,7 +35,7 @@ export default function Metas() {
       </View>
       <View style={styles.MetasView}>
         <View style={styles.textdinamico}>
-          <Text style={styles.titulo}>Ford Ka</Text>
+          <Text style={styles.titulo}>Carro</Text>
           <Text style={styles.dataBaterMeta}>15/11/24</Text>
         </View>
         <View style={styles.row}>

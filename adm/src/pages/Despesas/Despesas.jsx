@@ -38,6 +38,7 @@ export default function Despesas() {
         VALOR_DESP: novaDespesa.valor,
         DESCRICAO: novaDespesa.observacoes,
         DATA_VENCIMENTO: novaDespesa.dataValidade,
+        CATEGORIA: novaDespesa.categoria
       };
 
       try {
@@ -95,6 +96,7 @@ export default function Despesas() {
       VALOR_DESP: numericValue,
       DESCRICAO: novaDespesa.observacoes,
       DATA_VENCIMENTO: formattedDate,
+      CATEGORIA: novaDespesa.categoria
     };
 
     try {
@@ -320,11 +322,11 @@ export default function Despesas() {
           <Text style={styles.text}>Registre as despesas e categorize</Text>
         </View>
         <View style={styles.area2}>
-          <View style={styles.filterIcon}>
+         {/* <View style={styles.filterIcon}>
             <TouchableOpacity onPress={toggleFiltros}>
               <AntDesign name="filter" size={20} color="black" />
-            </TouchableOpacity>
-          </View>
+            </TouchableOpacity>*
+  </View>*/}
 
           <Text style={styles.AdcText}>Adicionar</Text>
           <TouchableOpacity
@@ -334,7 +336,7 @@ export default function Despesas() {
             <AntDesign name="pluscircle" size={20} color={"#3F96E7"} />
           </TouchableOpacity>
         </View>
-        {filtroVisivel && (
+        {/*{filtroVisivel && (
           <View style={styles.filtrosContainer}>
             <CheckBox
               title="Todos"
@@ -363,7 +365,7 @@ export default function Despesas() {
             />
           </View>
         )}
-
+        */}
         <ModalDespesas
           visible={modalVisible}
           onClose={() => setModalVisible(false)}
@@ -374,15 +376,14 @@ export default function Despesas() {
         />
 
         <FlatList
-          data={despesas.filter(
-            (item) => selectedFilter === "Todos" || item.tipo === selectedFilter
-          )}
+          data={despesas}
+
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item, index }) => (
             <View style={styles.itemContainer}>
               <View style={styles.alinhalist}>
                 <Text style={styles.ItemTitulo}>{item.nomE_DESP}</Text>
-                <Text style={styles.itemText}> - {item.tipo}  </Text>
+                 {item.categoria}
                 <Text style={[styles.itemText, styles.dataText]}>
                   {new Date(item.datA_VENCIMENTO).toLocaleDateString("pt-BR")}
                 </Text>
@@ -476,12 +477,13 @@ const styles = StyleSheet.create({
     paddingStart: "5%",
   },
   area2: {
-    flexDirection: "row",
+      flexDirection: 'row',
+      paddingStart: "60%"
+    
   },
   AdcText: {
     fontSize: 18,
     opacity: 0.5,
-    paddingStart: "40%",
   },
   AdcIcone: {
     paddingStart: 5,

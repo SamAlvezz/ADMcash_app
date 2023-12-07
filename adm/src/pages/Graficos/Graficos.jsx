@@ -141,12 +141,14 @@ export default function Graficos() {
             <Text style={[styles.ReceitaGrafvalor, { color: "#3FE78C" }]}>R$ {relatorio.totalReceitas.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
           </View>
         </View>
+        <SafeAreaView style={styles.container}>
         <View style={styles.ViewReceitaGraf}>
         <Text style={[styles.ReceitaGrafText, styles.balancoText, { color: relatorio.resultado > 0 ? "#3FE78C" : "#FD5252" }]}>Balanço</Text>
           <View style={styles.ViewReceitaGraf}>
             <Text style={[styles.ReceitaGrafvalor, { color: relatorio.resultado > 0 ? "#3FE78C" : "#FD5252" }]}>R$ {relatorio.resultado.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
           </View>
         </View>
+        </SafeAreaView>
       </SafeAreaView>
     </ScrollView>
   );

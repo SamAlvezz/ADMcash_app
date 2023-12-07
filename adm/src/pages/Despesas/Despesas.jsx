@@ -379,35 +379,24 @@ export default function Despesas() {
           )}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item, index }) => (
-            <TouchableOpacity
-              onPress={() => {
-                setEditingIndex(index);
-                handleModalOpen(index);
-              }}
-            >
-              <View style={styles.itemContainer}>
-                <View style={styles.alinhalist}>
-                  <Text style={styles.ItemTitulo}>{item.nomE_DESP}</Text>
-                  <Text style={styles.itemText}> - {item.tipo}  </Text>
-                  <Text style={[styles.itemText, styles.dataText]}>
-                    {new Date(item.datA_VENCIMENTO).toLocaleDateString("pt-BR")}
-                  </Text>
-                </View>
-                <Text style={styles.itemValor}>{
-                  parseFloat(item.valoR_DESP).toLocaleString('pt-BR', {
-                    style: 'currency',
-                    currency: 'BRL',
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })
-                }</Text>
-                <Text style={styles.itemObs}>obs: {item.descricao}</Text>
-                <TouchableOpacity
-                  style={styles.excluirButton}
-                  onPress={() => excluirDespesa(index)}
-                >
-                  <Text style={styles.excluirButtonText}>Excluir</Text>
-                </TouchableOpacity>
+            <View style={styles.itemContainer}>
+              <View style={styles.alinhalist}>
+                <Text style={styles.ItemTitulo}>{item.nomE_DESP}</Text>
+                <Text style={styles.itemText}> - {item.tipo}  </Text>
+                <Text style={[styles.itemText, styles.dataText]}>
+                  {new Date(item.datA_VENCIMENTO).toLocaleDateString("pt-BR")}
+                </Text>
+              </View>
+              <Text style={styles.itemValor}>{
+                parseFloat(item.valoR_DESP).toLocaleString('pt-BR', {
+                  style: 'currency',
+                  currency: 'BRL',
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })
+              }</Text>
+              <Text style={styles.itemObs}>obs: {item.descricao}</Text>
+              <View style={styles.Viewbotoes}>
 
                 <TouchableOpacity
                   style={styles.AltButton}
@@ -415,10 +404,16 @@ export default function Despesas() {
                 >
                   <Text style={styles.excluirButtonText}>Alterar</Text>
                 </TouchableOpacity>
-
+                <TouchableOpacity
+                  style={styles.excluirButton}
+                  onPress={() => excluirDespesa(index)}
+                >
+                  <Text style={styles.excluirButtonText}>Excluir</Text>
+                </TouchableOpacity>
 
               </View>
-            </TouchableOpacity>
+            </View>
+
           )}
           style={styles.flatlist}
         />
@@ -566,5 +561,15 @@ const styles = StyleSheet.create({
     color: '#5e5e5e'
 
 
+  },
+  AltButton: {
+    width: 55,
+    alignItems: 'center'
+
+  },
+  Viewbotoes: {
+    flexDirection: 'row',
+    marginTop: 20,
+    justifyContent: 'space-between'
   }
 });

@@ -334,12 +334,7 @@ setEditingIndex(null); // Reseta o índice de edição
           data={receitas}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item, index }) => (
-            <TouchableOpacity
-              onPress={() => {
-                setEditingIndex(index);
-                handleModalOpen(index);
-              }}
-            >
+            
               <View style={styles.itemContainer}>
                 <View style={styles.alinhalist}>
                   <Text style={styles.ItemTitulo}>{item.nomE_RCT}</Text>
@@ -358,20 +353,24 @@ setEditingIndex(null); // Reseta o índice de edição
                 }</Text>
 
                 <Text style={styles.itemObs}>obs: {item.descricao}</Text>
-                <TouchableOpacity
-                  style={styles.excluirButton}
-                  onPress={() => excluirReceita(index)}
-                >
-                  <Text style={styles.excluirButtonText}>Excluir</Text>
-                </TouchableOpacity>
+
+                <View style ={styles.Viewbotoes}>
+                
                 <TouchableOpacity
                   style={styles.AltButton}
                   onPress={() => { handleModalAlterar(item) }}
                 >
                   <Text style={styles.excluirButtonText}>Alterar</Text>
                 </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.excluirButton}
+                  onPress={() => excluirReceita(index)}
+                >
+                  <Text style={styles.excluirButtonText}>Excluir</Text>
+                </TouchableOpacity>
+                </View>
               </View>
-            </TouchableOpacity>
+            
           )}
           style={styles.flatlist}
         />
@@ -502,5 +501,16 @@ const styles = StyleSheet.create({
     color: '#5e5e5e'
 
 
+  },
+
+  AltButton:{
+width:55,
+alignItems:'center'
+
+  },
+  Viewbotoes:{
+    flexDirection:'row',
+    marginTop: 20,
+    justifyContent:'space-between'
   }
 });

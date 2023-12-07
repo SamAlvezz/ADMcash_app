@@ -81,7 +81,7 @@ namespace AdmAPI.DAO
         }
         public void AlterarMeta(MetasDTO meta)
         {
-            var dateOnly = despesa.DATA_ALCANCAR.Date;
+            var dateOnly = meta.DATA_ALCANCAR.Date;
             var conexao = ConnectionFactory.Build();
             conexao.Open();
 

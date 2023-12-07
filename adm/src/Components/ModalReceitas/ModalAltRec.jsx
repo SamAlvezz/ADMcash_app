@@ -47,13 +47,22 @@ function ModalAltReceitas({ visible, onClose, onSave, onExcluir, index, receita 
     onClose();
   }
 
-
+  const fecharModal = () => {
+    onClose();
+  };
   return (
     <Modal transparent={true} visible={visible} animationType="fade">
       <View style={styles.centeredView}>
         <ScrollView pagingEnabled={true} showsVerticalScrollIndicator={false}>
           <View style={styles.modalView}>
+          <TouchableOpacity
+              style={styles.botaoX}
+              onPress={fecharModal} 
+            >
+              <Text style={styles.txtx}>x</Text>
+            </TouchableOpacity>
             <Text style={styles.preenchimentosreceitas}>Nome da Receita</Text>
+            
             <TextInput
               value={receitaModal.nomE_RCT}
               onChangeText={(novoNome) => {
@@ -216,6 +225,16 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: 700,
   },
+
+  botaoX:{
+    alignSelf:'flex-end'
+    
+      },
+    
+      txtx:{
+    fontSize: 20,
+    fontWeight: '700'
+      }
 });
 
 export default ModalAltReceitas;

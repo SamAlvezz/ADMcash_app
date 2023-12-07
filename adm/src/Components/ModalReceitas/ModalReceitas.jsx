@@ -50,12 +50,24 @@ function ModalReceitas({ visible, onClose, onSave }) {
   const handleValorChange = (text) => {
     setValorReceita(text);
   };
-  
+  const fecharModal = () => {
+    setNomeReceita("");
+    setValorReceita("");
+    setObservacoes("");
+    setSelectedDate(new Date());
+    onClose();
+  };
 
   return (
     <Modal transparent={true} visible={visible} animationType="fade">
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
+        <TouchableOpacity
+              style={styles.botaoX}
+              onPress={fecharModal} 
+            >
+              <Text style={styles.txtx}>x</Text>
+            </TouchableOpacity>
           <Text style={styles.preenchimentosreceitas}>Nome da Receita</Text>
           <TextInput
             value={nomeReceita}
@@ -152,6 +164,15 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: 700,
   },
+  botaoX:{
+    alignSelf:'flex-end'
+    
+      },
+    
+      txtx:{
+    fontSize: 20,
+    fontWeight: '700'
+      }
 });
 
 export default ModalReceitas;

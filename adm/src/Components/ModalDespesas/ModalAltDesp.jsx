@@ -46,14 +46,23 @@ function ModalAltDespesas({ visible, onClose, onSave, onExcluir, index, despesa 
     alert("Despesa alterarada com sucesso!");
     onClose();
   }
-
+  const fecharModal = () => {
+    onClose();
+  };
 
   return (
     <Modal transparent={true} visible={visible} animationType="fade">
       <View style={styles.centeredView}>
         <ScrollView pagingEnabled={true} showsVerticalScrollIndicator={false}>
           <View style={styles.modalView}>
+          <TouchableOpacity
+              style={styles.botaoX}
+              onPress={fecharModal} 
+            >
+              <Text style={styles.txtx}>x</Text>
+            </TouchableOpacity>
             <Text style={styles.preenchimentosdespesas}>Nome da Despesa</Text>
+            
             <TextInput
               value={despesaModal.nomE_DESP}
               onChangeText={(novoNome) => {
@@ -216,6 +225,16 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: 700,
   },
+
+  botaoX:{
+    alignSelf:'flex-end'
+    
+      },
+    
+      txtx:{
+    fontSize: 20,
+    fontWeight: '700'
+      }
 });
 
 export default ModalAltDespesas;

@@ -9,12 +9,14 @@ import {
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import ModalReceitas from "../../Components/ModalReceitas/ModalReceitas";
+import ModalAltReceitas from "../../Components/ModalReceitas/ModalAltRec";
 import { useNavigation } from "@react-navigation/native";
 import * as Animatable from "react-native-animatable";
 import axios from "axios";
 
 export default function Receitas() {
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalAltVisible, setModalAltVisible] = useState(false);
   const [receitas, setReceitas] = useState([]);
   const [totalReceitas, setTotalReceitas] = useState(0);
   const [editingIndex, setEditingIndex] = useState(null);
@@ -36,18 +38,40 @@ export default function Receitas() {
       };
 
       try {
-        await axios.put(
-          `https://localhost:44318/api/Receitas/atualizarreceita/${novaReceita.COD_RCT}`,
+        let response;
+
+        if (editingIndex !== null) {
+        response = await axios.put(
+          `https://localhost:44318/api/Receitas/alterarreceita`,
           body
         );
-      } catch (error) {
-        console.log(error);
-      }
+      
     } else {
-      // Adicionar nova Receita
-      novaReceita.dataRecebimento.setUTCHours(
-        novaReceita.dataRecebimento.getUTCHours() - 3
-      );
+     // Se for uma nova receita, utiliza o método POST
+     response = await axios.post(
+      `https://localhost:44318/api/Receitas/criarreceita/${novaReceita.COD_RCT}`,
+      body
+    );
+  }
+    
+  console.log("Resposta da API:", response.data);
+
+  calcularTotalReceitas();
+
+  setModalVisible(false);
+  await loadReceitas();
+  setEditingIndex(null); // Reseta o índice de edição
+  setSelectedIndex(null); // Reseta o índice selecionado na FlatList
+} catch (error) {
+  console.log("Erro ao adicionar/atualizar receita", error);
+}
+
+calcularTotalReceitas();
+
+setModalVisible(false);
+await loadReceitas();
+setEditingIndex(null); // Reseta o índice de edição
+};
 
       // Format the date as an ISO string
       const formattedDate = novaReceita.dataRecebimento.toISOString();
@@ -77,7 +101,7 @@ export default function Receitas() {
       } catch (error) {
         console.log(error);
       }
-    }
+    
 
     calcularTotalReceitas();
 
@@ -89,6 +113,104 @@ export default function Receitas() {
     setSelectedIndex(index);
     setModalVisible(true);
   }
+
+  //--------------------------------------------------------------------------------------------------------------------
+
+  const MudarReceita = async (AlterarReceita) => {
+    if (editingIndex !== null) {
+      // Editar receita existente
+      const updatedReceitas = [...receitas];
+      updatedReceitas[editingIndex] = AlterarReceita;
+      setReceitas(updatedReceitas);
+
+
+      const body = {
+        NOME_RCT: AlterarReceita.nome,
+        VALOR_RCT: AlterarReceita.valor,
+        DESCRICAO: AlterarReceita.observacoes,
+        DATA_RECEBIMENTO: AlterarReceita.dataRecebimento,
+      };
+
+      try {
+        let response;
+
+        if (editingIndex !== null) {
+          // Se estiver editando, utiliza o método PUT
+          response = await axios.put(
+            'https://localhost:44318/api/Receitas/AlterarReceita',
+            body
+          );
+        } else {
+          // Se for uma nova receita, utiliza o método POST
+          response = await axios.post(
+            `https://localhost:44318/api/Receitas/AlterarReceita/${AlterarReceita}`,
+            body
+          );
+        }
+
+        console.log("Resposta da API:", response.data);
+
+        calcularTotalReceitas();
+
+        setModalAltVisible(false);
+        await loadReceitas();
+        setEditingIndex(null); // Reseta o índice de edição
+        setSelectedIndex(null); // Reseta o índice selecionado na FlatList
+      } catch (error) {
+        console.log("Erro ao adicionar/atualizar receita", error);
+      }
+
+      calcularTotalReceitas();
+
+      setModalAltVisible(false);
+      await loadReceitas();
+      setEditingIndex(null); // Reseta o índice de edição
+    };
+
+
+    // Format the date as an ISO string
+    const formattedDate = AlterarReceita.dataRecebimento.toISOString();
+
+    const currencyString = AlterarReceita.valor;
+
+    // Remove non-numeric characters and replace comma with dot
+    const numericString = currencyString
+      .replace(/[^\d.,]/g, "")
+      .replace(",", ".");
+
+    // Parse the string as a float
+    const numericValue = parseFloat(numericString);
+
+    const body = {
+      NOME_RCT: AlterarReceita.nome,
+      VALOR_RCT: numericValue,
+      DESCRICAO: AlterarReceita.observacoes,
+      DATA_RECEBIMENTO: formattedDate,
+    };
+
+    try {
+      const response = await axios.post(
+        "https://localhost:44318/api/Receitas/AlterarReceita",
+        body
+      );
+    } catch (error) {
+      console.log(error);
+    }
+
+
+    calcularTotalReceitas();
+
+    setModalVisible(false);
+    await loadReceitas();
+  };
+
+  function handleModalOpen(index) {
+    setSelectedIndex(index);
+    setModalVisible(true);
+  }
+
+  //-----------------------------------------------------------------------------------------------------------------------------------
+
 
   const excluirReceita = async (index) => {
     const receitaId = receitas[index].coD_RCT;
@@ -148,6 +270,16 @@ export default function Receitas() {
     loadReceitas();
   }, []);
 
+  const [receitaSelecionada, setReceitaSelecionada] = useState();
+  function handleModalAlterar(item) {
+    setReceitaSelecionada(item);
+    setModalAltVisible(true);
+  }
+
+  async function handleCloseModalAlterar() {
+    setModalAltVisible(false);
+    await loadReceitas();
+  }
 
   const navigation = useNavigation();
 
@@ -232,12 +364,29 @@ export default function Receitas() {
                 >
                   <Text style={styles.excluirButtonText}>Excluir</Text>
                 </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.AltButton}
+                  onPress={() => { handleModalAlterar(item) }}
+                >
+                  <Text style={styles.excluirButtonText}>Alterar</Text>
+                </TouchableOpacity>
               </View>
             </TouchableOpacity>
           )}
           style={styles.flatlist}
         />
       </Animatable.View>
+
+      <ModalAltReceitas
+        visible={modalAltVisible}
+        onClose={handleCloseModalAlterar}
+        onSave={MudarReceita}
+        onExcluir={excluirReceita}
+        editingIndex={editingIndex}
+        index={selectedIndex}
+        receita={receitaSelecionada}
+      />
+
     </SafeAreaView>
   );
 }

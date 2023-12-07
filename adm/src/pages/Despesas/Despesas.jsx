@@ -23,7 +23,6 @@ export default function Despesas() {
   const [filtroVisivel, setFiltroVisivel] = useState(false);
   const [totalDespesas, setTotalDespesas] = useState(0);
   const [editingIndex, setEditingIndex] = useState(null);
-
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const adicionarDespesa = async (novaDespesa) => {

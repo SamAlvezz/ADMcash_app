@@ -13,9 +13,11 @@ import { CheckBox } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import * as Animatable from "react-native-animatable";
 import axios from "axios";
+import ModalAltDespesas from "../../Components/ModalDespesas/ModalAltDesp";
 
 export default function Despesas() {
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalAltVisible, setModalAltVisible] = useState(false)
   const [despesas, setDespesas] = useState([]);
   const [selectedFilter, setSelectedFilter] = useState("Todos");
   const [filtroVisivel, setFiltroVisivel] = useState(false);
@@ -45,7 +47,7 @@ export default function Despesas() {
         if (editingIndex !== null) {
           // Se estiver editando, utiliza o método PUT
           response = await axios.put(
-            'https://localhost:44318/api/Despesas/atualizardespesa',
+            'https://localhost:44318/api/Despesas/alterardespesa',
             body
           );
         } else {
@@ -55,11 +57,11 @@ export default function Despesas() {
             body
           );
         }
-    
+
         console.log("Resposta da API:", response.data);
-    
+
         calcularTotalDespesas();
-    
+
         setModalVisible(false);
         await loadDespesas();
         setEditingIndex(null); // Reseta o índice de edição
@@ -67,44 +69,44 @@ export default function Despesas() {
       } catch (error) {
         console.log("Erro ao adicionar/atualizar despesa", error);
       }
-  
+
       calcularTotalDespesas();
-  
+
       setModalVisible(false);
       await loadDespesas();
       setEditingIndex(null); // Reseta o índice de edição
     };
-  
 
-      // Format the date as an ISO string
-      const formattedDate = novaDespesa.dataValidade.toISOString();
 
-      const currencyString = novaDespesa.valor;
+    // Format the date as an ISO string
+    const formattedDate = novaDespesa.dataValidade.toISOString();
 
-      // Remove non-numeric characters and replace comma with dot
-      const numericString = currencyString
-        .replace(/[^\d.,]/g, "")
-        .replace(",", ".");
+    const currencyString = novaDespesa.valor;
 
-      // Parse the string as a float
-      const numericValue = parseFloat(numericString);
+    // Remove non-numeric characters and replace comma with dot
+    const numericString = currencyString
+      .replace(/[^\d.,]/g, "")
+      .replace(",", ".");
 
-      const body = {
-        NOME_DESP: novaDespesa.nome,
-        VALOR_DESP: numericValue,
-        DESCRICAO: novaDespesa.observacoes,
-        DATA_VENCIMENTO: formattedDate,
-      };
+    // Parse the string as a float
+    const numericValue = parseFloat(numericString);
 
-      try {
-        const response = await axios.post(
-          "https://localhost:44318/api/Despesas/criardespesa",
-          body
-        );
-      } catch (error) {
-        console.log(error);
-      }
-    
+    const body = {
+      NOME_DESP: novaDespesa.nome,
+      VALOR_DESP: numericValue,
+      DESCRICAO: novaDespesa.observacoes,
+      DATA_VENCIMENTO: formattedDate,
+    };
+
+    try {
+      const response = await axios.post(
+        "https://localhost:44318/api/Despesas/criardespesa",
+        body
+      );
+    } catch (error) {
+      console.log(error);
+    }
+
 
     calcularTotalDespesas();
 
@@ -116,6 +118,103 @@ export default function Despesas() {
     setSelectedIndex(index);
     setModalVisible(true);
   }
+
+  //--------------------------------------------------------------------------------------------------------------------
+
+  const MudarDespesa = async (AlterarDespesa) => {
+    if (editingIndex !== null) {
+      // Editar despesa existente
+      const updatedDespesas = [...despesas];
+      updatedDespesas[editingIndex] = AlterarDespesa;
+      setDespesas(updatedDespesas);
+
+
+      const body = {
+        NOME_DESP: AlterarDespesa.nome,
+        VALOR_DESP: AlterarDespesa.valor,
+        DESCRICAO: AlterarDespesa.observacoes,
+        DATA_VENCIMENTO: AlterarDespesa.dataValidade,
+      };
+
+      try {
+        let response;
+
+        if (editingIndex !== null) {
+          // Se estiver editando, utiliza o método PUT
+          response = await axios.put(
+            'https://localhost:44318/api/Despesas/alterardespesa',
+            body
+          );
+        } else {
+          // Se for uma nova despesa, utiliza o método POST
+          response = await axios.post(
+            `https://localhost:44318/api/Despesas/alterardespesa/${AlterarDespesa}`,
+            body
+          );
+        }
+
+        console.log("Resposta da API:", response.data);
+
+        calcularTotalDespesas();
+
+        setModalAltVisible(false);
+        await loadDespesas();
+        setEditingIndex(null); // Reseta o índice de edição
+        setSelectedIndex(null); // Reseta o índice selecionado na FlatList
+      } catch (error) {
+        console.log("Erro ao adicionar/atualizar despesa", error);
+      }
+
+      calcularTotalDespesas();
+
+      setModalAltVisible(false);
+      await loadDespesas();
+      setEditingIndex(null); // Reseta o índice de edição
+    };
+
+
+    // Format the date as an ISO string
+    const formattedDate = AlterarDespesa.dataValidade.toISOString();
+
+    const currencyString = AlterarDespesa.valor;
+
+    // Remove non-numeric characters and replace comma with dot
+    const numericString = currencyString
+      .replace(/[^\d.,]/g, "")
+      .replace(",", ".");
+
+    // Parse the string as a float
+    const numericValue = parseFloat(numericString);
+
+    const body = {
+      NOME_DESP: AlterarDespesa.nome,
+      VALOR_DESP: numericValue,
+      DESCRICAO: AlterarDespesa.observacoes,
+      DATA_VENCIMENTO: formattedDate,
+    };
+
+    try {
+      const response = await axios.post(
+        "https://localhost:44318/api/Despesas/alterardespesa",
+        body
+      );
+    } catch (error) {
+      console.log(error);
+    }
+
+
+    calcularTotalDespesas();
+
+    setModalVisible(false);
+    await loadDespesas();
+  };
+
+  function handleModalOpen(index) {
+    setSelectedIndex(index);
+    setModalVisible(true);
+  }
+
+  //-----------------------------------------------------------------------------------------------------------------------------------
 
   const excluirDespesa = async (index) => {
     const despesaId = despesas[index].coD_DESP;
@@ -180,6 +279,16 @@ export default function Despesas() {
   const toggleFiltros = () => {
     setFiltroVisivel(!filtroVisivel);
   };
+  const [despesaSelecionada, setDespesaSelecionada] = useState();
+  function handleModalAlterar(item) {
+    setDespesaSelecionada(item);
+    setModalAltVisible(true);
+  }
+
+  async function handleCloseModalAlterar() {
+    setModalAltVisible(false);
+    await loadDespesas();
+  }
 
   const navigation = useNavigation();
 
@@ -204,7 +313,7 @@ export default function Despesas() {
             <Text style={styles.Valor}>Valor das despesas</Text>
           </View>
           <View>
-            <Text style={styles.Total}>R$-{totalDespesas.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2})}</Text>
+            <Text style={styles.Total}>R$-{totalDespesas.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
           </View>
         </View>
 
@@ -300,13 +409,33 @@ export default function Despesas() {
                 >
                   <Text style={styles.excluirButtonText}>Excluir</Text>
                 </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={styles.AltButton}
+                  onPress={() => { handleModalAlterar(item) }}
+                >
+                  <Text style={styles.excluirButtonText}>Alterar</Text>
+                </TouchableOpacity>
+
+
               </View>
             </TouchableOpacity>
           )}
           style={styles.flatlist}
         />
       </Animatable.View>
+
+      <ModalAltDespesas
+        visible={modalAltVisible}
+        onClose={handleCloseModalAlterar}
+        onSave={MudarDespesa}
+        onExcluir={excluirDespesa}
+        editingIndex={editingIndex}
+        index={selectedIndex}
+        despesa={despesaSelecionada}
+      />
     </SafeAreaView>
+
   );
 }
 

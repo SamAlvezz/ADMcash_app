@@ -11,6 +11,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { Dimensions } from 'react-native';
 import ModalMetas from "../../Components/ModalMetas/ModalMetas";
 
+const progressPercentage = 15200 / 20400; // Calculate progress percentage
 export default function Metas() {
   const screenWidth = Dimensions.get('window').width;
   const [modalVisible, setModalVisible] = useState(false);
@@ -45,7 +46,7 @@ export default function Metas() {
           <Progress.Bar
             styleAttr="Horizontal"
             indeterminate={false}
-            progress={0.5}
+            progress={progressPercentage}
             width={330} //Galaxy a12
             height={15}
             borderRadius={8}

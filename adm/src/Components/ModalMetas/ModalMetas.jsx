@@ -74,7 +74,7 @@ function ModalMetas({ visible, onClose, atualizarMetas }) {
       visible={visible}
       animationType="fade"
     >
-      <TouchableWithoutFeedback onPress={handleCloseModal}>
+      <TouchableWithoutFeedback>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={styles.preenchimentosreceitas}>Nome da Meta</Text>

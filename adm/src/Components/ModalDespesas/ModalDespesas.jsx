@@ -55,18 +55,7 @@ function ModalDespesas({ visible, onClose, onSave, onExcluir, index }) {
 
 
   const handleValorChange = (text) => {
-    if (text == "") return;
-    // Remova todos os caracteres não numéricos
-    const numericValue = text.replace(/[^0-9]/g, "");
-    // Adicione um sinal de menos no início, se ainda não estiver presente
-    const formattedValue = numericValue
-      ? `R$ -${Number(numericValue / 100).toLocaleString("pt-BR", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      })}`
-      : "";
-
-    setValorDespesa(formattedValue);
+    setValorDespesa(text);
   };
 
 

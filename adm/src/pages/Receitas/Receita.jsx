@@ -338,7 +338,7 @@ setEditingIndex(null); // Reseta o índice de edição
               <View style={styles.itemContainer}>
                 <View style={styles.alinhalist}>
                   <Text style={styles.ItemTitulo}>{item.nomE_RCT}</Text>
-                  <Text style={styles.itemText}> - {item.tipo}  </Text>
+                  <Text style={styles.itemText}> {item.tipo}  </Text>
                   <Text style={[styles.itemText, styles.dataText]}>
                     {new Date(item.datA_RECEBIMENTO).toLocaleDateString("pt-BR")}
                   </Text>

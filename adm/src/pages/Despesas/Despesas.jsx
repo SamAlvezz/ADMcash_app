@@ -322,21 +322,22 @@ export default function Despesas() {
           <Text style={styles.text}>Registre as despesas e categorize</Text>
         </View>
         <View style={styles.area2}>
-         {/* <View style={styles.filterIcon}>
+          <View style={styles.filterIcon}>
             <TouchableOpacity onPress={toggleFiltros}>
               <AntDesign name="filter" size={20} color="black" />
-            </TouchableOpacity>*
-  </View>*/}
-
-          <Text style={styles.AdcText}>Adicionar</Text>
-          <TouchableOpacity
-            style={styles.AdcIcone}
-            onPress={() => setModalVisible(true)}
-          >
-            <AntDesign name="pluscircle" size={20} color={"#3F96E7"} />
-          </TouchableOpacity>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.JuntADC}>
+            <Text style={styles.AdcText}>Adicionar</Text>
+            <TouchableOpacity
+              style={styles.AdcIcone}
+              onPress={() => setModalVisible(true)}
+            >
+              <AntDesign name="pluscircle" size={20} color={"#3F96E7"} />
+            </TouchableOpacity>
+          </View>
         </View>
-        {/*{filtroVisivel && (
+        {filtroVisivel && (
           <View style={styles.filtrosContainer}>
             <CheckBox
               title="Todos"
@@ -365,7 +366,7 @@ export default function Despesas() {
             />
           </View>
         )}
-        */}
+
         <ModalDespesas
           visible={modalVisible}
           onClose={() => setModalVisible(false)}
@@ -383,7 +384,7 @@ export default function Despesas() {
             <View style={styles.itemContainer}>
               <View style={styles.alinhalist}>
                 <Text style={styles.ItemTitulo}>{item.nomE_DESP}</Text>
-                 {item.categoria}
+                {item.categoria}
                 <Text style={[styles.itemText, styles.dataText]}>
                   {new Date(item.datA_VENCIMENTO).toLocaleDateString("pt-BR")}
                 </Text>
@@ -457,6 +458,10 @@ const styles = StyleSheet.create({
     marginBottom: "6%",
     marginTop: "3%",
   },
+
+  area2: {
+    flexDirection: 'row'
+  },
   text: {
     color: "#00000080",
     fontSize: 16,
@@ -477,9 +482,8 @@ const styles = StyleSheet.create({
     paddingStart: "5%",
   },
   area2: {
-      flexDirection: 'row',
-      paddingStart: "60%"
-    
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   AdcText: {
     fontSize: 18,
@@ -489,8 +493,6 @@ const styles = StyleSheet.create({
     paddingStart: 5,
   },
   filtroButton: {
-    flexDirection: "row",
-    justifyContent: "center",
     backgroundColor: "#EDEDED",
     padding: 8,
   },
@@ -500,6 +502,11 @@ const styles = StyleSheet.create({
   filterText: {
     color: "#00000080",
     fontSize: 16,
+  },
+
+  JuntADC: {
+    flexDirection:'row',
+    marginHorizontal: 14
   },
   itemContainer: {
     backgroundColor: "#FFFFFF",
@@ -538,8 +545,8 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   filtrosContainer: {
-    maxWidth: "50%",
     marginLeft: 30,
+    maxWidth: '50%'
   },
   flatlist: {
     flex: 1,

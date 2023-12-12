@@ -43,7 +43,6 @@ function ModalAltDespesas({ visible, onClose, onSave, onExcluir, index, despesa 
       alert("Erro ao alterar despesa");
       return
     }
-    alert("Despesa alterarada com sucesso!");
     onClose();
   }
   const fecharModal = () => {

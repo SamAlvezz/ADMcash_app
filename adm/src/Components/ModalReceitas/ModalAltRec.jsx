@@ -43,7 +43,7 @@ function ModalAltReceitas({ visible, onClose, onSave, onExcluir, index, receita 
       alert("Erro ao alterar receita");
       return
     }
-    alert("Receita alterada com sucesso!");
+
     onClose();
   }
 

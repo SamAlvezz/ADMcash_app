@@ -21,7 +21,7 @@ function ModalDespesas({ visible, onClose, onSave, onExcluir, index }) {
   const [valorDespesa, setValorDespesa] = useState("");
   const [observacoes, setObservacoes] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
-  //const [CategoriaDespesa, setCategoriaDespesa] = useState("Fixa");
+  const [CategoriaDespesa, setCategoriaDespesa] = useState("Fixa");
 
   /* salvando despesa */
   const salvarDespesa = () => {
@@ -30,7 +30,7 @@ function ModalDespesas({ visible, onClose, onSave, onExcluir, index }) {
       valor: valorDespesa,
       observacoes: observacoes,
       dataValidade: selectedDate,
-      //categoria: CategoriaDespesa,
+      categoria: CategoriaDespesa,
     };
 
     onSave(novaDespesa);
@@ -38,7 +38,7 @@ function ModalDespesas({ visible, onClose, onSave, onExcluir, index }) {
     setValorDespesa("");
     setObservacoes("");
     setSelectedDate(new Date());
-    //setCategoriaDespesa("Fixa");
+    setCategoriaDespesa("Fixa");
     onClose();
   };
   /* excluindo */
@@ -49,7 +49,7 @@ function ModalDespesas({ visible, onClose, onSave, onExcluir, index }) {
     setValorDespesa("");
     setObservacoes("");
     setSelectedDate(new Date());
-   // setCategoriaDespesa("Fixa");
+    setCategoriaDespesa("Fixa");
     onClose();
   };
 
@@ -63,7 +63,7 @@ function ModalDespesas({ visible, onClose, onSave, onExcluir, index }) {
     setValorDespesa("");
     setObservacoes("");
     setSelectedDate(new Date());
-   // setCategoriaDespesa("Fixa");
+    setCategoriaDespesa("Fixa");
     onClose();
   };
 
@@ -119,18 +119,17 @@ function ModalDespesas({ visible, onClose, onSave, onExcluir, index }) {
               customInput={<TextInput style={styles.input} />}
             />
 
-    {/*        <Text style={styles.preenchimentosdespesas}>Categoria de Despesa</Text>
+           <Text style={styles.preenchimentosdespesas}>Categoria de Despesa</Text>
             <Picker
               selectedValue={CategoriaDespesa} // Change 'categoria' to 'CategoriaDespesa'
               onValueChange={(itemValue) => setCategoriaDespesa(itemValue)} // Change 'setCategoria' to 'setCategoriaDespesa'
               style={styles.input}
             >
-              <Picker.Item label="Fixa" value="Fixa" />
-              <Picker.Item label="Variável" value="Variável" />
-              <Picker.Item label="Adicional" value="Adicional" />
+              <Picker.Item label="Essencial" value="Essencial" />
+              <Picker.Item label="Variável" value="Variável " />
               <Picker.Item label="Emergencial" value="Emergencial" />
             </Picker>
-  */}
+  
             <View style={styles.ViewBotoes}>
               {/*<TouchableOpacity
                 style={styles.botaoexcluir}
